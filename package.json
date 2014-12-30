@@ -2,7 +2,10 @@
   "name": "sprinkler",
   "version": "0.1.0",
   "description": "Make awesome sprite rain effects on canvas. Give a canvas and a list of image paths and start() to make it rain!",
-  "keywords": ["canvas", "animation"],
+  "keywords": [
+    "canvas",
+    "animation"
+  ],
   "homepage": "https://github.com/axelpale/sprinkler",
   "main": "sprinkler.js",
   "author": {
@@ -22,10 +25,13 @@
     "gulp-sourcemaps": "^1.2.8",
     "gulp-mocha": "^2.0.0",
     "should": "^4.4.2",
-    "jshint": "latest"
+    "jshint": "latest",
+    "watch": "^0.13.0"
   },
   "scripts": {
+    "start": "python -m SimpleHTTPServer",
     "build": "gulp",
+    "build:watch": "watch 'npm run build' src/",
     "test": "gulp test",
     "lint": "jshint src/sprinkler.js test/sprinkler.test.js"
   }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Snowfall | Sprinkler Example</title>
+
+  <style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-size: 16px;
+    background: white;
+  }
+
+  #canvas {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    display: block;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+  </style>
+</head>
+<body>
+
+  <canvas id="canvas">
+  </canvas>
+
+  <script src="../sprinkler.js"></script>
+  <script>
+  (function snowfall(Sprinkler) {
+    var c = document.getElementById('canvas');
+    var s = Sprinkler.create(c);
+    var images = ['img/snowflake.png', 'img/snowflakeb.png'];
+    s.load(images, function (start) {
+      start();
+    });
+  }(Sprinkler));
+  </script>
+
+</body>
+</html>
