@@ -8,12 +8,17 @@
 ## snowflake.png
 CC0 Public domain
 http://www.publicdomainfiles.com/show_file.php?id=13920615011296
-![](snawflake.png)
+![](snowflake.png)
 
 ## snowflakeb.png
 CC0 Public domain
 http://www.publicdomainfiles.com/show_file.php?id=13527439218871
 ![](snowflakeb.png)
+
+## snowflakec.png
+CC0 Public domain
+http://www.publicdomainfiles.com/show_file.php?id=13920606016469
+![](snowflakec.png)
 
 ## 5cent.png
 CC0 Public domain

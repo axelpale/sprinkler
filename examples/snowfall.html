@@ -37,7 +37,12 @@
   (function snowfall(Sprinkler) {
     var c = document.getElementById('canvas');
     var s = Sprinkler.create(c);
-    var images = ['img/snowflake.png', 'img/snowflakeb.png'];
+
+    var images = [
+      'img/snowflake.png',
+      'img/snowflakeb.png',
+      'img/snowflakec.png'
+    ];
     s.load(images, function (start) {
       start();
     });
