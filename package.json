@@ -21,10 +21,12 @@
     "gulp-uglify": "^1.0.2",
     "gulp-sourcemaps": "^1.2.8",
     "gulp-mocha": "^2.0.0",
-    "should": "^4.4.2"
+    "should": "^4.4.2",
+    "jshint": "latest"
   },
   "scripts": {
     "build": "gulp",
-    "test": "gulp test"
+    "test": "gulp test",
+    "lint": "jshint src/sprinkler.js test/sprinkler.test.js"
   }
 }

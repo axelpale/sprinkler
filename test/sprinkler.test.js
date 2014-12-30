@@ -1,3 +1,5 @@
+// jshint expr: true
+// to allow should.js assertions.
 var unit = require('../sprinkler.js');
 var should = require('should');
 
