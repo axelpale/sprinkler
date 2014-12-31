@@ -1,4 +1,4 @@
-# sprinkler.js<sup>v0.1.0-prealpha</sup>
+# sprinkler.js<sup>v0.1.0</sup>
 
 With Sprinkler you can make awesome sprite rain effects on canvas. Give it a canvas element and a list of image paths and call start() to make it rain bananas or frogs or anything you can imagine!
 
