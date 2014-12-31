@@ -6,7 +6,7 @@ With Sprinkler you can make awesome sprite rain effects on canvas. Give it a can
 
 ## Examples
 
-- [Snowfall](examples/snowfall.html)
+- [Snowfall](http://rawgit.com/axelpale/sprinkler/master/examples/snowfall.html)
 
 
 
