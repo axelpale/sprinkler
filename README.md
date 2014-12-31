@@ -6,9 +6,25 @@ With Sprinkler you can make awesome sprite rain effects on canvas. Give it a can
 
 ## Examples
 
+- [Snowfall](examples/snowfall.html)
+
 
 
 ## Usage
+
+The following will make the canvas rain snowflakes.
+
+    var c = document.getElementById('canvas');
+    var s = Sprinkler.create(c);
+
+    var images = [
+      'img/snowflake.png',
+      'img/snowflakeb.png',
+      'img/snowflakec.png'
+    ];
+    s.load(images, function (start) {
+      start();
+    });
 
 
 
@@ -33,6 +49,8 @@ With Sprinkler you can make awesome sprite rain effects on canvas. Give it a can
 ## API
 
 ### Sprinkler.create()
+
+### #load(imagePaths, callback(start, stop))
 
 
 
