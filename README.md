@@ -34,7 +34,7 @@ The following will make the canvas rain snowflakes.
 
     <script src="scripts/sprinkler.js"></script>
 
-### CommonJS & Node.js (not yet available in npm)
+### CommonJS & Node.js
 
     $ npm install sprinkler
     ---
