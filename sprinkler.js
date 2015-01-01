@@ -176,16 +176,34 @@
 
     // Various options
     var defaultOptions = {
-      ddr: 0,
+      zMin: 1, zMax: 1,
+      rMin: 0, rMax: 2 * Math.PI,
+      aMin: 1, aMax: 1,
+      dxMin: -1, dxMax: 1,
+      dyMin: 100, dyMax: 100,
+      dzMin: 0, dzMax: 0,
+      drMin: -1, drMax: 1,
+      daMin: 0, daMax: 0,
+      ddxMin: 0, ddxMax: 0,
+      ddyMin: 0, ddyMax: 0,
+      ddzMin: 0, ddzMax: 0,
+      ddrMin: 0, ddrMax: 0,
+      ddaMin: 0, ddaMax: 0,
       imagesInSecond: 16
     };
-    if (typeof options === 'undefined') options = defaultOptions;
-
-    if (!options.hasOwnProperty('ddr')) options.ddr = defaultOptions.ddr;
-    if (typeof options.ddr !== 'number') options.ddr = defaultOptions.ddr;
-
-    if (!options.hasOwnProperty('imagesInSecond')) options.imagesInSecond = defaultOptions.imagesInSecond;
-    if (typeof options.imagesInSecond !== 'number') options.imagesInSecond = defaultOptions.imagesInSecond;
+    var k;
+    if (typeof options === 'undefined') options = {};
+    for (k in defaultOptions) {
+      if (defaultOptions.hasOwnProperty(k)) {
+        if (options.hasOwnProperty(k)) {
+          if (typeof options[k] !== typeof defaultOptions[k]) {
+            options[k] = defaultOptions[k];
+          }
+        } else {
+          options[k] = defaultOptions[k];
+        }
+      }
+    }
 
     // We use this to add particles in to the model.
     var createParticle = function () {
@@ -197,20 +215,21 @@
       image = randomPick(sourceImages);
 
       return new Particle(
-        randomIn(0, w), // randomize start point
-        -Math.max(image.width, image.height) / 2, // maxRadius above canvas top
-        randomIn(0.38, 0.62), // z, scale
-        2 * Math.PI * randomIn(0, 1), // rotation
-        1, // a, alpha, opacity
-        randomIn(-1, 1), // dx, horizontal movement
-        randomIn(70, 100), // dy, falling speed
-        0, // dz
-        randomIn(-0.5, 0.5), // dr, rotation speed, rads/sec
-        0, // da
-        0, 5, // ddx, ddy
-        0, // ddz
-        options.ddr, // ddr
-        0, // dda
+        randomIn(0, w), // x, randomize start point
+        -options.zMax * Math.max(image.width, image.height) / 2, // y, maxRadius above canvas top
+        randomIn(options.zMin, options.zMax), // z, scale
+        randomIn(options.rMin, options.rMax), // rotation
+        randomIn(options.aMin, options.aMax), // a, alpha, opacity
+        randomIn(options.dxMin, options.dxMax), // dx, horizontal movement
+        randomIn(options.dyMin, options.dyMax), // dy, falling speed
+        randomIn(options.dzMin, options.dzMax), // dz
+        randomIn(options.drMin, options.drMax), // dr, rotation speed, rads/sec
+        randomIn(options.daMin, options.daMax), // da
+        randomIn(options.ddxMin, options.ddxMax), // ddx
+        randomIn(options.ddyMin, options.ddyMax), // ddy
+        randomIn(options.ddzMin, options.ddzMax), // ddz
+        randomIn(options.ddrMin, options.ddrMax), // ddr
+        randomIn(options.ddaMin, options.ddaMax), // dda
         image,
         image.width, image.height
       );

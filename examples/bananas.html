@@ -24,7 +24,10 @@
     var c = document.getElementById('canvas');
     var s = Sprinkler.create(c, {
       imagesInSecond: 1,
-      ddr: 2
+      zMin: 0.38, zMax: 0.62,
+      dyMin: 200, dyMax: 400,
+      ddyMin: 20, ddyMax: 20,
+      ddrMin: 2, ddrMax: 2,
     });
 
     var images = [
