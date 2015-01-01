@@ -7,6 +7,8 @@ With Sprinkler you can make awesome sprite rain effects on canvas. Give it a can
 ## Examples
 
 - [Snowfall](http://rawgit.com/axelpale/sprinkler/master/examples/snowfall.html)
+- [Money](http://rawgit.com/axelpale/sprinkler/master/examples/money.html)
+- [Bananas](http://rawgit.com/axelpale/sprinkler/master/examples/bananas.html)
 
 
 
@@ -56,7 +58,11 @@ The following will make the canvas rain snowflakes.
 
 ## Notes for developers
 
-Run tests with `$ npm test`. Build with `$ npm run build`.
+Run tests with `$ npm test`.
+
+Build with `$ npm run build`.
+
+Serve with `$ npm start`.
 
 
 

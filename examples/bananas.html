@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Bananas | Sprinkler Example</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: yellow;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="canvas">
+  </canvas>
+
+  <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
+
+  <script src="../sprinkler.js"></script>
+  <script>
+  (function snowfall(Sprinkler) {
+    var c = document.getElementById('canvas');
+    var s = Sprinkler.create(c, {
+      imagesInSecond: 1,
+      ddr: 2
+    });
+
+    var images = [
+      'img/banana.png'
+    ];
+    s.load(images, function (start) {
+      start();
+    });
+  }(Sprinkler));
+  </script>
+
+</body>
+</html>

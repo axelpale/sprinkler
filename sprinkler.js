@@ -154,7 +154,7 @@
   // Constructor
   // ***********
 
-  var Sprinkler = function (canvas) {
+  var Sprinkler = function (canvas, options) {
 
     // All the loaded images are stored here
     var sourceImages = [];
@@ -173,6 +173,19 @@
 
     // Make canvas resize automatically to full window area
     makeCanvasAutoFullwindow(canvas);
+
+    // Various options
+    var defaultOptions = {
+      ddr: 0,
+      imagesInSecond: 16
+    };
+    if (typeof options === 'undefined') options = defaultOptions;
+
+    if (!options.hasOwnProperty('ddr')) options.ddr = defaultOptions.ddr;
+    if (typeof options.ddr !== 'number') options.ddr = defaultOptions.ddr;
+
+    if (!options.hasOwnProperty('imagesInSecond')) options.imagesInSecond = defaultOptions.imagesInSecond;
+    if (typeof options.imagesInSecond !== 'number') options.imagesInSecond = defaultOptions.imagesInSecond;
 
     // We use this to add particles in to the model.
     var createParticle = function () {
@@ -194,9 +207,9 @@
         0, // dz
         randomIn(-0.5, 0.5), // dr, rotation speed, rads/sec
         0, // da
-        0, 0, // ddx, ddy
+        0, 5, // ddx, ddy
         0, // ddz
-        0, // ddr
+        options.ddr, // ddr
         0, // dda
         image,
         image.width, image.height
@@ -216,7 +229,7 @@
       }
 
       // Create particles.
-      var particlesInSecond = 10;
+      var particlesInSecond = options.imagesInSecond;
       var particlesInDt = dt * particlesInSecond;
       var numOfNewParticles = samplePoisson(particlesInDt);
       for (i = 0; i < numOfNewParticles; i += 1) {
@@ -307,8 +320,8 @@
     };
   };
 
-  exports.create = function (canvas) {
-    return new Sprinkler(canvas);
+  exports.create = function (canvas, options) {
+    return new Sprinkler(canvas, options);
   };
 
 
