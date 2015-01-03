@@ -83,6 +83,23 @@
     return k - 1;
   };
 
+  var extendValid = function (source, dest) {
+    // Purpose: fill valid options to default options object.
+    // Valid option in a source exist in dest and is same type.
+    // Return
+    //   nothing, modifies dest in place.
+    var k;
+    for (k in source) {
+      if (source.hasOwnProperty(k)) {
+        if (dest.hasOwnProperty(k)) {
+          if (typeof source[k] === typeof dest[k]) {
+            dest[k] = source[k];
+          }
+        }
+      }
+    }
+  };
+
   var makeCanvasAutoFullwindow = function (canvas) {
     // Canvas is resized when window size changes, e.g.
     // when a mobile device is tilted.
@@ -154,10 +171,15 @@
   // Constructor
   // ***********
 
-  var Sprinkler = function (canvas, options) {
+  var Sprinkler = function (canvas) {
 
     // All the loaded images are stored here
     var sourceImages = [];
+
+    // Each load has a separate id and a set of starts.
+    // New load is created on load call. New start for a load is
+    // created on start call.
+    var loads = {};
 
     // Images are modeled as particles and stored here
     var particles = [];
@@ -174,45 +196,14 @@
     // Make canvas resize automatically to full window area
     makeCanvasAutoFullwindow(canvas);
 
-    // Various options
-    var defaultOptions = {
-      zMin: 1, zMax: 1,
-      rMin: 0, rMax: 2 * Math.PI,
-      aMin: 1, aMax: 1,
-      dxMin: -1, dxMax: 1,
-      dyMin: 100, dyMax: 100,
-      dzMin: 0, dzMax: 0,
-      drMin: -1, drMax: 1,
-      daMin: 0, daMax: 0,
-      ddxMin: 0, ddxMax: 0,
-      ddyMin: 0, ddyMax: 0,
-      ddzMin: 0, ddzMax: 0,
-      ddrMin: 0, ddrMax: 0,
-      ddaMin: 0, ddaMax: 0,
-      imagesInSecond: 16
-    };
-    var k;
-    if (typeof options === 'undefined') options = {};
-    for (k in defaultOptions) {
-      if (defaultOptions.hasOwnProperty(k)) {
-        if (options.hasOwnProperty(k)) {
-          if (typeof options[k] !== typeof defaultOptions[k]) {
-            options[k] = defaultOptions[k];
-          }
-        } else {
-          options[k] = defaultOptions[k];
-        }
-      }
-    }
-
     // We use this to add particles in to the model.
-    var createParticle = function () {
+    var createParticle = function (options) {
       // Turn images to particles
       var p, w, h, image;
       w = canvas.width;
       h = canvas.height;
 
-      image = randomPick(sourceImages);
+      image = randomPick(options.selectImages);
 
       return new Particle(
         randomIn(0, w), // x, randomize start point
@@ -235,24 +226,40 @@
       );
     };
 
+    var createParticles = function (options, dt) {
+      var i;
+      var particlesInSecond = options.imagesInSecond;
+      var particlesInDt = dt * particlesInSecond;
+      var numOfNewParticles = samplePoisson(particlesInDt);
+      for (i = 0; i < numOfNewParticles; i += 1) {
+        particles.push(createParticle(options));
+      }
+    };
+
     // Model is simulated forward every frame
     var tickModel = function (dt) {
       // Parameter
       //   dt
       //     simulation time, seconds
-      var i, h, bufferParticles,visible, maxRadius;
+      var i, k, l, load, startOptions, h,
+          bufferParticles, visible, pw, ph, maxRadius;
 
       // Simulate each particle
       for (i = 0; i < particles.length; i += 1) {
         particles[i].tick(dt);
       }
 
-      // Create particles.
-      var particlesInSecond = options.imagesInSecond;
-      var particlesInDt = dt * particlesInSecond;
-      var numOfNewParticles = samplePoisson(particlesInDt);
-      for (i = 0; i < numOfNewParticles; i += 1) {
-        particles.push(createParticle());
+      // Create particles. Each start call has its own configuration.
+      for (k in loads) {
+        if (loads.hasOwnProperty(k)) {
+          load = loads[k];
+          for (l in load) {
+            if (load.hasOwnProperty(l)) {
+              startOptions = load[l];
+              createParticles(startOptions, dt);
+            }
+          }
+        }
       }
 
       // Clean up.
@@ -261,7 +268,9 @@
       h = canvas.height;
       bufferParticles = [];
       for (i = 0; i < particles.length; i += 1) {
-        maxRadius = Math.max(particles[i].w, particles[i].h) / 2;
+        pw = particles[i].w;
+        ph = particles[i].h;
+        maxRadius = particles[i].z * Math.max(pw, ph) / 2;
         visible = (particles[i].y < h + maxRadius);
         if (visible) {
           bufferParticles.push(particles[i]);
@@ -324,17 +333,78 @@
       running = false;
     };
 
+    /*var loads = {
+      loadId: {
+        startId: {opt}
+      }
+    }
+      [{opt1}, {opt2}],
+      [{opt1}, {opt3}]
+    ];*/
+
+
 
     this.load = function (imagePaths, callback) {
       // Parameter
       //   imagePaths
       //     array
       //   callback
-      //     function (start, stop)
+      //     function (start)
       loadImages(imagePaths, function then(err, imageElements) {
         if (err) { console.error(err); return; }
-        [].push.apply(sourceImages, imageElements);
-        callback(startAnimation, stopAnimation);
+
+        var loadId = Math.random().toString();
+        loads[loadId] = {};
+
+        loads[loadId].images = imageElements;
+
+        var start = function start(options) {
+          var i, defaultOptions;
+          if (typeof options === 'undefined') options = {};
+
+          // Various start options
+          defaultOptions = {
+            type: 'default',
+            selectImages: imageElements,
+            zMin: 1, zMax: 1,
+            rMin: 0, rMax: 2 * Math.PI,
+            aMin: 1, aMax: 1,
+            dxMin: -1, dxMax: 1,
+            dyMin: 100, dyMax: 100,
+            dzMin: 0, dzMax: 0,
+            drMin: -1, drMax: 1,
+            daMin: 0, daMax: 0,
+            ddxMin: 0, ddxMax: 0,
+            ddyMin: 0, ddyMax: 0,
+            ddzMin: 0, ddzMax: 0,
+            ddrMin: 0, ddrMax: 0,
+            ddaMin: 0, ddaMax: 0,
+            imagesInSecond: 7,
+            stopAfter: Infinity,
+            onStop: function noop() {}
+          };
+
+          // Map image indices to actual image objects.
+          if (options.hasOwnProperty('selectImages')) {
+            for (i = 0; i < options.selectImages.length; i += 1) {
+              options.selectImages[i] = imageElements[options.selectImages[i]];
+            }
+          }
+
+          // Push all valid options to defaultOptions.
+          extendValid(options, defaultOptions);
+          options = defaultOptions;
+
+          var startId = Math.random().toString();
+          loads[loadId][startId] = options;
+
+          startAnimation();
+          return function stop() {
+            delete loads[loadId][startId];
+          };
+        };
+
+        callback(start);
       });
     };
   };
@@ -373,6 +443,6 @@
   // *******
   // Version
   // *******
-  exports.version = '0.2.0';
+  exports.version = '0.3.0';
 
 }));

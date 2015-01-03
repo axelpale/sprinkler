@@ -31,7 +31,11 @@
       'img/1cent.png'
     ];
     s.load(images, function (start) {
-      start();
+      start({
+        imagesInSecond: 2,
+        dyMin: 0, dyMax: 0,
+        ddyMin: 500, ddyMax: 500
+      });
     });
   }(Sprinkler));
   </script>

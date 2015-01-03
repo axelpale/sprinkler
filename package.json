@@ -1,6 +1,6 @@
 {
   "name": "sprinkler",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Make awesome sprite rain effects on canvas. Give a canvas and a list of image paths and start() to make it rain!",
   "keywords": [
     "canvas",
