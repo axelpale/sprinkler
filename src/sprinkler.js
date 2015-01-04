@@ -366,7 +366,7 @@
           defaultOptions = {
             type: 'default',
             selectImages: imageElements,
-            zMin: 1, zMax: 1,
+            zMin: 0.38, zMax: 1,
             rMin: 0, rMax: 2 * Math.PI,
             aMin: 1, aMax: 1,
             dxMin: -1, dxMax: 1,

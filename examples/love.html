@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Love | Sprinkler Example</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: darkred; }
+    a:link { color: red; }
+    a:visited { color: red; }
+    a:hover { color: brown; }
+  </style>
+</head>
+<body>
+
+  <canvas id="canvas">
+  </canvas>
+
+  <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
+
+  <script src="../sprinkler.js"></script>
+  <script>
+  (function (Sprinkler) {
+    var c = document.getElementById('canvas');
+    var s = Sprinkler.create(c);
+
+    var images = [
+      'img/heart.png',
+      'img/heartpile.png',
+      'img/icicle.png'
+    ];
+    s.load(images, function (start) {
+      start({
+        selectImages: [0, 1],
+        imagesInSecond: 25,
+        zMin: 0.1, zMax: 0.23,
+        rMin: 0, rMax: 0,
+        dxMin: -5, dxMax: 5,
+        drMin: -0.1, drMax: 0.1
+      });
+      start({
+        selectImages: [2],
+        imagesInSecond: 0.05,
+        zMin: 0.38, zMax: 0.62
+      });
+    });
+  }(Sprinkler));
+  </script>
+
+</body>
+</html>

@@ -6,9 +6,10 @@
   <title>Bananas | Sprinkler Example</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    body {
-      background: yellow;
-    }
+    body { background: yellow; }
+    a:link { color: green; }
+    a:visited { color: green; }
+    a:hover { color: lightgreen; }
   </style>
 </head>
 <body>
@@ -20,7 +21,7 @@
 
   <script src="../sprinkler.js"></script>
   <script>
-  (function snowfall(Sprinkler) {
+  (function (Sprinkler) {
     var c = document.getElementById('canvas');
     var s = Sprinkler.create(c);
     s.load(['img/banana.png'], function (start) {

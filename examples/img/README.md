@@ -34,3 +34,18 @@ http://www.publicdomainfiles.com/show_file.php?id=13925350826546
 CC0 Public domain
 http://www.publicdomainfiles.com/show_file.php?id=13925353811579
 ![](1cent.png)
+
+## heart.png
+CC0 Public domain
+http://www.publicdomainfiles.com/show_file.php?id=13929149426536
+![](heart.png)
+
+## heartpile.png
+CC0 Public domain
+http://www.publicdomainfiles.com/show_file.php?id=13920055216216
+![](heartpile.png)
+
+## icicle.png
+CC0 Public domain
+http://www.publicdomainfiles.com/show_file.php?id=13925019013186
+![](icicle.png)
