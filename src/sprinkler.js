@@ -26,8 +26,9 @@
   var loadImages = function (imgSrcs, then) {
     // then(err, imgElements)
     // Calls then after all the images were loaded.
-    var i, imgs, numberOfImages, onload, onloadsCalled;
+    var i, imgs, numberOfImages, onload, onloadsCalled, thereWasError;
     numberOfImages = imgSrcs.length;
+    thereWasError = false;
 
     imgs = [];
 
@@ -35,16 +36,30 @@
     onload = function () {
       // Note:
       //   this = Image
-      onloadsCalled += 1;
-      var isFinalImage = (onloadsCalled === numberOfImages);
-      if (isFinalImage) {
-        then(null, imgs);
+      if (!thereWasError) {
+        onloadsCalled += 1;
+        var isFinalImage = (onloadsCalled === numberOfImages);
+        if (isFinalImage) {
+          then(null, imgs);
+        }
       }
+    };
+
+    onerror = function (errMsg) {
+      // Note:
+      //   this = Image
+      thereWasError = true;
+      then(errMsg, null);
+
+      // Prevent firing the default event handler
+      // https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers.onerror#Parameters
+      return true;
     };
 
     for (i = 0; i < imgSrcs.length; i += 1) {
       imgs.push(new Image());
       imgs[i].onload = onload;
+      imgs[i].onerror = onerror;
       imgs[i].src = imgSrcs[i];
     }
   };
@@ -349,9 +364,9 @@
       //   imagePaths
       //     array
       //   callback
-      //     function (start)
+      //     function (err, start)
       loadImages(imagePaths, function then(err, imageElements) {
-        if (err) { console.error(err); return; }
+        if (err) { callback(err, null) }
 
         var loadId = Math.random().toString();
         loads[loadId] = {};
@@ -404,7 +419,7 @@
           };
         };
 
-        callback(start);
+        callback(null, start);
       });
     };
   };

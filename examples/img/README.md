@@ -45,7 +45,12 @@ CC0 Public domain
 http://www.publicdomainfiles.com/show_file.php?id=13920055216216
 ![](heartpile.png)
 
-## icicle.png
+## chocice.png
 CC0 Public domain
 http://www.publicdomainfiles.com/show_file.php?id=13925019013186
-![](icicle.png)
+![](chocice.png)
+
+## fire.png
+CC0 Public domain
+http://www.publicdomainfiles.com/show_file.php?id=13925184611665
+![](fire.png)

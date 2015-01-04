@@ -1,6 +1,8 @@
 # sprinkler.js<sup>v0.3.0</sup>
 
-With Sprinkler you can make awesome sprite rain effects on canvas. Give it a canvas element and a list of image paths and call start() to make it rain bananas or frogs or anything you can imagine!
+With Sprinkler you can make awesome image rain effects on canvas. Give it a canvas element and a list of image paths and call start() to make it rain bananas or frogs or anything you can imagine!
+
+Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=canvas).
 
 
 
@@ -25,7 +27,7 @@ The following will make the canvas rain snowflakes.
       'img/snowflakeb.png',
       'img/snowflakec.png'
     ];
-    s.load(images, function (start) {
+    s.load(images, function (err, start) {
       start();
     });
 
@@ -56,9 +58,12 @@ The following will make the canvas rain snowflakes.
 Create a sprinkler animation on the given canvas.
 
 
-### #load(imagePaths, callback(start))
+### #load(imagePaths, callback(err, start))
+
+Loads image files specified by the image source paths in `imagePaths` and then calls the `callback`. Returns nothing.
 
 `imagePaths`, an array of image source paths.
+
 
 ### start(options)
 

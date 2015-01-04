@@ -31,9 +31,26 @@
       'img/2cent.png',
       'img/1cent.png'
     ];
-    s.load(images, function (start) {
+    s.load(images, function (err, start) {
+      if (err) { console.error(err); return; }
       start({
-        imagesInSecond: 2,
+        selectImages: [0],
+        imagesInSecond: 1,
+        zMin: 1, zMax: 1, // 21.3 mm
+        dyMin: 0, dyMax: 0,
+        ddyMin: 500, ddyMax: 500
+      });
+      start({
+        selectImages: [1],
+        imagesInSecond: 1,
+        zMin: 0.88, zMax: 0.88, // 18.8 mm
+        dyMin: 0, dyMax: 0,
+        ddyMin: 500, ddyMax: 500
+      });
+      start({
+        selectImages: [2],
+        imagesInSecond: 1,
+        zMin: 0.77, zMax: 0.77, // 16.3 mm
         dyMin: 0, dyMax: 0,
         ddyMin: 500, ddyMax: 500
       });

@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Bananas | Sprinkler Example</title>
+  <title>Fire | Sprinkler Example</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    body { background: yellow; }
-    a:link { color: green; }
-    a:visited { color: green; }
-    a:hover { color: lightgreen; }
+    body { background: orange; }
+    a:link { color: brown; }
+    a:visited { color: brown; }
+    a:hover { color: white; }
   </style>
 </head>
 <body>
@@ -24,14 +24,14 @@
   (function (Sprinkler) {
     var c = document.getElementById('canvas');
     var s = Sprinkler.create(c);
-    s.load(['img/banana.png'], function (err, start) {
+    s.load(['img/fire.png'], function (err, start) {
       if (err) { console.error(err); return; }
       start({
-        imagesInSecond: 1,
-        zMin: 0.38, zMax: 0.62,
-        dyMin: 200, dyMax: 400,
-        ddyMin: 20, ddyMax: 20,
-        ddrMin: 2, ddrMax: 2,
+        imagesInSecond: 20,
+        zMin: 0.38, zMax: 1,
+        dxMin: -400, dxMax: 400,
+        dyMin: 400, dyMax: 600,
+        drMin: -10, drMax: -10
       });
     });
   }(Sprinkler));

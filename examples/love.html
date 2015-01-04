@@ -27,9 +27,10 @@
     var images = [
       'img/heart.png',
       'img/heartpile.png',
-      'img/icicle.png'
+      'img/chocice.png'
     ];
-    s.load(images, function (start) {
+    s.load(images, function (err, start) {
+      if (err) { console.error(err); return; }
       start({
         selectImages: [0, 1],
         imagesInSecond: 25,
