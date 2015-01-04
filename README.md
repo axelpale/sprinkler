@@ -1,6 +1,6 @@
 # sprinkler.js<sup>v0.3.0</sup>
 
-With Sprinkler you can make awesome image rain effects on canvas. Give it a canvas element and a list of image paths and call start() to make it rain bananas or frogs or anything you can imagine!
+With Sprinkler you can create an image rain on canvas. Give it a canvas element and a list of image paths and call start() to make it rain bananas or frogs or anything you can imagine!
 
 Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=canvas).
 
@@ -10,6 +10,7 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 
 - [Snowfall](http://rawgit.com/axelpale/sprinkler/master/examples/snowfall.html)
 - [Money](http://rawgit.com/axelpale/sprinkler/master/examples/money.html)
+- [Fire](http://rawgit.com/axelpale/sprinkler/master/examples/fire.html)
 - [Bananas](http://rawgit.com/axelpale/sprinkler/master/examples/bananas.html)
 - [Love](http://rawgit.com/axelpale/sprinkler/master/examples/love.html)
 
@@ -76,6 +77,7 @@ Optional `options` object can take following properties:
 - selectImages, an array of indices of the images to be used
 - imagesInSecond, an average number of dropped images in a second
 
+
 ### stop()
 
 Stops the animation. `stop` is returned by `start`.
@@ -94,8 +96,7 @@ Serve with `$ npm start`.
 
 ## Todo
 
-- implementation.
-- tests
+- improved tests
 
 
 
