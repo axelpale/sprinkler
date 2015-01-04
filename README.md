@@ -9,6 +9,7 @@ With Sprinkler you can make awesome sprite rain effects on canvas. Give it a can
 - [Snowfall](http://rawgit.com/axelpale/sprinkler/master/examples/snowfall.html)
 - [Money](http://rawgit.com/axelpale/sprinkler/master/examples/money.html)
 - [Bananas](http://rawgit.com/axelpale/sprinkler/master/examples/bananas.html)
+- [Love](http://rawgit.com/axelpale/sprinkler/master/examples/love.html)
 
 
 
