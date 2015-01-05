@@ -5,6 +5,12 @@
 
   <title>Snowfall | Sprinkler Example</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: white; }
+    a:link { color: blue; }
+    a:visited { color: blue; }
+    a:hover { color: lightblue; }
+  </style>
 </head>
 <body>
 
@@ -26,7 +32,9 @@
     ];
     s.load(images, function (err, start) {
       if (err) { console.error(err); return; }
-      start();
+      start({
+        aMin: 0.2, aMax: 1
+      });
     });
   }(Sprinkler));
   </script>

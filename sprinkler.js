@@ -165,7 +165,7 @@
     this.y += this.dy * dt;
     this.z += this.dz * dt;
     this.r += this.dr * dt;
-    this.a += Math.min(1, Math.max(0, this.a + this.da * dt));
+    this.a = Math.min(1, Math.max(0, this.a + this.da * dt));
     this.dx += this.ddx * dt;
     this.dy += this.ddy * dt;
     this.dz += this.ddz * dt;
