@@ -74,8 +74,23 @@ Returns a `stop` function that stops the animation.
 
 Optional `options` object can take following properties:
 
-- selectImages, an array of indices of the images to be used
-- imagesInSecond, an average number of dropped images in a second
+- `selectImages`, an array of indices of the images to be used
+- `imagesInSecond`, an average number of dropped images in a second
+- `zMin` and `zMax`, range for initial scale, __z__, in [0, Inf]
+- `rMin` and `rMax`, range for initial __r__otation, in [0, 2*Math.PI]
+- `aMin` and `aMax`, range for initial transparency (__a__lpha), in [0, 1]
+- `dxMin` and `dxMax`, range for horizontal velocity, in [-Inf, Inf]
+- `dyMin` and `dyMax`, range for vertical velocity, in [0, Inf]
+- `dzMin` and `dzMax`, range for scale velocity, in [-Inf, Inf]
+- `drMin` and `drMax`, range for rotation velocity, in [-Inf, Inf]
+- `daMin` and `daMax`, range for transparency velocity, in [-Inf, Inf]
+- `ddxMin` and `ddxMax`, range for horizontal acceleration, in [-Inf, Inf]
+- `ddyMin` and `ddyMax`, range for vertical acceleration, in [0, Inf]
+- `ddzMin` and `ddzMax`, range for scale acceleration, in [-Inf, Inf]
+- `ddrMin` and `ddrMax`, range for rotation acceleration, in [-Inf, Inf]
+- `ddaMin` and `ddaMax`, range for transparency acceleration, in [-Inf, Inf]
+
+Values are picked randomly but uniformly from the given __ranges__.
 
 
 ### stop()
