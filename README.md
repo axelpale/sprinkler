@@ -95,7 +95,7 @@ Values are picked randomly but uniformly from the given __ranges__.
 Default values are:
 
     {
-      selectImages: imageElements,
+      selectImages: [all],
       imagesInSecond: 7,
       zMin: 0.38, zMax: 1,
       rMin: 0, rMax: 2 * Math.PI,
@@ -111,6 +111,7 @@ Default values are:
       ddrMin: 0, ddrMax: 0,
       ddaMin: 0, ddaMax: 0,
     }
+
 
 ### stop()
 
