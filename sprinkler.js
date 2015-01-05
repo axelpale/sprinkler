@@ -458,6 +458,6 @@
   // *******
   // Version
   // *******
-  exports.version = '0.3.0';
+  exports.version = '0.4.0';
 
 }));
