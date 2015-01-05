@@ -28,16 +28,16 @@
       if (err) { console.error(err); return; }
       (function flamewall() {
         var stop = start({
-          imagesInSecond: 500,
+          imagesInSecond: 666,
           zMin: 0.38, zMax: 1,
           dxMin: -400, dxMax: 400,
-          dyMin: 400, dyMax: 600,
+          //dyMin: 400, dyMax: 600,
           drMin: -10, drMax: -10,
-          ddyMin: 0, ddyMax: 2000
+          ddyMin: 200, ddyMax: 2000
         });
         setTimeout(function () {
           stop();
-        }, 100);
+        }, 200);
         setTimeout(function () {
           flamewall();
         }, 2000);
