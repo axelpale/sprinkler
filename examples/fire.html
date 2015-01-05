@@ -26,13 +26,22 @@
     var s = Sprinkler.create(c);
     s.load(['img/fire.png'], function (err, start) {
       if (err) { console.error(err); return; }
-      start({
-        imagesInSecond: 20,
-        zMin: 0.38, zMax: 1,
-        dxMin: -400, dxMax: 400,
-        dyMin: 400, dyMax: 600,
-        drMin: -10, drMax: -10
-      });
+      (function flamewall() {
+        var stop = start({
+          imagesInSecond: 500,
+          zMin: 0.38, zMax: 1,
+          dxMin: -400, dxMax: 400,
+          dyMin: 400, dyMax: 600,
+          drMin: -10, drMax: -10,
+          ddyMin: 0, ddyMax: 2000
+        });
+        setTimeout(function () {
+          stop();
+        }, 100);
+        setTimeout(function () {
+          flamewall();
+        }, 2000);
+      }());
     });
   }(Sprinkler));
   </script>
