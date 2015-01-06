@@ -1,4 +1,4 @@
-# sprinkler.js<sup>v0.4.0</sup>
+# sprinkler.js<sup>v0.4.1</sup>
 
 With Sprinkler you can create an image rain on canvas. Give it a canvas element and a list of image paths and call start() to make it rain bananas or frogs or anything you can imagine!
 

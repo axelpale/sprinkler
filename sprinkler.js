@@ -259,19 +259,23 @@
       var i, k, l, load, startOptions, h,
           bufferParticles, visible, pw, ph, maxRadius;
 
-      // Simulate each particle
-      for (i = 0; i < particles.length; i += 1) {
-        particles[i].tick(dt);
-      }
+      // To avoid huge wave of particles, they are created only
+      // if dt is close to given framerate.
+      if (dt < 0.5) {
+        // Simulate each particle
+        for (i = 0; i < particles.length; i += 1) {
+          particles[i].tick(dt);
+        }
 
-      // Create particles. Each start call has its own configuration.
-      for (k in loads) {
-        if (loads.hasOwnProperty(k)) {
-          load = loads[k];
-          for (l in load) {
-            if (load.hasOwnProperty(l)) {
-              startOptions = load[l];
-              createParticles(startOptions, dt);
+        // Create particles. Each start call has its own configuration.
+        for (k in loads) {
+          if (loads.hasOwnProperty(k)) {
+            load = loads[k];
+            for (l in load) {
+              if (load.hasOwnProperty(l)) {
+                startOptions = load[l];
+                createParticles(startOptions, dt);
+              }
             }
           }
         }
@@ -458,6 +462,6 @@
   // *******
   // Version
   // *******
-  exports.version = '0.4.0';
+  exports.version = '0.4.1';
 
 }));
