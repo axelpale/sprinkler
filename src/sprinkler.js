@@ -242,6 +242,10 @@ var Sprinkler = function (canvas) {
       loads[loadId] = {};
 
       var start = function start(options) {
+        // Parameter
+        //   options
+        //     Do not modify this object as start might be called
+        //     with it multiple times.
         var i, defaultOptions;
 
         // Default parameter
@@ -276,15 +280,18 @@ var Sprinkler = function (canvas) {
           onStop: function noop() {}
         };
 
+        // Push all valid options to defaultOptions.
+        extendValid(options, defaultOptions);
+        // selectImages needs still to be defined.
+
         // Map image indices to actual image objects.
         if (options.hasOwnProperty('selectImages')) {
+          defaultOptions.selectImages = [];
           for (i = 0; i < options.selectImages.length; i += 1) {
-            options.selectImages[i] = imageElements[options.selectImages[i]];
+            defaultOptions.selectImages[i] = imageElements[options.selectImages[i]];
           }
         }
 
-        // Push all valid options to defaultOptions.
-        extendValid(options, defaultOptions);
         options = defaultOptions;
 
         var startId = Math.random().toString();
@@ -321,4 +328,4 @@ exports.extension = Sprinkler.prototype;
 // *******
 // Version
 // *******
-exports.version = '0.4.2';
+exports.version = '0.4.3';
