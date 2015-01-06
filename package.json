@@ -1,6 +1,6 @@
 {
   "name": "sprinkler",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Make awesome sprite rain effects on canvas. Give a canvas and a list of image paths and start() to make it rain!",
   "keywords": [
     "canvas",
@@ -26,13 +26,18 @@
     "gulp-mocha": "^2.0.0",
     "should": "^4.4.2",
     "jshint": "latest",
-    "watch": "^0.13.0"
+    "browserify": "^8.0.3",
+    "watchify": "^2.2.1",
+    "uglify-js": "^2.4.16",
+    "minifyify": "^5.0.0"
   },
   "scripts": {
     "start": "python -m SimpleHTTPServer",
-    "build": "gulp",
-    "build:watch": "watch 'npm run build' src/",
+    "build": "npm run build:bundle && npm run build:min",
+    "build:bundle": "browserify src/sprinkler.js --standalone Sprinkler -o sprinkler.js",
+    "build:watch": "watchify src/sprinkler.js --standalone Sprinkler -o sprinkler.js",
+    "build:min": "browserify src/sprinkler.js --standalone Sprinkler --debug --plugin [minifyify --map sprinkler.min.js.map --output sprinkler.min.js.map] > sprinkler.min.js",
     "test": "gulp test",
-    "lint": "jshint src/sprinkler.js test/sprinkler.test.js"
+    "lint": "jshint src/*.js test/sprinkler.test.js"
   }
 }
