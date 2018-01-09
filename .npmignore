@@ -1,0 +1,5 @@
+sprinkler.min.js
+sprinkler.min.js.map
+examples/
+test/
+*.DS_Store
