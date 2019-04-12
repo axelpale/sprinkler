@@ -13,6 +13,7 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 - [Fire](http://rawgit.com/axelpale/sprinkler/master/examples/fire.html)
 - [Bananas](http://rawgit.com/axelpale/sprinkler/master/examples/bananas.html)
 - [Love](http://rawgit.com/axelpale/sprinkler/master/examples/love.html)
+- [Rainy Night](http://rawgit.com/axelpale/sprinkler/master/examples/rainynight.html), suitable for [projection mapping](https://en.wikipedia.org/wiki/Projection_mapping).
 
 
 
