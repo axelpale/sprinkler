@@ -74,7 +74,7 @@ Returns a `stop` function that stops the animation.
 
 Optional `options` object can take following properties:
 
-- `selectImages`, an array of indices of the images to be used
+- `selectImages`, an array of indices of the images to be used. Defaults to [0, 1, 2, ..., n] where `n = imagePaths.length - 1`. Use same index multiple times to form weighted distribution.
 - `imagesInSecond`, an average number of dropped images in a second
 - `zMin` and `zMax`, range for initial scale, __z__, in [0, Inf]
 - `rMin` and `rMax`, range for initial rotation, in [0, 2*Math.PI]
