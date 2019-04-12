@@ -77,8 +77,8 @@ Optional `options` object can take following properties:
 - `selectImages`, an array of indices of the images to be used
 - `imagesInSecond`, an average number of dropped images in a second
 - `zMin` and `zMax`, range for initial scale, __z__, in [0, Inf]
-- `rMin` and `rMax`, range for initial __r__otation, in [0, 2*Math.PI]
-- `aMin` and `aMax`, range for initial transparency (__a__lpha), in [0, 1]
+- `rMin` and `rMax`, range for initial rotation, in [0, 2*Math.PI]
+- `aMin` and `aMax`, range for initial transparency (alpha), in [0, 1]
 - `dxMin` and `dxMax`, range for horizontal velocity, in [-Inf, Inf]
 - `dyMin` and `dyMax`, range for vertical velocity, in [0, Inf]
 - `dzMin` and `dzMax`, range for scale velocity, in [-Inf, Inf]
