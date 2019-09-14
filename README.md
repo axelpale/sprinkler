@@ -1,4 +1,6 @@
-# sprinkler.js<sup>v0.4.3</sup>
+# sprinkler.js
+
+[![npm](https://badge.fury.io/js/sprinkler.svg)](https://badge.fury.io/js/sprinkler)
 
 With Sprinkler you can create an image rain on canvas. Give it a canvas element and a list of image paths and call start() to make it rain bananas or frogs or anything you can imagine!
 
@@ -42,6 +44,8 @@ The following will make the canvas rain snowflakes.
     <script src="scripts/sprinkler.js"></script>
 
 ### CommonJS & Node.js
+
+Install via [npm](https://www.npmjs.com/package/sprinkler):
 
     $ npm install sprinkler
     ---
