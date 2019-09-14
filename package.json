@@ -25,8 +25,8 @@
     "gulp-rename": "^1.2.0",
     "gulp-sourcemaps": "^1.2.8",
     "gulp-uglify": "^1.0.2",
-    "jshint": "latest",
     "minifyify": "^5.0.0",
+    "standard": "^14.2.0",
     "uglify-js": "^2.4.16",
     "watchify": "^2.2.1"
   },
@@ -38,6 +38,6 @@
     "build:min": "browserify src/sprinkler.js --standalone Sprinkler --debug --plugin [minifyify --map sprinkler.min.js.map --output sprinkler.min.js.map] > sprinkler.min.js",
     "gv": "genversion src/version.js",
     "test": "gulp test",
-    "lint": "jshint src/*.js test/sprinkler.test.js"
+    "lint": "standard index.js src/**/*.js"
   }
 }
