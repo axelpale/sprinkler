@@ -15,11 +15,3 @@ gulp.task('default', function () {
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(DEST));
 });
-
-gulp.task('test', function () {
-  return gulp.src('test/sprinkler.test.js', { read: false })
-    .pipe(mocha({
-      reporter: 'spec',
-      timeout: 60000 // stochastic tests require long timeout
-    }));
-});

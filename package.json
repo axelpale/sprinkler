@@ -22,13 +22,11 @@
     "browserify": "^8.0.3",
     "genversion": "^2.2.0",
     "gulp": "^3.8.10",
-    "gulp-mocha": "^2.0.0",
     "gulp-rename": "^1.2.0",
     "gulp-sourcemaps": "^1.2.8",
     "gulp-uglify": "^1.0.2",
     "jshint": "latest",
     "minifyify": "^5.0.0",
-    "should": "^4.4.2",
     "uglify-js": "^2.4.16",
     "watchify": "^2.2.1"
   },
