@@ -37,6 +37,7 @@
     "build:bundle": "browserify src/sprinkler.js --standalone Sprinkler -o sprinkler.js",
     "build:watch": "watchify src/sprinkler.js --standalone Sprinkler -o sprinkler.js",
     "build:min": "browserify src/sprinkler.js --standalone Sprinkler --debug --plugin [minifyify --map sprinkler.min.js.map --output sprinkler.min.js.map] > sprinkler.min.js",
+    "gv": "genversion src/version.js",
     "test": "gulp test",
     "lint": "jshint src/*.js test/sprinkler.test.js"
   }

@@ -328,4 +328,4 @@ exports.extension = Sprinkler.prototype;
 // *******
 // Version
 // *******
-exports.version = '0.4.3';
+exports.version = require('./version');
