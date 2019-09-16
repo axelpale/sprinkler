@@ -4,7 +4,7 @@
 // ****************
 
 var loadImages = require('./loadimages')
-var fitOnResize = require('./fitOnResize')
+var fitOnResize = require('./lib/fitOnResize')
 var extendValid = require('./lib/extendValid')
 var hasProp = require('./lib/hasProp')
 var Particle = require('./particle').Particle
