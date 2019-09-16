@@ -9,7 +9,7 @@ var extendValid = require('./lib/extendValid')
 var hasProp = require('./lib/hasProp')
 var Particle = require('./particle').Particle
 
-var stat = require('./stat')
+var stat = require('./lib/stat')
 var randomIn = stat.randomIn
 var randomPick = stat.randomPick
 var samplePoisson = stat.samplePoisson
