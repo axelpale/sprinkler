@@ -12,8 +12,7 @@ exports.randomPick = function (array) {
   var max = array.length
   var continuousIndex = exports.randomIn(min, max)
   var discreteIndex = Math.floor(continuousIndex)
-  var i = discreteIndex
-  return array[i]
+  return array[discreteIndex]
 }
 
 exports.samplePoisson = function (rate) {
