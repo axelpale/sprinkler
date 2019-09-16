@@ -3,7 +3,7 @@
 // Helper functions
 // ****************
 
-var loadImages = require('./loadimages')
+var loadImages = require('./lib/loadimages')
 var fitOnResize = require('./lib/fitOnResize')
 var extendValid = require('./lib/extendValid')
 var hasProp = require('./lib/hasProp')
