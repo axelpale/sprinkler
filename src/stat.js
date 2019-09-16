@@ -15,6 +15,18 @@ exports.randomPick = function (array) {
   return array[discreteIndex]
 }
 
+exports.randomPicks = function (array, n) {
+  // Return an array of randomly picked elements.
+  var i, idx
+  var max = array.length
+  var picks = []
+  for (i = 0; i < n; i += 1) {
+    idx = Math.floor(exports.randomIn(0, max))
+    picks.push(array[idx])
+  }
+  return picks
+}
+
 exports.samplePoisson = function (rate) {
   // Purpose: number of images to drop in each interval.
   // Take a sample from poisson distribution.
