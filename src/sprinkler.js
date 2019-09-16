@@ -4,6 +4,7 @@
 // ****************
 
 var loadImages = require('./loadimages')
+var fitOnResize = require('./fitOnResize')
 var Particle = require('./particle').Particle
 
 var stat = require('./stat')
@@ -30,24 +31,6 @@ var extendValid = function (source, dest) {
       }
     }
   }
-}
-
-var makeCanvasAutoFullwindow = function (canvas) {
-  // Canvas is resized when window size changes, e.g.
-  // when a mobile device is tilted.
-  //
-  // Parameter
-  //   canvas
-  //     HTML Canvas element
-  //
-  var resizeCanvas = function () {
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-  }
-  // resize the canvas to fill browser window dynamically
-  window.addEventListener('resize', resizeCanvas, false)
-  // Initially resized to fullscreen.
-  resizeCanvas()
 }
 
 // ***********
@@ -77,7 +60,7 @@ var Sprinkler = function (canvas) {
   var ctx = canvas.getContext('2d')
 
   // Make canvas resize automatically to full window area
-  makeCanvasAutoFullwindow(canvas)
+  fitOnResize(canvas)
 
   // We use this to add particles in to the model.
   var createParticle = function (options) {
