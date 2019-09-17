@@ -37,6 +37,14 @@ http://www.publicdomainfiles.com/show_file.php?id=13925019013186
 
 ![](chocice.png)
 
+## drop-64x64
+
+CC0 Public domain.
+
+Created for Sprinkler.js
+
+![](drop-64x64.png)
+
 ## fire.png
 
 CC0 Public domain
