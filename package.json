@@ -34,6 +34,6 @@
     "gv": "genversion src/version.js",
     "release": "npm run lint && npm run gv && npm run build && npm publish",
     "test": "gulp test",
-    "lint": "standard index.js src/**/*.js webpack.config.js"
+    "lint": "standard index.js 'src/**/*.js' webpack.config.js"
   }
 }
