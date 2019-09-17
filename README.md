@@ -1,4 +1,6 @@
-# sprinkler.js<sup>v0.4.3</sup>
+# sprinkler.js
+
+[![npm](https://badge.fury.io/js/sprinkler.svg)](https://badge.fury.io/js/sprinkler)
 
 With Sprinkler you can create an image rain on canvas. Give it a canvas element and a list of image paths and call start() to make it rain bananas or frogs or anything you can imagine!
 
@@ -8,12 +10,12 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 
 ## Examples
 
-- [Snowfall](http://rawgit.com/axelpale/sprinkler/master/examples/snowfall.html)
-- [Money](http://rawgit.com/axelpale/sprinkler/master/examples/money.html)
-- [Fire](http://rawgit.com/axelpale/sprinkler/master/examples/fire.html)
-- [Bananas](http://rawgit.com/axelpale/sprinkler/master/examples/bananas.html)
-- [Love](http://rawgit.com/axelpale/sprinkler/master/examples/love.html)
-- [Rainy Night](http://rawgit.com/axelpale/sprinkler/master/examples/rainynight.html), suitable for [projection mapping](https://en.wikipedia.org/wiki/Projection_mapping).
+- [Snowfall](https://axelpale.github.io/sprinkler/examples/snowfall.html)
+- [Money](https://axelpale.github.io/sprinkler/examples/money.html)
+- [Fire](https://axelpale.github.io/sprinkler/examples/fire.html)
+- [Bananas](https://axelpale.github.io/sprinkler/examples/bananas.html)
+- [Love](https://axelpale.github.io/sprinkler/examples/love.html)
+- [Rainy Night](https://axelpale.github.io/sprinkler/examples/rainynight.html), suitable for [projection mapping](https://en.wikipedia.org/wiki/Projection_mapping).
 
 
 
@@ -42,6 +44,8 @@ The following will make the canvas rain snowflakes.
     <script src="scripts/sprinkler.js"></script>
 
 ### CommonJS & Node.js
+
+Install via [npm](https://www.npmjs.com/package/sprinkler):
 
     $ npm install sprinkler
     ---

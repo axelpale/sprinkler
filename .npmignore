@@ -1,5 +1,7 @@
-sprinkler.min.js
-sprinkler.min.js.map
-examples/
-test/
-*.DS_Store
+/dist/.gitkeep
+/examples
+/test
+
+.DS_Store
+.gitignore
+package-lock.json
