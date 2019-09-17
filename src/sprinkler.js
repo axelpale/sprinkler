@@ -8,6 +8,7 @@ var fitOnResize = require('./lib/fitOnResize')
 var extendValid = require('./lib/extendValid')
 var hasProp = require('./lib/hasProp')
 var Particle = require('./particle').Particle
+var DEFAULT_OPTIONS = require('./defaultOptions')
 
 var stat = require('./lib/stat')
 var randomIn = stat.randomIn
@@ -203,7 +204,7 @@ var Sprinkler = function (canvas) {
         //   options
         //     Do not modify this object as start might be called
         //     with it multiple times.
-        var i, defaultOptions
+        var i
 
         // Default parameter
         if (typeof options === 'undefined') {
@@ -216,56 +217,22 @@ var Sprinkler = function (canvas) {
         }
 
         // Various start options
-        defaultOptions = {
-          type: 'default',
-          selectImages: imageElements,
-          zMin: 0.38,
-          zMax: 1,
-          rMin: 0,
-          rMax: 2 * Math.PI,
-          aMin: 1,
-          aMax: 1,
-          dxMin: -1,
-          dxMax: 1,
-          dyMin: 100,
-          dyMax: 100,
-          dzMin: 0,
-          dzMax: 0,
-          drMin: -1,
-          drMax: 1,
-          daMin: 0,
-          daMax: 0,
-          ddxMin: 0,
-          ddxMax: 0,
-          ddyMin: 0,
-          ddyMax: 0,
-          ddzMin: 0,
-          ddzMax: 0,
-          ddrMin: 0,
-          ddrMax: 0,
-          ddaMin: 0,
-          ddaMax: 0,
-          imagesInSecond: 7,
-          stopAfter: Infinity,
-          onStop: function () {} // no-op
-        }
+        var defaultOptions = DEFAULT_OPTIONS
 
         // Push all valid options to defaultOptions.
-        extendValid(options, defaultOptions)
+        var startOptions = extendValid(options, defaultOptions)
         // selectImages needs still to be defined.
 
         // Map image indices to actual image objects.
         if (hasProp(options, 'selectImages')) {
-          defaultOptions.selectImages = []
+          startOptions.selectImages = []
           for (i = 0; i < options.selectImages.length; i += 1) {
-            defaultOptions.selectImages[i] = imageElements[options.selectImages[i]]
+            startOptions.selectImages[i] = imageElements[options.selectImages[i]]
           }
         }
 
-        options = defaultOptions
-
         var startId = Math.random().toString()
-        loads[loadId][startId] = options
+        loads[loadId][startId] = startOptions
 
         startAnimation()
         return function stop () {
