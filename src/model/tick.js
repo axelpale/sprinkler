@@ -13,6 +13,11 @@ module.exports = function (state, dt) {
     return
   }
 
+  // Remove dead waves
+  state.waves = state.waves.filter(function (wave) {
+    return wave.alive
+  })
+
   // Simulate each wave. Each wave has its own options.
   state.waves.forEach(function (wave) {
     tickWave(state, wave, dt)

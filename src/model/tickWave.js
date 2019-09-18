@@ -19,7 +19,16 @@ module.exports = function (state, wave, dt) {
     tickParticle(p, dt)
   })
 
-  // Create new particles.
-  var newParticles = createParticles(state, wave, dt)
-  wave.particles = wave.particles.concat(newParticles)
+  if (wave.running) {
+    // Create new particles.
+    var newParticles = createParticles(state, wave, dt)
+    wave.particles = wave.particles.concat(newParticles)
+  } else {
+    // Wave is not running.
+    if (wave.started && wave.particles.length === 0) {
+      // Wave has run and has no particles anymore.
+      // Thus it can be removed.
+      wave.alive = false
+    }
+  }
 }

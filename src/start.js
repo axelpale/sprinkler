@@ -51,9 +51,12 @@ module.exports = function (state) {
 
     // Create a new wave object.
     var wave = {
-      particles: [],
+      alive: true,
       imageUrls: imageUrls,
-      options: options
+      options: options,
+      particles: [],
+      running: true,
+      started: true // for possible future delay option
     }
     state.waves.push(wave)
 
@@ -65,13 +68,10 @@ module.exports = function (state) {
     animate(state)
 
     return function () {
-      // A stop function. Remove the wave.
-      state.waves = state.waves.filter(function (w) {
-        return w !== wave
-      })
-
-      // TODO if no waves, delete canvas
-      // TODO if no canvases, stop animation.
+      // A stop function. Stop the wave.
+      // We cannot yet remove the wave because there are particles.
+      wave.running = false
+      // wave.alive is still true.
     }
   }
 }
