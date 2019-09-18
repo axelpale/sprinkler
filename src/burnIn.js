@@ -1,4 +1,4 @@
-var tickWave = require('./tickWave')
+var tickWave = require('./model/tickWave')
 
 module.exports = function (state, wave) {
   var dt = 0.1

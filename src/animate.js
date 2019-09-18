@@ -1,6 +1,6 @@
 // Animate: call model update and view render at each animation frame.
 //
-var tickState = require('./tickState')
+var tick = require('./model/tick')
 var render = require('./view/render')
 
 // To indicate if started.
@@ -19,7 +19,7 @@ var animationLoop = function (state) {
   past = present
 
   // Update Model
-  tickState(state, dtms / 1000) // secs
+  tick(state, dtms / 1000) // secs
 
   // DEBUG
   // console.log('num of particles', state.canvases.reduce(function (acc, c) {

@@ -1,4 +1,4 @@
-var stat = require('./lib/stat')
+var stat = require('../lib/stat')
 var samplePoisson = stat.samplePoisson
 var randomPick = stat.randomPick
 var randomIn = stat.randomIn
