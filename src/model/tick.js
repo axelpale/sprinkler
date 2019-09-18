@@ -13,6 +13,9 @@ module.exports = function (state, dt) {
     return
   }
 
+  // DEBUG TOOL
+  // console.log('number of waves', state.waves.length)
+
   // Remove dead waves
   state.waves = state.waves.filter(function (wave) {
     return wave.alive
