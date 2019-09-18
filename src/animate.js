@@ -1,21 +1,22 @@
 var tick = require('./tick')
 
-// To indicate if started and to pause the animation
+// To indicate if started.
+// Maybe to pause the animation in the future.
 var running = false
 
 // number, unix timestamp milliseconds of most recent frame.
 var past = null
 
 var animationLoop = function loopFn () {
-  var present, dt
+  var present, dtms
 
   // Time difference from previous frame in milliseconds
   present = Date.now()
-  dt = (past === null) ? 0 : present - past
+  dtms = (past === null) ? 0 : present - past
   past = present
 
   // Update Model
-  tick(state, dt / 1000) // secs
+  tick(state, dtms / 1000) // secs
 
   // Draw; View current model
   draw(state)
