@@ -41,7 +41,7 @@ The following will make the canvas rain anvils which accelerate at equal speed.
 
 ### Browsers
 
-    <script src="https://unpkg.com/sprinkler@1.0.0/dist/sprinkler.min.js"></script>
+    <script src="https://unpkg.com/sprinkler@1.0.1/dist/sprinkler.min.js"></script>
     <script>
       var c = document.getElementById('canvas')
       var s = sprinkler.create(c)

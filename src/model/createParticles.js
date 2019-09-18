@@ -30,7 +30,8 @@ var createParticle = function (state, wave) {
 
 module.exports = function (state, wave, dt) {
   var i
-  var particlesInDt = dt * wave.options.imagesInSecond
+  var widthFactor = state.canvas.width / 1000
+  var particlesInDt = dt * wave.options.imagesInSecond * widthFactor
   var numOfNewParticles = samplePoisson(particlesInDt)
   var newParticles = []
 
