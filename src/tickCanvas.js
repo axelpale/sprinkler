@@ -1,10 +1,8 @@
-var createParticleFilter = require('./createParticleFilter')
-var tickParticle = require('./tickParticle')
-var createParticles = require('./createParticles')
+var tickWave = require('./tickWave')
 
-module.exports = function (canvasState, dt) {
+module.exports = function (state, dt) {
   // Parameters
-  //   canvasState
+  //   state
   //   dt
   //     simulation time, seconds
   //
@@ -15,20 +13,8 @@ module.exports = function (canvasState, dt) {
     return
   }
 
-  var isNeeded = createParticleFilter(canvasState.width, canvasState.height)
-
   // Simulate each wave. Each wave has its own options.
-  canvasState.waves.forEach(function (wave) {
-    // Remove old particles
-    wave.particles = wave.particles.filter(isNeeded)
-
-    // Simulate existing particles
-    wave.particles.forEach(function (p) {
-      tickParticle(p, dt)
-    })
-
-    // Create new particles.
-    var newParticles = createParticles(wave, dt)
-    wave.particles = wave.particles.concat(newParticles)
+  state.waves.forEach(function (wave) {
+    tickWave(state, wave, dt)
   })
 }

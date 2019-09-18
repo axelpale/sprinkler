@@ -1,5 +1,7 @@
 module.exports = function (p, dt) {
   // Parameter
+  //   p
+  //     particle
   //   dt
   //     seconds
   p.x += p.dx * dt

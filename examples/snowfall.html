@@ -22,7 +22,10 @@
   <script src="https://unpkg.com/sprinkler@0.5.0/dist/sprinkler.min.js"></script>
   <script>
   (function () {
-    Sprinkler.start('canvas', [
+    var canvas = document.getElementById('canvas')
+    var s = sprinkler.create(canvas)
+
+    s.start([
       'img/snowflake.png',
       'img/snowflakeb.png',
       'img/snowflakec.png'

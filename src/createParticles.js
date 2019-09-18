@@ -4,13 +4,13 @@ var randomPick = stat.randomPick
 var randomIn = stat.randomIn
 
 // We use this to add particles in to the model.
-var createParticle = function (wave) {
+var createParticle = function (state, wave) {
   var opts = wave.options
   var imageUrl = randomPick(wave.imageUrls)
 
   return {
-    x: randomIn(0, wave.canvasState.width), // randomize start point
-    y: -wave.canvasState.height / 3, // above canvas top
+    x: randomIn(0, state.canvas.width), // randomize start point
+    y: -state.canvas.height / 3, // begin above canvas top
     z: randomIn(opts.zMin, opts.zMax),
     r: randomIn(opts.rMin, opts.rMax),
     a: randomIn(opts.aMin, opts.aMax),
@@ -28,14 +28,14 @@ var createParticle = function (wave) {
   }
 }
 
-module.exports = function (wave, dt) {
+module.exports = function (state, wave, dt) {
   var i
   var particlesInDt = dt * wave.options.imagesInSecond
   var numOfNewParticles = samplePoisson(particlesInDt)
   var newParticles = []
 
   for (i = 0; i < numOfNewParticles; i += 1) {
-    newParticles.push(createParticle(wave))
+    newParticles.push(createParticle(state, wave))
   }
 
   return newParticles

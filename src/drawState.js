@@ -10,6 +10,7 @@ var drawWave = function (ctx, wave) {
   for (i = 0; i < wave.particles.length; i += 1) {
     p = wave.particles[i]
 
+    // Init or reuse image
     if (hasProp(loadedImages, p.imageUrl)) {
       img = loadedImages[p.imageUrl]
     } else {
@@ -18,7 +19,7 @@ var drawWave = function (ctx, wave) {
       loadedImages[p.imageUrl] = img
     }
 
-    // Draw only completed images
+    // Draw only particles with completed images
     if (img.complete) {
       w = p.z * img.width
       h = p.z * img.height
@@ -40,17 +41,14 @@ var drawWave = function (ctx, wave) {
 }
 
 module.exports = function (state) {
-  state.canvases.forEach(function (canvasState) {
-    // Everything is drawn on canvas.
-    var canvas = document.getElementById(canvasState.canvasId)
-    var ctx = canvas.getContext('2d')
+  // Everything is drawn on canvas.
+  var ctx = state.canvas.getContext('2d')
 
-    // Clear the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  // Clear the canvas
+  ctx.clearRect(0, 0, state.canvas.width, state.canvas.height)
 
-    // Draw each wave
-    canvasState.waves.forEach(function (wave) {
-      drawWave(ctx, wave)
-    })
+  // Draw each wave
+  state.waves.forEach(function (wave) {
+    drawWave(ctx, wave)
   })
 }
