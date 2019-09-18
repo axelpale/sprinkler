@@ -21,22 +21,15 @@
 
   <script src="https://unpkg.com/sprinkler@0.5.0/dist/sprinkler.min.js"></script>
   <script>
-  (function snowfall(Sprinkler) {
-    var c = document.getElementById('canvas');
-    var s = Sprinkler.create(c);
-
-    var images = [
+  (function () {
+    Sprinkler.start('canvas', [
       'img/snowflake.png',
       'img/snowflakeb.png',
       'img/snowflakec.png'
-    ];
-    s.load(images, function (err, start) {
-      if (err) { console.error(err); return; }
-      start({
-        aMin: 0.2, aMax: 1
-      });
-    });
-  }(Sprinkler));
+    ], {
+      aMin: 0.2, aMax: 1
+    })
+  }())
   </script>
 
 </body>
