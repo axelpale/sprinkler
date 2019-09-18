@@ -12,9 +12,7 @@ module.exports = function (state) {
     //   imageUrls: array of image url strings
     //   options: an optional object
     //     imageUrls: an array of images url strings
-    //     imagesInSecond: 7,
-    //     stopAfter: Infinity,
-    //     onStop: optional function, called on stop
+    //     imagesInSecond: number of images per second per 1000 px of width
     //     // Particle positions at spawn
     //     zMin, zMax: initial scale range
     //     rMin, rMax: initial rotation range
@@ -31,6 +29,11 @@ module.exports = function (state) {
     //     ddzMin, ddzMax: scale
     //     ddrMin, ddrMax: rotation
     //     ddaMin, ddaMax: transparency
+    //
+    // TODO
+    //   options.delay or .wait
+    //   options.stopAfter ... Rather easy for user to implement w/ setTimeout
+    //   options.onStop: optional function, called on stop
     //
     // Return
     //   a stop function. Call to stop the animation.

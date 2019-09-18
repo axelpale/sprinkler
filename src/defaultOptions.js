@@ -1,10 +1,6 @@
 module.exports = {
-  type: 'default',
-  imageUrls: [],
   imagesInSecond: 7,
   burnInSeconds: 0,
-  stopAfter: Infinity,
-  onStop: function () {}, // no-op
   zMin: 0.38,
   zMax: 1,
   rMin: 0,
