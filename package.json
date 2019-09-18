@@ -1,6 +1,6 @@
 {
   "name": "sprinkler",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "Make awesome sprite rain effects on canvas. Give a canvas and a list of image paths and start() to make it rain!",
   "keywords": [
     "canvas",
@@ -29,7 +29,6 @@
     "webpack-cli": "^3.3.8"
   },
   "scripts": {
-    "start": "python -m SimpleHTTPServer",
     "build": "webpack",
     "gv": "genversion src/version.js",
     "release": "npm run lint && npm run gv && npm run build && npm publish",

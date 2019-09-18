@@ -6,7 +6,7 @@ module.exports = {
     filename: 'sprinkler.min.js',
     path: path.join(__dirname, '/dist'),
     sourceMapFilename: '[file].map',
-    library: 'Sprinkler', // module name in global scope
+    library: 'sprinkler', // module name in global scope
     libraryTarget: 'umd'
   },
 

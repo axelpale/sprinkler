@@ -18,34 +18,28 @@
 
   <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
 
-  <script src="https://unpkg.com/sprinkler@0.5.0/dist/sprinkler.min.js"></script>
+  <script src="https://unpkg.com/sprinkler@1.0.0/dist/sprinkler.min.js"></script>
   <script>
-  (function (Sprinkler) {
-    var c = document.getElementById('canvas');
-    var s = Sprinkler.create(c);
+  (function () {
+    var canvas = document.getElementById('canvas')
+    var s = sprinkler.create(canvas)
 
-    var images = [
+    s.start([
       'img/heart.png',
-      'img/heartpile.png',
-      'img/chocice.png'
-    ];
-    s.load(images, function (err, start) {
-      if (err) { console.error(err); return; }
-      start({
-        selectImages: [0, 1],
-        imagesInSecond: 25,
-        zMin: 0.1, zMax: 0.23,
-        rMin: 0, rMax: 0,
-        dxMin: -5, dxMax: 5,
-        drMin: -0.1, drMax: 0.1
-      });
-      start({
-        selectImages: [2],
-        imagesInSecond: 0.05,
-        zMin: 0.38, zMax: 0.62
-      });
-    });
-  }(Sprinkler));
+      'img/heartpile.png'
+    ], {
+      imagesInSecond: 25,
+      zMin: 0.1, zMax: 0.23,
+      rMin: 0, rMax: 0,
+      dxMin: -5, dxMax: 5,
+      drMin: -0.1, drMax: 0.1
+    })
+
+    s.start(['img/chocice.png'], {
+      imagesInSecond: 0.05,
+      zMin: 0.38, zMax: 0.62
+    })
+  })()
   </script>
 
 </body>

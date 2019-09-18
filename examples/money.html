@@ -14,48 +14,44 @@
 </head>
 <body>
 
-  <canvas id="canvas">
-  </canvas>
+  <canvas id="canvas"></canvas>
 
   <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
 
 
-  <script src="https://unpkg.com/sprinkler@0.5.0/dist/sprinkler.min.js"></script>
+  <script src="https://unpkg.com/sprinkler@1.0.0/dist/sprinkler.min.js"></script>
   <script>
-  (function snowfall(Sprinkler) {
-    var c = document.getElementById('canvas');
-    var s = Sprinkler.create(c);
+  (function () {
+    var c = document.getElementById('canvas')
+    var s = sprinkler.create(c)
 
     var images = [
       'img/5cent.png',
       'img/2cent.png',
       'img/1cent.png'
-    ];
-    s.load(images, function (err, start) {
-      if (err) { console.error(err); return; }
-      start({
-        selectImages: [0],
-        imagesInSecond: 1,
-        zMin: 1, zMax: 1, // 21.3 mm
-        dyMin: 0, dyMax: 0,
-        ddyMin: 500, ddyMax: 500
-      });
-      start({
-        selectImages: [1],
-        imagesInSecond: 1,
-        zMin: 0.88, zMax: 0.88, // 18.8 mm
-        dyMin: 0, dyMax: 0,
-        ddyMin: 500, ddyMax: 500
-      });
-      start({
-        selectImages: [2],
-        imagesInSecond: 1,
-        zMin: 0.77, zMax: 0.77, // 16.3 mm
-        dyMin: 0, dyMax: 0,
-        ddyMin: 500, ddyMax: 500
-      });
-    });
-  }(Sprinkler));
+    ]
+
+    s.start(['img/5cent.png'], {
+      imagesInSecond: 1,
+      zMin: 1, zMax: 1, // 21.3 mm
+      dyMin: 0, dyMax: 0,
+      ddyMin: 500, ddyMax: 500
+    })
+
+    s.start(['img/2cent.png'], {
+      imagesInSecond: 1,
+      zMin: 0.88, zMax: 0.88, // 18.8 mm
+      dyMin: 0, dyMax: 0,
+      ddyMin: 500, ddyMax: 500
+    })
+
+    s.start(['img/1cent.png'], {
+      imagesInSecond: 1,
+      zMin: 0.77, zMax: 0.77, // 16.3 mm
+      dyMin: 0, dyMax: 0,
+      ddyMin: 500, ddyMax: 500
+    })
+  })()
   </script>
 
 </body>
