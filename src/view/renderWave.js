@@ -1,10 +1,6 @@
-var hasProp = require('./lib/hasProp')
+var hasProp = require('../lib/hasProp')
 
-// Cache images here.
-// A map from image urls to Image objects.
-var loadedImages = {}
-
-var drawWave = function (ctx, wave) {
+module.exports = function (loadedImages, ctx, wave) {
   var i, p, img, w, h
 
   for (i = 0; i < wave.particles.length; i += 1) {
@@ -38,17 +34,4 @@ var drawWave = function (ctx, wave) {
       ctx.globalAlpha = 1 // reset alpha
     }
   }
-}
-
-module.exports = function (state) {
-  // Everything is drawn on canvas.
-  var ctx = state.canvas.getContext('2d')
-
-  // Clear the canvas
-  ctx.clearRect(0, 0, state.canvas.width, state.canvas.height)
-
-  // Draw each wave
-  state.waves.forEach(function (wave) {
-    drawWave(ctx, wave)
-  })
 }

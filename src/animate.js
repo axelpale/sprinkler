@@ -16,7 +16,7 @@
 //   drawCanvas(canvasId, loadedImages, canvasParticles)
 //
 var tickState = require('./tickState')
-var drawState = require('./drawState')
+var render = require('./view/render')
 
 // To indicate if started.
 // Maybe to pause the animation in the future.
@@ -44,7 +44,7 @@ var animationLoop = function (state) {
   // }, 0))
 
   // Draw; View current model
-  drawState(state)
+  render(state)
 
   // Recursion
   // Allow only one viewLoop recursion at a time.
