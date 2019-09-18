@@ -25,12 +25,6 @@ var running = false
 // number, unix timestamp milliseconds of most recent frame.
 var past = null
 
-var warmUp = function (state) {
-  for (var i = 0; i < 600; i += 1) {
-    tickState(state, 0.1)
-  }
-}
-
 var animationLoop = function (state) {
   var present, dtms
 
@@ -64,7 +58,6 @@ var animationLoop = function (state) {
 module.exports = function (state) {
   if (!running) {
     running = true
-    warmUp(state)
     animationLoop(state)
   }
 }

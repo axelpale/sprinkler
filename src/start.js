@@ -1,6 +1,7 @@
 var DEFAULT_OPTIONS = require('./defaultOptions')
 var pickValid = require('./lib/pickValid')
 var animate = require('./animate')
+var burnIn = require('./burnIn')
 
 module.exports = function (state) {
   return function (imageUrls, options) {
@@ -55,6 +56,10 @@ module.exports = function (state) {
       options: options
     }
     state.waves.push(wave)
+
+    // Prerun the wave according to options to
+    // fill the canvas immediately.
+    burnIn(state, wave)
 
     // Ensure animation has begun
     animate(state)
