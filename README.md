@@ -2,7 +2,7 @@
 
 [![npm](https://badge.fury.io/js/sprinkler.svg)](https://badge.fury.io/js/sprinkler)
 
-With Sprinkler you can create an image rain on canvas. Give it a canvas element and a list of image paths and call start() to make it rain bananas or frogs or anything you can imagine!
+With Sprinkler you can create an image rain on canvas. Give it a canvas element and a list of image URLs and call start() to make it animate dropping particles e.g. bananas or frogs or anything you can imagine. There are lots of parameters to tweak particle movement and transparency. Have fun!
 
 Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=canvas).
 
@@ -21,19 +21,19 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 
 ## Usage
 
-The following will make the canvas rain snowflakes.
+The following will make the canvas rain anvils which accelerate at equal speed.
 
-    var c = document.getElementById('canvas');
-    var s = Sprinkler.create(c);
+    var c = document.getElementById('canvas')
+    var s = sprinkler.create(c)
 
     var images = [
-      'img/snowflake.png',
-      'img/snowflakeb.png',
-      'img/snowflakec.png'
-    ];
-    s.load(images, function (err, start) {
-      start();
-    });
+      'img/rusty-anvil.png',
+      'img/steel-anvil.png'
+    ]
+    var stop = s.start(images, {
+      ddyMin: 400,
+      ddyMax: 400
+    })
 
 
 
@@ -41,7 +41,10 @@ The following will make the canvas rain snowflakes.
 
 ### Browsers
 
-    <script src="scripts/sprinkler.js"></script>
+    <script src="https://unpkg.com/sprinkler@1.0.0/dist/sprinkler.min.js"></script>
+    <script>
+      var c = document.getElementById('canvas')
+      var s = sprinkler.create(c)
 
 ### CommonJS & Node.js
 
@@ -49,59 +52,52 @@ Install via [npm](https://www.npmjs.com/package/sprinkler):
 
     $ npm install sprinkler
     ---
-    > var Sprinkler = require('sprinkler');
+    var sprinkler = require('sprinkler')
 
 ### AMD & Require.js
 
-    define(['scripts/sprinkler'], function (Sprinkler) { ... });
+    define(['scripts/sprinkler'], function (sprinkler) { ... });
 
 
 
 ## API
 
-### Sprinkler.create(canvasElement)
+### sprinkler.create(canvasElement)
 
 Create a sprinkler animation on the given canvas.
 
 
-### #load(imagePaths, callback(err, start))
+### start(imageUrls, options)
 
-Loads image files specified by the image source paths in `imagePaths` and then calls the `callback`. Returns nothing.
+Start the animation. Animation downloads the images in a lazy manner: instead of downloading all the images as soon as possible, it downloads an image when the image is dropped to the canvas as an particle. This feature allows you to specify even a large number of different images. Our current record is 3300.
 
-`imagePaths`, an array of image source paths.
-
-
-### start(options)
-
-Start animation. `start` is given via `load` callback.
-
-Returns a `stop` function that stops the animation.
+Returns a `stop` function that stops the particle generation. Sprinkler allows you to run multiple `start` calls, also called *waves*, concurrently without stopping any.
 
 Optional `options` object can take following properties:
 
-- `selectImages`, an array of indices of the images to be used. Defaults to [0, 1, 2, ..., n] where `n = imagePaths.length - 1`. Use same index multiple times to form weighted distribution.
-- `imagesInSecond`, an average number of dropped images in a second
-- `zMin` and `zMax`, range for initial scale, __z__, in [0, Inf]
-- `rMin` and `rMax`, range for initial rotation, in [0, 2*Math.PI]
-- `aMin` and `aMax`, range for initial transparency (alpha), in [0, 1]
-- `dxMin` and `dxMax`, range for horizontal velocity, in [-Inf, Inf]
-- `dyMin` and `dyMax`, range for vertical velocity, in [0, Inf]
-- `dzMin` and `dzMax`, range for scale velocity, in [-Inf, Inf]
-- `drMin` and `drMax`, range for rotation velocity, in [-Inf, Inf]
-- `daMin` and `daMax`, range for transparency velocity, in [-Inf, Inf]
-- `ddxMin` and `ddxMax`, range for horizontal acceleration, in [-Inf, Inf]
-- `ddyMin` and `ddyMax`, range for vertical acceleration, in [0, Inf]
-- `ddzMin` and `ddzMax`, range for scale acceleration, in [-Inf, Inf]
-- `ddrMin` and `ddrMax`, range for rotation acceleration, in [-Inf, Inf]
-- `ddaMin` and `ddaMax`, range for transparency acceleration, in [-Inf, Inf]
+- `imagesInSecond`, an average number of dropped images in a second per 1000 pixels of width. Bound to the width to keep the density the same regardless the canvas width.
+- `burnInSeconds`, number of seconds to prerun the wave. This allows there to be visible particles already at the beginning. To get an instant feeling of a consistent flow, set higher than what it would take for a particle to fall through the canvas.
+- `zMin` and `zMax`, range for initial scale. Between [0, Inf]
+- `rMin` and `rMax`, range for initial rotation. Between [0, 2*Math.PI]
+- `aMin` and `aMax`, range for initial transparency (alpha). Between [0, 1]
+- `dxMin` and `dxMax`, range for horizontal velocity. Between [-Inf, Inf]
+- `dyMin` and `dyMax`, range for vertical velocity. Between [0, Inf]
+- `dzMin` and `dzMax`, range for scale velocity. Between [-Inf, Inf]
+- `drMin` and `drMax`, range for rotation velocity. Between [-Inf, Inf]
+- `daMin` and `daMax`, range for transparency velocity. Between [-Inf, Inf]
+- `ddxMin` and `ddxMax`, range for horizontal acceleration. Between [-Inf, Inf]
+- `ddyMin` and `ddyMax`, range for vertical acceleration. Between [0, Inf]
+- `ddzMin` and `ddzMax`, range for scale acceleration. Between [-Inf, Inf]
+- `ddrMin` and `ddrMax`, range for rotation acceleration. Between [-Inf, Inf]
+- `ddaMin` and `ddaMax`, range for transparency acceleration. Between [-Inf, Inf]
 
 Values are picked randomly but uniformly from the given __ranges__.
 
 Default values are:
 
     {
-      selectImages: [all],
       imagesInSecond: 7,
+      burnInSeconds: 0,
       zMin: 0.38, zMax: 1,
       rMin: 0, rMax: 2 * Math.PI,
       aMin: 1, aMax: 1,
@@ -120,7 +116,7 @@ Default values are:
 
 ### stop()
 
-Stops the animation. `stop` is returned by `start`.
+Stops the animation. It is returned by `start(...)`.
 
 
 
@@ -134,12 +130,6 @@ Serve with `$ npm start`.
 
 
 
-## Todo
-
-- improved tests
-
-
-
 ## Versioning
 
 [Semantic Versioning 2.0.0](http://semver.org/)
@@ -148,4 +138,4 @@ Serve with `$ npm start`.
 
 ## License
 
-[MIT License](../blob/master/LICENSE)
+[MIT License](LICENSE)
