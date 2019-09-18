@@ -1,19 +1,4 @@
-// A bit of pseudo-code
-//
-// tickModel
-//   var dt
-//   for each canvas
-//   canvasParticles = canvasParticles.filterOut(particlesOutsideOrTimeout)
-//
-//   for each particle in canvasParticles
-//     tick(particle)
-//
-//   for each startOptions
-//     var newParticles = createParticles(imageUrls, startOptions, dt)
-//     canvasParticles = [].concat(canvasParticles, newParticles)
-//
-// tickView
-//   drawCanvas(canvasId, loadedImages, canvasParticles)
+// Animate: call model update and view render at each animation frame.
 //
 var tickState = require('./tickState')
 var render = require('./view/render')
