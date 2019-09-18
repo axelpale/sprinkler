@@ -1,4 +1,3 @@
-var hasProp = require('./lib/hasProp')
 var createParticleFilter = require('./createParticleFilter')
 var tickParticle = require('./tickParticle')
 var createParticles = require('./createParticles')
@@ -19,22 +18,17 @@ module.exports = function (canvasState, dt) {
   var isNeeded = createParticleFilter(canvasState.width, canvasState.height)
 
   // Simulate each wave. Each wave has its own options.
-  var waveId, wave, i, newParticles
-  for (waveId in canvasState.waves) {
-    if (hasProp(canvasState.waves, waveId)) {
-      wave = canvasState.waves[waveId]
+  canvasState.waves.forEach(function (wave) {
+    // Remove old particles
+    wave.particles = wave.particles.filter(isNeeded)
 
-      // Remove old particles
-      wave.particles = wave.particles.filter(isNeeded)
+    // Simulate existing particles
+    wave.particles.forEach(function (p) {
+      tickParticle(p, dt)
+    })
 
-      // Simulate existing particles
-      for (i = 0; i < wave.particles.length; i += 1) {
-        tickParticle(wave.particles[i], dt)
-      }
-
-      // Create new particles.
-      newParticles = createParticles(wave, dt)
-      wave.particles = wave.particles.concat(newParticles)
-    }
-  }
+    // Create new particles.
+    var newParticles = createParticles(wave, dt)
+    wave.particles = wave.particles.concat(newParticles)
+  })
 }

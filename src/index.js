@@ -3,9 +3,8 @@ var fitOnResize = require('./lib/fitOnResize')
 var DEFAULT_OPTIONS = require('./defaultOptions')
 var animate = require('./animate')
 
-// A map from image urls to window.Image objects
 var state = {
-  canvases: {} // a map from canvasId -> waveId -> waveState
+  canvases: [] // an array of canvasStates
 }
 
 exports.start = function (canvasId, imageUrls, options) {
@@ -54,34 +53,50 @@ exports.start = function (canvasId, imageUrls, options) {
   options = pickValid(options, DEFAULT_OPTIONS)
 
   // Create a new canvasState object if needed.
-  if (typeof state.canvases[canvasId] === 'undefined') {
+  var canvasState = state.canvases.find(function (canvasState) {
+    return canvasState.canvasId === canvasId
+  })
+
+  // If not found, create.
+  if (typeof canvasState === 'undefined') {
     var c = document.getElementById(canvasId)
 
     // Make canvas resize automatically to full window area
     fitOnResize(c)
 
-    state.canvases[canvasId] = {
-      waves: {},
+    canvasState = {
+      canvasId: canvasId,
+      waves: [],
       width: 0,
       height: 0
     }
+
+    state.canvases.push(canvasState)
   }
 
   // Create a new wave object.
-  var waveId = Math.random().toString()
-  state.canvases[canvasId].waves[waveId] = {
+  var waveState = {
     particles: [],
     imageUrls: imageUrls,
     options: options,
-    canvasState: state.canvases[canvasId] // for width and height
+    canvasState: canvasState // for width and height
   }
+  canvasState.waves.push(waveState)
 
   // Ensure animation has begun
   animate(state)
 
   return function () {
     // A stop function
-    delete state.canvases[canvasId].waves[waveId]
+    var cs = state.canvases.find(function (c) {
+      return c.canvasId === canvasId
+    })
+
+    // Remove the wave
+    cs.waves = cs.waves.filter(function (wave) {
+      return wave !== waveState
+    })
+
     // TODO if no waves, delete canvas
     // TODO if no canvases, stop animation.
   }

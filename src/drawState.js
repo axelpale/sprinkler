@@ -40,23 +40,17 @@ var drawWave = function (ctx, wave) {
 }
 
 module.exports = function (state) {
-  var canvasId, waveId, canvas, ctx, canvasState
-  for (canvasId in state.canvases) {
-    if (hasProp(state.canvases, canvasId)) {
-      // Everything is drawn on canvas.
-      canvas = document.getElementById(canvasId)
-      ctx = canvas.getContext('2d')
-      canvasState = state.canvases[canvasId]
+  state.canvases.forEach(function (canvasState) {
+    // Everything is drawn on canvas.
+    var canvas = document.getElementById(canvasState.canvasId)
+    var ctx = canvas.getContext('2d')
 
-      // Clear the canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Draw each wave
-      for (waveId in canvasState.waves) {
-        if (hasProp(canvasState.waves, waveId)) {
-          drawWave(ctx, canvasState.waves[waveId])
-        }
-      }
-    }
-  }
+    // Draw each wave
+    canvasState.waves.forEach(function (wave) {
+      drawWave(ctx, wave)
+    })
+  })
 }
