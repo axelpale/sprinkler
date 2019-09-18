@@ -1,10 +1,10 @@
 var pickValid = require('./lib/pickValid')
-var hasProp = require('./lib/hasProp')
+var fitOnResize = require('./lib/fitOnResize')
 var DEFAULT_OPTIONS = require('./defaultOptions')
+var animate = require('./animate')
 
 // A map from image urls to window.Image objects
 var state = {
-  loadedImages: {},
   canvases: {} // a map from canvasId -> waveId -> waveState
 }
 
@@ -50,17 +50,30 @@ exports.start = function (canvasId, imageUrls, options) {
     throw new Error('Invalid options: ' + JSON.stringify(options))
   }
 
-  // Filter: pick all valid options.
-  var options = pickValid(options, DEFAULT_OPTIONS)
+  // Filter: pick all valid options, take others from defaults.
+  options = pickValid(options, DEFAULT_OPTIONS)
 
-  // Create new wave object
-  var waveId = Math.random().toString()
+  // Create a new canvasState object if needed.
   if (typeof state.canvases[canvasId] === 'undefined') {
-    state.canvases[canvasId] = {}
+    var c = document.getElementById(canvasId)
+
+    // Make canvas resize automatically to full window area
+    fitOnResize(c)
+
+    state.canvases[canvasId] = {
+      waves: {},
+      width: 0,
+      height: 0
+    }
   }
-  state.canvases[canvasId][waveId] = {
+
+  // Create a new wave object.
+  var waveId = Math.random().toString()
+  state.canvases[canvasId].waves[waveId] = {
     particles: [],
-    options: options
+    imageUrls: imageUrls,
+    options: options,
+    canvasState: state.canvases[canvasId] // for width and height
   }
 
   // Ensure animation has begun
@@ -68,6 +81,13 @@ exports.start = function (canvasId, imageUrls, options) {
 
   return function () {
     // A stop function
-    delete state.canvases[canvasId][waveId]
+    delete state.canvases[canvasId].waves[waveId]
+    // TODO if no waves, delete canvas
+    // TODO if no canvases, stop animation.
   }
 }
+
+// *******
+// Version
+// *******
+exports.version = require('./version')

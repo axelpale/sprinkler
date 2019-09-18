@@ -1,6 +1,9 @@
 module.exports = {
   type: 'default',
   imageUrls: [],
+  imagesInSecond: 7,
+  stopAfter: Infinity,
+  onStop: function () {}, // no-op
   zMin: 0.38,
   zMax: 1,
   rMin: 0,
@@ -26,8 +29,5 @@ module.exports = {
   ddrMin: 0,
   ddrMax: 0,
   ddaMin: 0,
-  ddaMax: 0,
-  imagesInSecond: 7,
-  stopAfter: Infinity,
-  onStop: function () {} // no-op
+  ddaMax: 0
 }
