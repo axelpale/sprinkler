@@ -20,27 +20,21 @@
 
   <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
 
-  <script src="https://unpkg.com/sprinkler@0.5.0/dist/sprinkler.min.js"></script>
+  <script src="https://unpkg.com/sprinkler@1.0.0/dist/sprinkler.min.js"></script>
   <script>
-  (function snowfall(Sprinkler) {
-    var c = document.getElementById('canvas');
-    var s = Sprinkler.create(c);
+  (function () {
+    var c = document.getElementById('canvas')
+    var s = sprinkler.create(c)
 
-    var images = [
-      'img/drop-64x64.png'
-    ];
-    s.load(images, function (err, start) {
-      if (err) { console.error(err); return; }
-      start({
-        zMin: 0.38, zMax: 0.62,
-        rMin: 0, rMax: 0,
-        aMin: 1, aMax: 1,
-        drMin: 0, drMax: 0,
-        daMin: -0.45, daMax: -0.45,
-        dyMin: 300, dyMax: 310
-      });
-    });
-  }(Sprinkler));
+    s.start(['img/drop-64x64.png'], {
+      zMin: 0.38, zMax: 0.62,
+      rMin: 0, rMax: 0,
+      aMin: 1, aMax: 1,
+      drMin: 0, drMax: 0,
+      daMin: -0.45, daMax: -0.45,
+      dyMin: 300, dyMax: 310
+    })
+  })()
   </script>
 
 </body>
