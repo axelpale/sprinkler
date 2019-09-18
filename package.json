@@ -29,7 +29,6 @@
     "webpack-cli": "^3.3.8"
   },
   "scripts": {
-    "start": "python -m SimpleHTTPServer",
     "build": "webpack",
     "gv": "genversion src/version.js",
     "release": "npm run lint && npm run gv && npm run build && npm publish",
