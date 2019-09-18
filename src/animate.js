@@ -36,6 +36,13 @@ var animationLoop = function (state) {
   // Update Model
   tickState(state, dtms / 1000) // secs
 
+  // DEBUG
+  // console.log('num of particles', state.canvases.reduce(function (acc, c) {
+  //   return c.waves.reduce((ac, w) => {
+  //     return ac + w.particles.length
+  //   }, acc)
+  // }, 0))
+
   // Draw; View current model
   drawState(state)
 
