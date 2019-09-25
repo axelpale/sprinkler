@@ -3,11 +3,14 @@
   "version": "1.1.0",
   "description": "Make awesome sprite rain effects on canvas. Give a canvas and a list of image paths and start() to make it rain!",
   "keywords": [
+    "distribution",
+    "visualization",
     "canvas",
     "animation",
     "sprite",
     "rain",
-    "waterfall"
+    "waterfall",
+    "stream"
   ],
   "homepage": "https://github.com/axelpale/sprinkler",
   "main": "index.js",
