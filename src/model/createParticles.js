@@ -1,12 +1,20 @@
 var stat = require('../lib/stat')
-var samplePoisson = stat.samplePoisson
-var randomPick = stat.randomPick
 var randomIn = stat.randomIn
 
 // We use this to add particles in to the model.
 var createParticle = function (state, wave) {
   var opts = wave.options
-  var imageUrl = randomPick(wave.imageUrls)
+
+  var imageUrl
+  if (typeof wave.imageUrls === 'object') {
+    if (Array.isArray(wave.imageUrls)) {
+      imageUrl = stat.randomPick(wave.imageUrls)
+    } else {
+      imageUrl = stat.sampleDistribution(wave.imageUrls)
+    }
+  } else {
+    throw new Error('Invalid imageUrls')
+  }
 
   return {
     x: randomIn(0, state.canvas.width), // randomize start point
@@ -32,7 +40,7 @@ module.exports = function (state, wave, dt) {
   var i
   var widthFactor = state.canvas.width / 1000
   var particlesInDt = dt * wave.options.imagesInSecond * widthFactor
-  var numOfNewParticles = samplePoisson(particlesInDt)
+  var numOfNewParticles = stat.samplePoisson(particlesInDt)
   var newParticles = []
 
   for (i = 0; i < numOfNewParticles; i += 1) {
