@@ -21,20 +21,26 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 
 ## Usage
 
-The following will make the canvas rain anvils which accelerate at equal speed.
+The following will make the canvas rain anvils which accelerate at equal rate.
 
     var c = document.getElementById('canvas')
     var s = sprinkler.create(c)
 
     var images = [
       'img/rusty-anvil.png',
-      'img/steel-anvil.png'
+      'img/black-anvil.png'
     ]
     var stop = s.start(images, {
       ddyMin: 400,
       ddyMax: 400
     })
 
+If you need more rusty anvils than black ones, give the image URLs as a distribution instead of an array.
+
+    var images = {
+      'img/rusty-anvil.png': 4,
+      'img/black-anvil.png': 1
+    }
 
 
 ## Installation
@@ -70,6 +76,10 @@ Create a sprinkler animation on the given canvas.
 ### start(imageUrls, options)
 
 Start the animation. Animation downloads the images in a lazy manner: instead of downloading all the images as soon as possible, it downloads an image when the image is dropped to the canvas as an particle. This feature allows you to specify even a large number of different images. Our current record is 3300.
+
+Takes in `imageUrls` which can be an array of URL strings or a distribution object where URL strings are the keys and their numerical weights are the values. If an array is given, the URLs are sampled uniformly.
+
+The second parameter `options` is optional object which describes the style of the animation. See below for possibilities.
 
 Returns a `stop` function that stops the particle generation. Sprinkler allows you to run multiple `start` calls, also called *waves*, concurrently without stopping any.
 
