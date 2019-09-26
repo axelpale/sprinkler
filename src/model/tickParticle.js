@@ -15,6 +15,6 @@ module.exports = function (p, dt) {
   p.dr += p.ddr * dt
   p.da += p.dda * dt
 
-  // Traveled Manhattan distance
-  p.dist += (p.dx + p.dy) * dt
+  // Traveled distance
+  p.dist += Math.sqrt(p.dx * p.dx + p.dy * p.dy) * dt
 }
