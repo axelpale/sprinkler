@@ -21,11 +21,11 @@ var animationLoop = function (state) {
   // Update Model
   tick(state, dtms / 1000) // secs
 
-  // DEBUG
-  // console.log('num of particles', state.canvases.reduce(function (acc, c) {
-  //   return c.waves.reduce((ac, w) => {
-  //     return ac + w.particles.length
-  //   }, acc)
+  // DEBUG Number of Particles
+  // console.log('num of particles', state.waves.reduce(function (acc, w) {
+  //   var p = w.particles[0]
+  //   if (p) console.log('x', p.x, '| y', p.y)
+  //   return acc + w.particles.length
   // }, 0))
 
   // Draw; View current model
