@@ -1,4 +1,5 @@
 module.exports = {
+  angle: 0, // radians
   imagesInSecond: 7,
   burnInSeconds: 0,
   zMin: 0.38,

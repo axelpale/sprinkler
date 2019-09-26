@@ -16,19 +16,49 @@ var createParticle = function (state, wave) {
     throw new Error('Invalid imageUrls')
   }
 
+  var angle = opts.angle
+  var w = state.canvas.width
+  var h = state.canvas.height
+
+  // Use screen diagonal as distance from screen center.
+  // This leaves room for large sprites.
+  var radius = Math.sqrt(w * w, h * h)
+
+  // sin(0) = 0
+  // cos(0) = 1
+  // sin(270) = 0.6
+  // cos(270) = -0.6
+
+  var sn = Math.sin(angle)
+  var cs = Math.cos(angle)
+  var ax = radius * sn
+  var ay = radius * -cs
+
+  // Use diagonal as rain width. OPTIMIZE use real minimal width.
+  // Take a point on orthogonal diagonal. Then a vector from its center.
+  // Enlarge the vector so that the rain is wide enough to fill corners.
+  var r = Math.random() - 0.5
+  var bx = 1.5 * -ay * r
+  var by = 1.5 * ax * r
+
+  var rdx = randomIn(opts.dxMin, opts.dxMax)
+  var rdy = randomIn(opts.dyMin, opts.dyMax)
+  var rddx = randomIn(opts.ddxMin, opts.ddxMax)
+  var rddy = randomIn(opts.ddyMin, opts.ddyMax)
+
   return {
-    x: randomIn(0, state.canvas.width), // randomize start point
-    y: -state.canvas.height / 3, // begin above canvas top
+    x: (w / 2) + ax + bx, // randomize start point
+    y: (h / 2) + ay + by,
     z: randomIn(opts.zMin, opts.zMax),
     r: randomIn(opts.rMin, opts.rMax),
     a: randomIn(opts.aMin, opts.aMax),
-    dx: randomIn(opts.dxMin, opts.dxMax),
-    dy: randomIn(opts.dyMin, opts.dyMax),
+    dx: rdx * cs - rdy * sn,
+    dy: rdx * sn + rdy * cs,
     dz: randomIn(opts.dzMin, opts.dzMax),
     dr: randomIn(opts.drMin, opts.drMax),
     da: randomIn(opts.daMin, opts.daMax),
-    ddx: randomIn(opts.ddxMin, opts.ddxMax),
-    ddy: randomIn(opts.ddyMin, opts.ddyMax),
+    ddx: rddx * cs - rddy * sn, // rotate
+    ddy: rddy * sn + rddy * cs,
     ddz: randomIn(opts.ddzMin, opts.ddzMax),
     ddr: randomIn(opts.ddrMin, opts.ddrMax),
     dda: randomIn(opts.ddaMin, opts.ddaMax),
