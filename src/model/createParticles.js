@@ -32,7 +32,8 @@ var createParticle = function (state, wave) {
     ddz: randomIn(opts.ddzMin, opts.ddzMax),
     ddr: randomIn(opts.ddrMin, opts.ddrMax),
     dda: randomIn(opts.ddaMin, opts.ddaMax),
-    imageUrl: imageUrl
+    imageUrl: imageUrl,
+    dist: 0
   }
 }
 
