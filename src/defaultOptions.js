@@ -27,5 +27,6 @@ module.exports = {
   ddrMin: 0,
   ddrMax: 0,
   ddaMin: 0,
-  ddaMax: 0
+  ddaMax: 0,
+  tail: null
 }

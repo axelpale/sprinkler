@@ -1,4 +1,5 @@
 var stat = require('../lib/stat')
+var createTailParticles = require('./createTailParticles')
 var randomIn = stat.randomIn
 
 // We use this to add particles in to the model.
@@ -68,14 +69,17 @@ var createParticle = function (state, wave) {
 }
 
 module.exports = function (state, wave, dt) {
-  var i
+  // Create particles
+  var i, p, t
   var widthFactor = state.canvas.width / 1000
   var particlesInDt = dt * wave.options.imagesInSecond * widthFactor
   var numOfNewParticles = stat.samplePoisson(particlesInDt)
   var newParticles = []
 
   for (i = 0; i < numOfNewParticles; i += 1) {
-    newParticles.push(createParticle(state, wave))
+    p = createParticle(state, wave)
+    t = createTailParticles(state, wave, p)
+    newParticles = newParticles.concat([p], t)
   }
 
   return newParticles
