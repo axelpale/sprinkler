@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Space Rockets | Sprinkler Example</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: #87ceeb; }
+    a:link { color: white; }
+    a:visited { color: white; }
+    a:hover { color: black; }
+  </style>
+</head>
+<body>
+
+  <canvas id="canvas">
+  </canvas>
+
+  <div class="info">
+    <h1><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
+    <p>SpaceX Falcon rockets. Graphics adapted from <a href="https://en.wikipedia.org/wiki/Falcon_9#/media/File:Falcon9_rocket_family.svg">Lucabon et al.</a></p>
+  </div>
+
+  <script src="https://unpkg.com/sprinkler@1.1.1/dist/sprinkler.min.js"></script>
+  <script>
+  (function () {
+    var canvas = document.getElementById('canvas')
+    var s = sprinkler.create(canvas)
+
+    // Weights resemble number of launches according to:
+    // https://en.wikipedia.org/wiki/Falcon_9
+    s.start({
+      'img/spacex-rockets/falcon9-v10.png': 5, // 5 v1.0
+      'img/spacex-rockets/falcon9-v11a.png': 3, // 15 v1.1
+      'img/spacex-rockets/falcon9-v11b.png': 9,
+      'img/spacex-rockets/falcon9-v11c.png': 3,
+      'img/spacex-rockets/falcon9-v12a.png': 3, // 37 full-thrust
+      'img/spacex-rockets/falcon9-v12b.png': 30,
+      'img/spacex-rockets/falcon9-v12c.png': 4,
+      'img/spacex-rockets/falcon9-block5a.png': 0,
+      'img/spacex-rockets/falcon9-block5b.png': 18, // 18 block 5
+      'img/spacex-rockets/falcon9-block5c.png': 0,
+      'img/spacex-rockets/falcon-heavy.png': 3,
+      'img/spacex-rockets/falcon-heavy-block5.png': 0
+    }, {
+      angle: 7 * Math.PI / 6,
+      imagesInSecond: 4,
+      burnInSeconds: 20,
+      zMin: 0.5, zMax: 0.5,
+      rMin: Math.PI, rMax: Math.PI,
+      dxMin: 0, dxMax: 0,
+      dyMin: 0, dyMax: 0,
+      drMin: 0, drMax: 0,
+      ddxMin: 0, ddxMax: 0,
+      ddyMin: 100, ddyMax: 300
+    })
+  })()
+  </script>
+
+</body>
+</html>
