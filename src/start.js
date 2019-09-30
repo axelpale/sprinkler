@@ -50,13 +50,19 @@ module.exports = function (state) {
     }
 
     // Filter: pick all valid options, take others from defaults.
-    options = pickValid(options, DEFAULT_OPTIONS)
+    var validOptions = pickValid(options, DEFAULT_OPTIONS)
+
+    // If there was no tail, validOptions.tail is the default one.
+    // If there were tail specs, they might be partial.
+    if (typeof options.tail === 'object') {
+      validOptions.tail = pickValid(options.tail, DEFAULT_OPTIONS.tail)
+    }
 
     // Create a new wave object.
     var wave = {
       alive: true,
       imageUrls: imageUrls,
-      options: options,
+      options: validOptions,
       particles: [],
       running: true,
       started: true // for possible future delay option

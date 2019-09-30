@@ -28,5 +28,13 @@ module.exports = {
   ddrMax: 0,
   ddaMin: 0,
   ddaMax: 0,
-  tail: null
+  tail: {
+    imageUrls: [],
+    length: 0,
+    decay: 1,
+    xOff: 0,
+    yOff: 0,
+    x: 0,
+    y: 0
+  }
 }

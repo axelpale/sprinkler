@@ -11,7 +11,7 @@ module.exports = function (state, wave, p, i) {
       imageUrl = stat.sampleDistribution(tail.imageUrls)
     }
   } else {
-    imageUrl = wave.imageUrls[0]
+    throw new Error('Invalid tail.imageUrls')
   }
 
   var angle = wave.options.angle
