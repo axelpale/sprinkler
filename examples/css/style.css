@@ -37,3 +37,7 @@ h1#title {
   padding: 1rem;
   max-width: 16rem;
 }
+
+.info h1 {
+  margin-top: 0;
+}
