@@ -29,3 +29,9 @@ h1#title {
   margin: 0em;
   font-family: Verdana, Geneva, sans-serif;
 }
+
+.info {
+  font-family: Verdana, Geneva, sans-serif;
+  padding: 1rem;
+  max-width: 16rem;
+}
