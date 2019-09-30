@@ -50,7 +50,7 @@ var createParticle = function (state, wave) {
     x: (w / 2) + ax + bx, // randomize start point
     y: (h / 2) + ay + by,
     z: randomIn(opts.zMin, opts.zMax),
-    r: randomIn(opts.rMin, opts.rMax),
+    r: angle + randomIn(opts.rMin, opts.rMax),
     a: randomIn(opts.aMin, opts.aMax),
     dx: rdx * cs - rdy * sn,
     dy: rdx * sn + rdy * cs,
@@ -58,7 +58,7 @@ var createParticle = function (state, wave) {
     dr: randomIn(opts.drMin, opts.drMax),
     da: randomIn(opts.daMin, opts.daMax),
     ddx: rddx * cs - rddy * sn, // rotate
-    ddy: rddy * sn + rddy * cs,
+    ddy: rddx * sn + rddy * cs,
     ddz: randomIn(opts.ddzMin, opts.ddzMax),
     ddr: randomIn(opts.ddrMin, opts.ddrMax),
     dda: randomIn(opts.ddaMin, opts.ddaMax),
