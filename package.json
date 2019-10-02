@@ -28,6 +28,7 @@
   "devDependencies": {
     "genversion": "^2.2.0",
     "standard": "^14.2.0",
+    "tape": "^4.11.0",
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.8"
   },
@@ -35,7 +36,7 @@
     "build": "webpack",
     "gv": "genversion src/version.js",
     "release": "npm run lint && npm run gv && npm run build && npm publish",
-    "test": "npm run lint",
+    "test": "npm run lint && tape test/**/*.test.js",
     "lint": "standard index.js 'src/**/*.js' webpack.config.js",
     "watch": "webpack --watch"
   }
