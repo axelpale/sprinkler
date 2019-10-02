@@ -2,6 +2,7 @@ var DEFAULT_OPTIONS = require('./defaultOptions')
 var pickValid = require('./lib/pickValid')
 var animate = require('./animate')
 var burnIn = require('./burnIn')
+var bins = require('./lib/bins')
 
 module.exports = function (state) {
   return function (imageUrls, options) {
@@ -58,10 +59,22 @@ module.exports = function (state) {
       validOptions.tail = pickValid(options.tail, DEFAULT_OPTIONS.tail)
     }
 
+    if (typeof imageUrls !== 'object') {
+      throw new Error('Invalid imageUrls')
+    }
+
+    // Prepare distributions. See issue #14
+    var imageUrlsBins = null
+    if (!Array.isArray(imageUrls)) {
+      // Is a distribution.
+      imageUrlsBins = bins.create(imageUrls)
+    }
+
     // Create a new wave object.
     var wave = {
       alive: true,
       imageUrls: imageUrls,
+      imageUrlsBins: imageUrlsBins,
       options: validOptions,
       particles: [],
       running: true,

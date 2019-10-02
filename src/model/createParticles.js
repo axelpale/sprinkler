@@ -1,4 +1,5 @@
 var stat = require('../lib/stat')
+var bins = require('../lib/bins')
 var createTailParticles = require('./createTailParticles')
 var randomIn = stat.randomIn
 
@@ -7,14 +8,11 @@ var createParticle = function (state, wave) {
   var opts = wave.options
 
   var imageUrl
-  if (typeof wave.imageUrls === 'object') {
-    if (Array.isArray(wave.imageUrls)) {
-      imageUrl = stat.randomPick(wave.imageUrls)
-    } else {
-      imageUrl = stat.sampleDistribution(wave.imageUrls)
-    }
+  if (wave.imageUrlsBins) {
+    imageUrl = bins.sample(wave.imageUrlsBins)
   } else {
-    throw new Error('Invalid imageUrls')
+    // Urls given as a plain array. Uniform distribution.
+    imageUrl = stat.randomPick(wave.imageUrls)
   }
 
   var angle = opts.angle
