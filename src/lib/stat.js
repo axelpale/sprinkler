@@ -27,38 +27,6 @@ exports.randomPicks = function (array, n) {
   return picks
 }
 
-exports.sampleDistribution = function (dist) {
-  var key, value
-  var sum = 0
-  for (key in dist) {
-    value = dist[key]
-    if (typeof value === 'number') {
-      sum += value
-    }
-  }
-
-  var index = sum * Math.random()
-  // Example: think about distribution a:1,b:1.
-  // Sum becomes 2. Multiply with r in [0,1[ to [0,2[ to get the index.
-
-  var sum2 = 0
-  for (key in dist) {
-    value = dist[key]
-    if (typeof value === 'number') {
-      sum2 += value
-      if (sum2 >= index) {
-        return key
-      }
-    }
-  }
-  // Example continues:
-  //   let index = 0.1
-  //   key = a: value = 1; sum2 = 1; 1 >= 0.1 => return 'a'
-
-  // No numerical values in distribution
-  throw new Error('Cannot sample empty distribution.')
-}
-
 exports.samplePoisson = function (rate) {
   // Purpose: number of images to drop in each interval.
   // Take a sample from poisson distribution.
