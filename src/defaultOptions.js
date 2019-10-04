@@ -1,3 +1,5 @@
+var defaultParticleRenderer = require('./view/renderParticle')
+
 module.exports = {
   angle: 0, // radians
   imagesInSecond: 7,
@@ -36,5 +38,6 @@ module.exports = {
     yOff: 0,
     x: 0,
     y: 0
-  }
+  },
+  particleRenderer: defaultParticleRenderer
 }
