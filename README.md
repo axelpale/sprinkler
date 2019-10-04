@@ -124,6 +124,11 @@ Default values are:
       ddaMin: 0, ddaMax: 0,
     }
 
+There are a few experimental options. See the examples for usage.
+
+- `angle`, the direction of positive y-axis in radians.
+- `tail`, additional particles that follow their parent particle.
+- `particleRenderer`, a custom particle renderer function.
 
 ### stop()
 
