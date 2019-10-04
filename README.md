@@ -17,7 +17,7 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 - [Love](https://axelpale.github.io/sprinkler/examples/love.html)
 - [Rainy Night](https://axelpale.github.io/sprinkler/examples/rainynight.html), suitable for [projection mapping](https://en.wikipedia.org/wiki/Projection_mapping).
 - [SpaceX Rockets](https://axelpale.github.io/sprinkler/examples/rockets.html)
-
+- [Fisher's Iris Data Set](https://axelpale.github.io/sprinkler/examples/iris.html)
 
 
 ## Usage
