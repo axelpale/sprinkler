@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Cars | Sprinkler Example</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: gray; color: black; }
+    .container { width: 100%; height 100%; background: url('img/starsky.png'); }
+    a:link { color: white; }
+    a:visited { color: white; }
+    a:hover { color: gray; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <canvas id="canvas">
+    </canvas>
+
+    <div class="info">
+      <h1><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a><br>example</h1>
+      <p>Cars. Graphics by <a href="https://openmoji.org">OpenMoji</a>.</p>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/sprinkler@1.4.0/dist/sprinkler.min.js"></script>
+  <script>
+  (function () {
+    var canvas = document.getElementById('canvas')
+    var s = sprinkler.create(canvas)
+
+    var cars = {
+      'img/cars/1F69A.png': 1,
+      'img/cars/1F69B.png': 1,
+      'img/cars/1F69C.png': 1,
+      'img/cars/1F690.png': 1,
+      'img/cars/1F691.png': 1,
+      'img/cars/1F692.png': 1,
+      'img/cars/1F693.png': 1,
+      'img/cars/1F695.png': 1,
+      'img/cars/1F697.png': 1,
+      'img/cars/1F699.png': 1
+    }
+
+    var opts = {
+      angle: Math.PI / 2,
+      imagesInSecond: 40,
+      burnInSeconds: 5,
+      xSteps: 20,
+      zMin: 1, zMax: 1,
+      rMin: -Math.PI / 2, rMax: -Math.PI / 2,
+      dxMin: 0, dxMax: 0,
+      dyMin: 0, dyMax: 0,
+      drMin: 0, drMax: 0,
+      ddxMin: 0, ddxMax: 0,
+      ddyMin: 50, ddyMax: 100
+    }
+
+    s.start(cars, opts)
+    s.start(cars, Object.assign({}, opts, {
+      angle: -opts.angle,
+      rMin: -opts.rMin,
+      rMax: -opts.rMax,
+    }))
+
+  })()
+  </script>
+
+</body>
+</html>
