@@ -11,6 +11,7 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 ## Examples
 
 - [Snowfall](https://axelpale.github.io/sprinkler/examples/snowfall.html)
+- [Cars](https://axelpale.github.io/sprinkler/examples/cars.html)
 - [Money](https://axelpale.github.io/sprinkler/examples/money.html)
 - [Fire](https://axelpale.github.io/sprinkler/examples/fire.html)
 - [Bananas](https://axelpale.github.io/sprinkler/examples/bananas.html)
