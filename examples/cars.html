@@ -26,7 +26,7 @@
 
   </div>
 
-  <script src="https://unpkg.com/sprinkler@1.4.0/dist/sprinkler.min.js"></script>
+  <script src="../dist/sprinkler.min.js"></script>
   <script>
   (function () {
     var canvas = document.getElementById('canvas')
@@ -44,6 +44,18 @@
       'img/cars/1F697.png': 1,
       'img/cars/1F699.png': 1
     }
+    var carsFlip = {
+      'img/cars/1F69A-FLIP.png': 1,
+      'img/cars/1F69B-FLIP.png': 1,
+      'img/cars/1F69C-FLIP.png': 1,
+      'img/cars/1F690-FLIP.png': 1,
+      'img/cars/1F691-FLIP.png': 1,
+      'img/cars/1F692-FLIP.png': 1,
+      'img/cars/1F693-FLIP.png': 1,
+      'img/cars/1F695-FLIP.png': 1,
+      'img/cars/1F697-FLIP.png': 1,
+      'img/cars/1F699-FLIP.png': 1
+    }
 
     var opts = {
       angle: Math.PI / 2,
@@ -60,8 +72,9 @@
     }
 
     s.start(cars, opts)
-    s.start(cars, Object.assign({}, opts, {
+    s.start(carsFlip, Object.assign({}, opts, {
       angle: -opts.angle,
+      xOff: 0.07,
       rMin: -opts.rMin,
       rMax: -opts.rMax,
     }))
