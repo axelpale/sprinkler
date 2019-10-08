@@ -36,9 +36,9 @@ var createParticle = function (state, wave) {
   // Define x distribution.
   // Continuous or discrete.
   var unit
-  var bins = opts.discreteBins + 1 // +1 to correlate what is visible
-  if (Number.isInteger(opts.discreteBins)) {
-    unit = Math.floor(bins * Math.random()) / bins
+  var steps = opts.xSteps + 1 // +1 to correlate what is visible
+  if (Number.isInteger(opts.xSteps)) {
+    unit = Math.floor(steps * Math.random()) / steps
   } else {
     unit = Math.random()
   }
