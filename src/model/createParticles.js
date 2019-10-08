@@ -33,10 +33,20 @@ var createParticle = function (state, wave) {
   var ax = radius * sn
   var ay = radius * -cs
 
+  // Define x distribution.
+  // Continuous or discrete.
+  var unit
+  var bins = opts.discreteBins + 1 // +1 to correlate what is visible
+  if (Number.isInteger(opts.discreteBins)) {
+    unit = Math.floor(bins * Math.random()) / bins
+  } else {
+    unit = Math.random()
+  }
+
   // Use diagonal as rain width. OPTIMIZE use real minimal width.
   // Take a point on orthogonal diagonal. Then a vector from its center.
   // Enlarge the vector so that the rain is wide enough to fill corners.
-  var r = Math.random() - 0.5
+  var r = unit - 0.5
   var bx = 1.5 * -ay * r
   var by = 1.5 * ax * r
 
