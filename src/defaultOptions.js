@@ -4,6 +4,7 @@ module.exports = {
   angle: 0, // radians
   imagesInSecond: 7,
   burnInSeconds: 0,
+  xOff: 0,
   xSteps: Infinity,
   zMin: 0.38,
   zMax: 1,

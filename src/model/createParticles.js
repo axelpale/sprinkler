@@ -46,7 +46,7 @@ var createParticle = function (state, wave) {
   // Use diagonal as rain width. OPTIMIZE use real minimal width.
   // Take a point on orthogonal diagonal. Then a vector from its center.
   // Enlarge the vector so that the rain is wide enough to fill corners.
-  var r = unit - 0.5
+  var r = unit - 0.5 + opts.xOff
   var bx = 1.5 * -ay * r
   var by = 1.5 * ax * r
 
