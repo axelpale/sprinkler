@@ -8,17 +8,19 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 
 
 
-## Examples
+## Example apps
 
-- [Snowfall](https://axelpale.github.io/sprinkler/examples/snowfall.html)
-- [Cars](https://axelpale.github.io/sprinkler/examples/cars.html)
-- [Money](https://axelpale.github.io/sprinkler/examples/money.html)
-- [Fire](https://axelpale.github.io/sprinkler/examples/fire.html)
-- [Bananas](https://axelpale.github.io/sprinkler/examples/bananas.html)
-- [Love](https://axelpale.github.io/sprinkler/examples/love.html)
-- [Rainy Night](https://axelpale.github.io/sprinkler/examples/rainynight.html), suitable for [projection mapping](https://en.wikipedia.org/wiki/Projection_mapping).
-- [SpaceX Rockets](https://axelpale.github.io/sprinkler/examples/rockets.html)
-- [Fisher's Iris Data Set](https://axelpale.github.io/sprinkler/examples/iris.html)
+[![Snowfall](examples/preview/snowfall2.png)](https://axelpale.github.io/sprinkler/examples/snowfall.html)
+[![Cars](examples/preview/cars1.png)](https://axelpale.github.io/sprinkler/examples/cars.html)
+[![Crude oil consumption](examples/preview/crudeoil1.png)](http://demo.akselipalen.com/crude-oil-consumption/)
+[![Money](examples/preview/money1.png)](https://axelpale.github.io/sprinkler/examples/money.html)
+[![Fire](examples/preview/fire2.png)](https://axelpale.github.io/sprinkler/examples/fire.html)
+[![Bananas](examples/preview/bananas3.png)](https://axelpale.github.io/sprinkler/examples/bananas.html)
+[![Love](examples/preview/love2.png)](https://axelpale.github.io/sprinkler/examples/love.html)
+[![World Birth Rate](examples/preview/births1.png)](http://births.akselipalen.com/)
+[![Rainy Night](examples/preview/rainynight3.png)](https://axelpale.github.io/sprinkler/examples/rainynight.html)
+[![SpaceX Rockets](examples/preview/rockets2.png)](https://axelpale.github.io/sprinkler/examples/rockets.html)
+[![Fisher's Iris Data Set](examples/preview/iris3.png)](https://axelpale.github.io/sprinkler/examples/iris.html)
 
 
 ## Usage
