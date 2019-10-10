@@ -32,10 +32,10 @@
     // In this example we use a custom render which
     // build each particle from small images.
     // Therefore we need to setup the small images beforehand.
-    var petal = new window.Image(28, 32)
-    petal.src = 'img/petal.png'
-    var sepal = new window.Image(28, 32)
-    sepal.src = 'img/sepal.png'
+    var petal = new window.Image(32, 32)
+    petal.src = 'img/petal-32.png'
+    var sepal = new window.Image(32, 32)
+    sepal.src = 'img/sepal-32.png'
 
     s.start([
       [5.1, 3.5, 1.4, 0.2, 'Iris-setosa'],
@@ -201,9 +201,9 @@
         var petalH = datum[2] * petal.height * z
         var sepalW = datum[1] * sepal.width * z
         var sepalH = datum[0] * sepal.height * z
-        var petalOffX = -Math.floor(petalW / 2)
+        var petalOffX = -petalW / 2
         var petalOffY = -petalH
-        var sepalOffX = -Math.floor(sepalW / 2)
+        var sepalOffX = -sepalW / 2
         var sepalOffY = -sepalH
         var r = Math.PI / 3
 
