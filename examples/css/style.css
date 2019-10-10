@@ -40,4 +40,10 @@ h1#title {
 
 .info h1 {
   margin-top: 0;
+  margin-bottom: 0;
+}
+
+.info p {
+  margin-top: 0.79em;
+  margin-bottom: 1.27em;
 }
