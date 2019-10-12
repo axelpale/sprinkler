@@ -2,7 +2,7 @@
 
 [![npm](https://badge.fury.io/js/sprinkler.svg)](https://badge.fury.io/js/sprinkler)
 
-With Sprinkler you can create an image rain on canvas. Give it a canvas element and a list of image URLs and call start() to make it animate dropping particles e.g. bananas or frogs or anything you can imagine. There are lots of parameters to tweak particle movement and transparency. Have fun!
+With Sprinkler you can create an image rain on canvas and visualize and simulate streams, flows, rates, and distributions. Give it a canvas element and a list of image URLs and call start() to make it animate dropping particles e.g. bananas or frogs or anything you can imagine. There are lots of parameters to tweak particle generation, movement and transparency. Have fun!
 
 Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=canvas).
 
