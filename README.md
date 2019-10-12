@@ -20,7 +20,6 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 [![Bananas](examples/preview/bananas3.png)](https://axelpale.github.io/sprinkler/examples/bananas.html)
 [![World Birth Rate](examples/preview/births1.png)](http://births.akselipalen.com/)
 [![Money](examples/preview/money1.png)](https://axelpale.github.io/sprinkler/examples/money.html)
-[![Rainy Night](examples/preview/rainynight3.png)](https://axelpale.github.io/sprinkler/examples/rainynight.html)
 [![SpaceX Rockets](examples/preview/rockets2.png)](https://axelpale.github.io/sprinkler/examples/rockets.html)
 [![Fisher's Iris Data Set](examples/preview/iris3.png)](https://axelpale.github.io/sprinkler/examples/iris.html)
 
