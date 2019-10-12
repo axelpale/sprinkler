@@ -127,7 +127,7 @@ Default values are:
       ddyMin: 0, ddyMax: 0,
       ddzMin: 0, ddzMax: 0,
       ddrMin: 0, ddrMax: 0,
-      ddaMin: 0, ddaMax: 0,
+      ddaMin: 0, ddaMax: 0
     }
 
 There are a few experimental options. See the examples for usage.
