@@ -11,8 +11,8 @@ module.exports = function (ctx, p) {
   ctx.rotate(p.r)
   ctx.drawImage(
     p.image,
-    -Math.floor(w / 2), // gravity to image center
-    -Math.floor(h / 2),
+    -w / 2, // gravity to image center
+    -h / 2,
     w, h
   )
 
