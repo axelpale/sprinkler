@@ -2,7 +2,7 @@
 
 [![npm](https://badge.fury.io/js/sprinkler.svg)](https://badge.fury.io/js/sprinkler)
 
-With Sprinkler you can create an image rain on canvas. Give it a canvas element and a list of image URLs and call start() to make it animate dropping particles e.g. bananas or frogs or anything you can imagine. There are lots of parameters to tweak particle movement and transparency. Have fun!
+With Sprinkler you can create an image rain on canvas and visualize and simulate streams, flows, rates, and distributions. Give it a canvas element and a list of image URLs and call start() to make it animate dropping particles e.g. bananas or frogs or anything you can imagine. There are lots of parameters to tweak particle generation, movement and transparency. Have fun!
 
 Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=canvas).
 
@@ -13,12 +13,13 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 [![Snowfall](examples/preview/snowfall2.png)](https://axelpale.github.io/sprinkler/examples/snowfall.html)
 [![Cars](examples/preview/cars1.png)](https://axelpale.github.io/sprinkler/examples/cars.html)
 [![Crude oil consumption](examples/preview/crudeoil1.png)](http://demo.akselipalen.com/crude-oil-consumption/)
-[![Money](examples/preview/money1.png)](https://axelpale.github.io/sprinkler/examples/money.html)
+[![Diamonds](examples/preview/diamonds1.png)](https://axelpale.github.io/sprinkler/examples/diamonds.html)
 [![Fire](examples/preview/fire2.png)](https://axelpale.github.io/sprinkler/examples/fire.html)
-[![Bananas](examples/preview/bananas3.png)](https://axelpale.github.io/sprinkler/examples/bananas.html)
+[![Mojifall](examples/preview/mojifall1.png)](http://demo.akselipalen.com/mojifall-openmoji-emojitracker/)
 [![Love](examples/preview/love2.png)](https://axelpale.github.io/sprinkler/examples/love.html)
+[![Bananas](examples/preview/bananas3.png)](https://axelpale.github.io/sprinkler/examples/bananas.html)
 [![World Birth Rate](examples/preview/births1.png)](http://births.akselipalen.com/)
-[![Rainy Night](examples/preview/rainynight3.png)](https://axelpale.github.io/sprinkler/examples/rainynight.html)
+[![Money](examples/preview/money1.png)](https://axelpale.github.io/sprinkler/examples/money.html)
 [![SpaceX Rockets](examples/preview/rockets2.png)](https://axelpale.github.io/sprinkler/examples/rockets.html)
 [![Fisher's Iris Data Set](examples/preview/iris3.png)](https://axelpale.github.io/sprinkler/examples/iris.html)
 
@@ -89,6 +90,7 @@ Returns a `stop` function that stops the particle generation. Sprinkler allows y
 
 Optional `options` object can take following properties:
 
+- `angle`, the main direction of the particle flow in radians. Top to bottom is `0`, left to right is `Math.PI / 2`. Defaults to `0`. This rotates the base x- and y-axis so you do not need to re-adjust other parameters.
 - `imagesInSecond`, an average number of dropped images in a second per 1000 pixels of width. Bound to the width to keep the density the same regardless the canvas width.
 - `burnInSeconds`, number of seconds to prerun the wave. This allows there to be visible particles already at the beginning. To get an instant feeling of a consistent flow, set higher than what it would take for a particle to fall through the canvas.
 - `zMin` and `zMax`, range for initial scale. Between [0, Inf]
@@ -110,6 +112,7 @@ Values are picked randomly but uniformly from the given __ranges__.
 Default values are:
 
     {
+      angle: 0,
       imagesInSecond: 7,
       burnInSeconds: 0,
       zMin: 0.38, zMax: 1,
@@ -124,14 +127,15 @@ Default values are:
       ddyMin: 0, ddyMax: 0,
       ddzMin: 0, ddzMax: 0,
       ddrMin: 0, ddrMax: 0,
-      ddaMin: 0, ddaMax: 0,
+      ddaMin: 0, ddaMax: 0
     }
 
 There are a few experimental options. See the examples for usage.
 
-- `angle`, the direction of positive y-axis in radians.
-- `tail`, additional particles that follow their parent particle.
-- `particleRenderer`, a custom particle renderer function.
+- `tail`: additional particles that follow their parent particle.
+- `particleRenderer`: a custom particle renderer function. Allows you to render complex shapes.
+- `xOff`: a number. Moves the particle spawning line along x-axis. Especially useful with `xSteps`.
+- `xSteps`: integer. Restrict the continuous particle spawning line to N discrete points. For example, can be used to create car lanes.
 
 ### stop()
 

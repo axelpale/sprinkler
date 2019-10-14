@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+
+  <title>Diamonds | Sprinkler Example</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background: #004; color: white; }
+    .container { width: 100%; height 100%; }
+    a:link { color: gray; }
+    a:visited { color: gray; }
+    a:hover { color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <canvas id="canvas">
+    </canvas>
+
+    <div class="info">
+      <h1>Diamonds</h1>
+      <p>Graphics &copy; <a href="http://akselipalen.com">Akseli Palén</a>. Animated with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/sprinkler@1.5.0/dist/sprinkler.min.js"></script>
+  <script>
+  (function () {
+    var canvas = document.getElementById('canvas')
+    var s = sprinkler.create(canvas)
+
+    var imgs = {
+      'img/daamond-158x158.png': 1,
+    }
+
+    var opts = {
+      imagesInSecond: 5,
+      burnInSeconds: 20,
+      xSteps: 5,
+      zMin: 0.5, zMax: 1,
+      rMin: -Math.PI / 4, rMax: Math.PI / 4,
+      dxMin: 0, dxMax: 0,
+      dyMin: 50, dyMax: 50,
+      drMin: -0.1, drMax: 0.1,
+      ddxMin: 0, ddxMax: 0,
+      ddyMin: 30, ddyMax: 30
+    }
+
+    s.start(imgs, opts)
+  })()
+  </script>
+
+</body>
+</html>

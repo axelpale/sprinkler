@@ -27,10 +27,10 @@
   "dependencies": {},
   "devDependencies": {
     "genversion": "^2.2.0",
-    "standard": "^14.2.0",
+    "standard": "^14.3.1",
     "tape": "^4.11.0",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.8"
+    "webpack": "^4.41.1",
+    "webpack-cli": "^3.3.9"
   },
   "scripts": {
     "build": "webpack",
