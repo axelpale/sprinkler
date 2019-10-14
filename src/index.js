@@ -4,6 +4,7 @@ var start = require('./start')
 exports.create = function (canvas) {
   var state = {
     canvas: canvas,
+    loadedImages: {}, // a map from URL-string to Image object.
     waves: []
   }
 

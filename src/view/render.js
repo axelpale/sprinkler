@@ -1,9 +1,5 @@
 var renderWave = require('./renderWave')
 
-// Cache images here.
-// A map from image urls to Image objects.
-var loadedImages = {}
-
 module.exports = function (state) {
   // Everything is drawn on canvas.
   var ctx = state.canvas.getContext('2d')
@@ -13,6 +9,6 @@ module.exports = function (state) {
 
   // Then, render waves
   state.waves.forEach(function (wave) {
-    renderWave(loadedImages, ctx, wave)
+    renderWave(ctx, wave)
   })
 }

@@ -1,16 +1,16 @@
-module.exports = function (ctx, p, img) {
-  if (!img.complete) {
+module.exports = function (ctx, p) {
+  if (!p.image.complete) {
     return
   }
 
-  var w = p.z * img.width
-  var h = p.z * img.height
+  var w = p.z * p.image.width
+  var h = p.z * p.image.height
 
   ctx.globalAlpha = p.a
   ctx.translate(p.x, p.y)
   ctx.rotate(p.r)
   ctx.drawImage(
-    img,
+    p.image,
     -Math.floor(w / 2), // gravity to image center
     -Math.floor(h / 2),
     w, h

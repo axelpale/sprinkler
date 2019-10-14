@@ -1,5 +1,6 @@
 var stat = require('../lib/stat')
 var bins = require('../lib/bins')
+var hasProp = require('../lib/hasProp')
 var createTailParticles = require('./createTailParticles')
 var randomIn = stat.randomIn
 
@@ -7,12 +8,30 @@ var randomIn = stat.randomIn
 var createParticle = function (state, wave) {
   var opts = wave.options
 
+  // Pick image for the particle.
   var imageUrl
   if (wave.imageUrlsBins) {
     imageUrl = bins.sample(wave.imageUrlsBins)
   } else {
     // Urls given as a plain array. Uniform distribution.
     imageUrl = stat.randomPick(wave.imageUrls)
+  }
+
+  // Setup image object
+  var image
+  if (typeof imageUrl === 'string') {
+    // Init or reuse image
+    if (hasProp(state.loadedImages, imageUrl)) {
+      image = state.loadedImages[imageUrl]
+    } else {
+      // Download begins.
+      image = new window.Image()
+      image.src = imageUrl
+      state.loadedImages[imageUrl] = image
+    }
+  } else {
+    // Possibly data for custom particle renderer.
+    image = imageUrl
   }
 
   var angle = opts.angle
@@ -72,6 +91,7 @@ var createParticle = function (state, wave) {
     ddr: randomIn(opts.ddrMin, opts.ddrMax),
     dda: randomIn(opts.ddaMin, opts.ddaMax),
     imageUrl: imageUrl,
+    image: image,
     dist: 0
   }
 }
