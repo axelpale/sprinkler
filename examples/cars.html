@@ -60,22 +60,21 @@
 
     var opts = {
       angle: Math.PI / 2,
-      imagesInSecond: 40,
-      burnInSeconds: 5,
-      xSteps: 20,
+      imagesInSecond: 20,
+      burnInSeconds: 20,
+      xSteps: 10,
       zMin: 1, zMax: 1,
       rMin: -Math.PI / 2, rMax: -Math.PI / 2,
       dxMin: 0, dxMax: 0,
-      dyMin: 0, dyMax: 0,
+      dyMin: 100, dyMax: 200,
       drMin: 0, drMax: 0,
-      ddxMin: 0, ddxMax: 0,
-      ddyMin: 50, ddyMax: 100
+      ddxMin: 0, ddxMax: 0
     }
 
     s.start(cars, opts)
     s.start(carsFlip, Object.assign({}, opts, {
       angle: -opts.angle,
-      xOff: 0.07,
+      xOff: 0.05,
       rMin: -opts.rMin,
       rMax: -opts.rMax,
     }))
