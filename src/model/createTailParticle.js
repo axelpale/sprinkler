@@ -1,8 +1,10 @@
 var stat = require('../lib/stat')
+var hasProp = require('../lib/hasProp')
 
 module.exports = function (state, wave, p, i) {
   var tail = wave.options.tail
 
+  // Pick image for the tail particle.
   var imageUrl
   if (typeof tail.imageUrls === 'object') {
     if (Array.isArray(tail.imageUrls)) {
@@ -12,6 +14,23 @@ module.exports = function (state, wave, p, i) {
     }
   } else {
     throw new Error('Invalid tail.imageUrls')
+  }
+
+  // Setup Image object
+  var image
+  if (typeof imageUrl === 'string') {
+    // Init or reuse image
+    if (hasProp(state.loadedImages, imageUrl)) {
+      image = state.loadedImages[imageUrl]
+    } else {
+      // Download begins.
+      image = new window.Image()
+      image.src = imageUrl
+      state.loadedImages[imageUrl] = image
+    }
+  } else {
+    // Possibly data for custom particle renderer.
+    image = imageUrl
   }
 
   var angle = wave.options.angle
@@ -49,6 +68,7 @@ module.exports = function (state, wave, p, i) {
     ddr: p.ddr,
     dda: p.dda,
     imageUrl: imageUrl,
+    image: image,
     dist: 0
   }
 }
