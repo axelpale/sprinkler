@@ -24,7 +24,7 @@ module.exports = function (cw, ch) {
       return true
     }
 
-    if (p.dist < diagonal * 2) {
+    if (p.dist < diagonal) {
       return true
     }
 
