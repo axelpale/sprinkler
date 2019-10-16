@@ -5,33 +5,95 @@
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
 
   <title>Bananas | Sprinkler Example</title>
-  <link rel="stylesheet" href="css/style.css">
   <style>
-    body { background: yellow; }
-    a:link { color: green; }
-    a:visited { color: green; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-size: 16px;
+      background: yellow;
+      color: green;
+    }
+
+    a:link { text-decoration: underline; }
+    a:visited { text-decoration: underline; }
+    a:hover { text-decoration: none; }
+    a:active { text-decoration: none; }
+
+    #canvas {
+      position: fixed;
+      top: 0px;
+      right: 0px;
+      display: block;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .info {
+      font-family: Verdana, Geneva, sans-serif;
+      padding: 1rem;
+      max-width: 16rem;
+      position: relative;
+      z-index: 1;
+      user-select: none;
+    }
+
+    .info h1 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .info p {
+      margin-top: 0.79em;
+      margin-bottom: 1.27em;
+    }
+
+    a:link { color: darkgreen; }
+    a:visited { color: darkgreen; }
     a:hover { color: lightgreen; }
   </style>
 </head>
 <body>
-
   <canvas id="canvas">
   </canvas>
 
-  <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
+  <div class="info">
+    <h1>Click 2 Drop Dem Bananas</h1>
+    <p>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a><br>
+    Orange, Pear & Strawberry from <a href="http://pngimg.com/download/805">pngimg.com</a></p>
+  </div>
 
-  <script src="https://unpkg.com/sprinkler@1.0.1/dist/sprinkler.min.js"></script>
+  <script src="https://unpkg.com/sprinkler@1.6.0/dist/sprinkler.min.js"></script>
   <script>
   (function () {
     var c = document.getElementById('canvas')
     var s = sprinkler.create(c)
 
-    s.start(['img/banana.png'], {
-      imagesInSecond: 1,
-      zMin: 0.38, zMax: 0.62,
-      dyMin: 200, dyMax: 400,
-      ddyMin: 20, ddyMax: 20,
-      ddrMin: 2, ddrMax: 2
+    var phi = (1 + Math.sqrt(5)) / 2
+    var freq = function (i) { return Math.pow(phi, 2 * i) }
+
+    c.addEventListener('click', function () {
+      var stop = s.start({
+        'img/banana.png': freq(6),
+        'img/orange.png': freq(5),
+        'img/greengrapes.png': freq(4),
+        'img/kiwi.png': freq(3),
+        'img/kiwi-b.png': freq(2),
+        'img/pear.png': freq(1),
+        'img/strawberry.png': freq(0)
+      }, {
+        imagesInSecond: 1,
+        zMin: 0.38, zMax: 0.62,
+        dyMin: 200, dyMax: 400,
+        ddyMin: 20, ddyMax: 20,
+        ddrMin: 2, ddrMax: 2
+      })
+      window.setTimeout(stop, 1000)
     })
   })()
   </script>
