@@ -1,5 +1,4 @@
-var DEFAULT_OPTIONS = require('./defaultOptions')
-var pickValid = require('./lib/pickValid')
+var prepareOptions = require('./prepareOptions')
 var animate = require('./animate')
 var burnIn = require('./burnIn')
 var bins = require('./lib/bins')
@@ -9,27 +8,8 @@ module.exports = function (state) {
     // Begin dropping images.
     //
     // Parameters:
-    //   canvasId: an element id string e.g. 'myCanvas'
-    //   imageUrls: array of image url strings
-    //   options: an optional object
-    //     imageUrls: an array of images url strings
-    //     imagesInSecond: number of images per second per 1000 px of width
-    //     // Particle positions at spawn
-    //     zMin, zMax: initial scale range
-    //     rMin, rMax: initial rotation range
-    //     aMin, aMax: initial sprite alpha/transparency range
-    //     // Particle speeds at spawn
-    //     dxMin, dxMax: horizontal
-    //     dyMin, dyMax: vertical
-    //     dzMin, dzMax: scale
-    //     drMin, drMax: angular velocity
-    //     daMin, daMax: transparency (fade speed)
-    //     // Particle acceleration
-    //     ddxMin, ddxMax: horizontal
-    //     ddyMin, ddyMax: vertical
-    //     ddzMin, ddzMax: scale
-    //     ddrMin, ddrMax: rotation
-    //     ddaMin, ddaMax: transparency
+    //   imageUrls: array or distribution of image url strings
+    //   options: an optional object. See README for docs.
     //
     // TODO
     //   options.delay or .wait
@@ -40,24 +20,7 @@ module.exports = function (state) {
     //   a stop function. Call to stop the animation.
     //
 
-    // No options object given.
-    if (typeof options === 'undefined') {
-      options = {}
-    }
-
-    // Invalid parameter
-    if (Object.prototype.toString.call(options) !== '[object Object]') {
-      throw new Error('Invalid options: ' + JSON.stringify(options))
-    }
-
-    // Filter: pick all valid options, take others from defaults.
-    var validOptions = pickValid(options, DEFAULT_OPTIONS)
-
-    // If there was no tail, validOptions.tail is the default one.
-    // If there were tail specs, they might be partial.
-    if (typeof options.tail === 'object') {
-      validOptions.tail = pickValid(options.tail, DEFAULT_OPTIONS.tail)
-    }
+    var validOptions = prepareOptions(options)
 
     if (typeof imageUrls !== 'object') {
       throw new Error('Invalid imageUrls')
