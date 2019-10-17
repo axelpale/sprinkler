@@ -1,5 +1,6 @@
 var fitOnResize = require('./lib/fitOnResize')
 var start = require('./start')
+var drop = require('./drop')
 
 exports.create = function (canvas) {
   var state = {
@@ -12,7 +13,8 @@ exports.create = function (canvas) {
   fitOnResize(canvas)
 
   return {
-    start: start(state)
+    start: start(state),
+    drop: drop(state)
   }
 }
 
