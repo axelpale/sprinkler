@@ -138,9 +138,9 @@ There are a few experimental options. See the examples for usage.
 - `xOff`: a number. Moves the particle spawning line along x-axis. Especially useful with `xSteps`.
 - `xSteps`: integer. Restrict the continuous particle spawning line to N discrete points. For example, can be used to create car lanes.
 
-### stop()
+### drop(imageUrls, options)
 
-Stops the animation. It is returned by `start(...)`.
+Drops a single particle. In other aspects it behaves like `start(...)` and takes in the same arguments. Does not return a `stop` function as there is nothing to stop.
 
 
 
