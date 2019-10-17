@@ -7,10 +7,10 @@
   <title>Snowfall | Sprinkler Example</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    body { background: white; }
-    a:link { color: blue; }
-    a:visited { color: blue; }
-    a:hover { color: lightblue; }
+    body { background: white; color: blue; }
+    a:link { color: blue; text-decoration: underline; }
+    a:visited { color: blue; text-decoration: underline; }
+    a:hover { color: lightblue; text-decoration: none; }
   </style>
 </head>
 <body>
@@ -18,7 +18,10 @@
   <canvas id="canvas">
   </canvas>
 
-  <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
+  <div class="info">
+    <h1>Snowfall</h1>
+    <p>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
+  </div>
 
   <script src="https://unpkg.com/sprinkler@1.1.0/dist/sprinkler.min.js"></script>
   <script>
