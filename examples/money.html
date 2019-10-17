@@ -7,49 +7,40 @@
   <title>Money | Sprinkler Example</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    body { background: brown; }
-    a:link { color: darkgray; }
-    a:visited { color: darkgray; }
-    a:hover { color: lightgray; }
+    body { color: orange; background: brown; }
+    a:link { color: orange; text-decoration: underline; }
+    a:visited { color: orange; text-decoration: underline; }
+    a:hover { color: white; text-decoration: none; }
+    .info { user-select: none; }
   </style>
 </head>
 <body>
-
   <canvas id="canvas"></canvas>
 
-  <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
+  <div class="info">
+    <h1>Money</h1>
+    <p>Tap to drop.<br>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
+  </div>
 
-  <script src="https://unpkg.com/sprinkler@1.0.1/dist/sprinkler.min.js"></script>
+  <script src="https://unpkg.com/sprinkler@1.7.0/dist/sprinkler.min.js"></script>
   <script>
   (function () {
     var c = document.getElementById('canvas')
     var s = sprinkler.create(c)
 
     var images = [
-      'img/5cent.png',
-      'img/2cent.png',
-      'img/1cent.png'
+      'img/5cent.png', // 21.3 mm
+      'img/2cent.png', // 18.8 mm
+      'img/1cent.png' // 16.3 mm
     ]
 
-    s.start(['img/5cent.png'], {
-      imagesInSecond: 1,
-      zMin: 1, zMax: 1, // 21.3 mm
-      dyMin: 0, dyMax: 0,
-      ddyMin: 500, ddyMax: 500
-    })
-
-    s.start(['img/2cent.png'], {
-      imagesInSecond: 1,
-      zMin: 0.88, zMax: 0.88, // 18.8 mm
-      dyMin: 0, dyMax: 0,
-      ddyMin: 500, ddyMax: 500
-    })
-
-    s.start(['img/1cent.png'], {
-      imagesInSecond: 1,
-      zMin: 0.77, zMax: 0.77, // 16.3 mm
-      dyMin: 0, dyMax: 0,
-      ddyMin: 500, ddyMax: 500
+    c.addEventListener('click', function () {
+      s.drop(images, {
+        imagesInSecond: 1,
+        zMin: 1, zMax: 1,
+        dyMin: 500, dyMax: 500,
+        ddyMin: 500, ddyMax: 500
+      })
     })
   })()
   </script>
