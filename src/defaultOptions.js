@@ -42,5 +42,6 @@ module.exports = {
     x: 0,
     y: 0
   },
-  particleRenderer: defaultParticleRenderer
+  particleRenderer: defaultParticleRenderer,
+  clickModifier: function (p) { return p }
 }

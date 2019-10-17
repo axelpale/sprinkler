@@ -1,4 +1,5 @@
 var fitOnResize = require('./lib/fitOnResize')
+var listen = require('./listen')
 var start = require('./start')
 var drop = require('./drop')
 
@@ -11,6 +12,9 @@ exports.create = function (canvas) {
 
   // Make canvas resize automatically to full window area
   fitOnResize(canvas)
+
+  // Make particles clickable.
+  listen(canvas, state)
 
   return {
     start: start(state),

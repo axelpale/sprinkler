@@ -133,8 +133,9 @@ Default values are:
 
 There are a few experimental options. See the examples for usage.
 
-- `tail`: additional particles that follow their parent particle.
+- `clickModifier`: a particle manipulation function that gets called when the particle becomes clicked.
 - `particleRenderer`: a custom particle renderer function. Allows you to render complex shapes.
+- `tail`: additional particles that follow their parent particle.
 - `xOff`: a number. Moves the particle spawning line along x-axis. Especially useful with `xSteps`.
 - `xSteps`: integer. Restrict the continuous particle spawning line to N discrete points. For example, can be used to create car lanes.
 
