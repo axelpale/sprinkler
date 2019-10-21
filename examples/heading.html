@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+
+  <title>Heading | Sprinkler Example</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-size: 16px;
+      background: white;
+      color: #004;
+    }
+
+    a:link { text-decoration: underline; color: gray; }
+    a:visited { text-decoration: underline; color: gray; }
+    a:hover { text-decoration: none; color: white; }
+    a:active { text-decoration: none; color: white; }
+
+    .container {
+      width: 80%;
+      margin: 0 auto 0 auto;
+    }
+
+    #heading {
+      position: relative;
+      width: 100%;
+      margin-top: 3em;
+      background: #004;
+    }
+
+    #heading h1 {
+      visibility: hidden;
+      height: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    #heading img {
+      position: relative;
+      display: block;
+      width: 100%;
+      z-index: 1;
+    }
+
+    #canvas {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      display: block;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .container p {
+      font-size: 2em;
+      columns: 2;
+      text-align: justify;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div id="heading">
+      <h1>Heading</h1>
+      <img src="img/sablon-heading.png">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <p>
+      Here is an example of a spiced-up page heading for a web site.
+      The heading is composed of two stacked elements.
+      The bottommost of the two is a rectangular canvas element that is animated with <a href="https://github.com/axelpale/sprinkler">Sprinkler</a>.
+      On top of the animation lies a white PNG-image where the letters of the word "heading" are cut out and left transparent.
+      The animation can be seen through the transparent holes in the image.
+      The result looks like the letters are styled with a moving pattern.
+      Such an effect is difficult to make with current text-styling features of HTML and CSS.
+      Therefore the effect is rarely seen on the web.
+      The animation capabilities provided by Sprinkler make that much easier for the designer and the developer to achieve.
+    </p>
+
+  </div>
+
+  <script src="https://unpkg.com/sprinkler@1.8.0/dist/sprinkler.min.js"></script>
+  <script>
+  (function () {
+    var canvas = document.getElementById('canvas')
+    var s = sprinkler.create(canvas)
+
+    var imgs = {
+      'img/daamond-158x158.png': 1,
+    }
+
+    var opts = {
+      imagesInSecond: 10,
+      burnInSeconds: 40,
+      zMin: 0.5, zMax: 1,
+      rMin: -Math.PI / 4, rMax: Math.PI / 4,
+      dxMin: 0, dxMax: 0,
+      dyMin: 10, dyMax: 10,
+      drMin: -0.1, drMax: 0.1,
+      ddxMin: 0, ddxMax: 0,
+      ddyMin: 10, ddyMax: 10
+    }
+
+    s.start(imgs, opts)
+  })()
+  </script>
+
+</body>
+</html>
