@@ -13,7 +13,7 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 [![Snowfall](examples/preview/snowfall2.png)](https://axelpale.github.io/sprinkler/examples/snowfall.html)
 [![Cars](examples/preview/cars1.png)](https://axelpale.github.io/sprinkler/examples/cars.html)
 [![Crude oil consumption](examples/preview/crudeoil1.png)](http://demo.akselipalen.com/crude-oil-consumption/)
-[![Diamonds](examples/preview/diamonds1.png)](https://axelpale.github.io/sprinkler/examples/diamonds.html)
+[![Heading](examples/preview/heading1.png)](https://axelpale.github.io/sprinkler/examples/heading.html)
 [![Fire](examples/preview/fire2.png)](https://axelpale.github.io/sprinkler/examples/fire.html)
 [![Mojifall](examples/preview/mojifall1.png)](http://demo.akselipalen.com/mojifall-openmoji-emojitracker/)
 [![Love](examples/preview/love2.png)](https://axelpale.github.io/sprinkler/examples/love.html)
