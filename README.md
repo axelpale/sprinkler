@@ -73,9 +73,13 @@ Install via [npm](https://www.npmjs.com/package/sprinkler):
 
 ## API
 
-### sprinkler.create(canvasElement)
+### sprinkler.create(canvasElement, options)
 
 Create a sprinkler animation on the given canvas.
+
+Optional `options` object can take the following properties:
+
+- `responsive`, `true` by default. When `true` then canvas element pixel size follows its styled size. This prevents browsers from scaling the canvas. That gives us full 1:1 canvas-screen pixel ratio. Set `false` to stop sprinkler resizing your canvas element.
 
 
 ### start(imageUrls, options)
@@ -88,7 +92,7 @@ The second parameter `options` is optional object which describes the style of t
 
 Returns a `stop` function that stops the particle generation. Sprinkler allows you to run multiple `start` calls, also called *waves*, concurrently without stopping any.
 
-Optional `options` object can take following properties:
+Optional `options` object can take the following properties:
 
 - `angle`, the main direction of the particle flow in radians. Top to bottom is `0`, left to right is `Math.PI / 2`. Defaults to `0`. This rotates the base x- and y-axis so you do not need to re-adjust other parameters.
 - `imagesInSecond`, an average number of dropped images in a second per 1000 pixels of width. Bound to the width to keep the density the same regardless the canvas size. To let density change but the number of images stay constant instead, see `constantDensity`.

@@ -7,8 +7,8 @@ module.exports = function (canvas) {
   //     HTML Canvas element
   //
   var resizeCanvas = function () {
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    canvas.width = canvas.clientWidth
+    canvas.height = canvas.clientHeight
   }
   // resize the canvas to fill browser window dynamically
   window.addEventListener('resize', resizeCanvas, false)
