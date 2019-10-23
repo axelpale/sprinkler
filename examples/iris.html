@@ -21,25 +21,22 @@
 
   <div class="info">
     <h1>Fisher's Iris Data Set</h1>
-    <p>Here is a visua&shy;liza&shy;tion of the famous <a href="http://archive.ics.uci.edu/ml/datasets/Iris">Fisher's Iris flower dataset</a> from 1936. The set is widely used in the pattern recog&shy;ni&shy;tion lite&shy;ra&shy;ture. Sir Fisher showed how four mea&shy;su&shy;re&shy;ments of a flower can decide whether it is an Iris Setosa, Iris Versi&shy;color, or Iris Virgi&shy;nica. Can you tell which flowers belong to the same group?</p>
+    <p>Here is a visua&shy;liza&shy;tion of the famous <a href="http://archive.ics.uci.edu/ml/datasets/Iris">Fisher's Iris flower dataset</a> from 1936. The set is widely used in the pattern recog&shy;ni&shy;tion lite&shy;ra&shy;ture.
+    Sir Fisher showed how four mea&shy;su&shy;re&shy;ments of a flower can decide whether it is an <span style="color: #0000FF">Iris Setosa</span>, <span style="color: #7F00FF">Iris Versi&shy;color</span>, or <span style="color: #FF00FF">Iris Virgi&shy;nica</span>.</p>
+    <p>Can you tell which flowers belong to the same group? Tap a flower to reveal its species.</p>
     <p>Made with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
   </div>
 
-  <script src="https://unpkg.com/sprinkler@1.6.0/dist/sprinkler.min.js"></script>
+  <script src="https://unpkg.com/sprinkler@1.9.0/dist/sprinkler.min.js"></script>
   <script>
   (function () {
-    var canvas = document.getElementById('canvas')
-    var s = sprinkler.create(canvas)
-
-    // In this example we use a custom render which
-    // build each particle from small images.
-    // Therefore we need to setup the small images beforehand.
-    var petal = new window.Image(32, 32)
-    petal.src = 'img/petal-32.png'
-    var sepal = new window.Image(32, 32)
-    sepal.src = 'img/sepal-32.png'
-
-    s.start([
+    // Fisher's data.
+    // 0: sepal height
+    // 1: sepal width
+    // 2: petal height
+    // 3: petal width
+    // 4: class
+    var dataset = [
       [5.1, 3.5, 1.4, 0.2, 'Iris-setosa'],
       [4.9, 3.0, 1.4, 0.2, 'Iris-setosa'],
       [4.7, 3.2, 1.3, 0.2, 'Iris-setosa'],
@@ -190,23 +187,84 @@
       [6.5, 3.0, 5.2, 2.0, 'Iris-virginica'],
       [6.2, 3.4, 5.4, 2.3, 'Iris-virginica'],
       [5.9, 3.0, 5.1, 1.8, 'Iris-virginica']
-    ], {
+    ]
+
+    // In this example we use a custom renderer that
+    // builds each particle from a set of petal and sepal images.
+    // Therefore we need to setup the small images beforehand.
+    var IMGSIZE = 32
+    var newImg = function (src) {
+      var img = new window.Image(IMGSIZE, IMGSIZE)
+      img.src = src
+      return img
+    }
+    var classToPetal = {
+      'unknown': newImg('img/petal-32-black.png'),
+      'Iris-setosa': newImg('img/petal-32-blue.png'),
+      'Iris-versicolor': newImg('img/petal-32-purple.png'),
+      'Iris-virginica': newImg('img/petal-32-magenta.png')
+    }
+    var classToSepal = {
+      'unknown': newImg('img/sepal-32-black.png'),
+      'Iris-setosa': newImg('img/sepal-32-blue.png'),
+      'Iris-versicolor': newImg('img/sepal-32-purple.png'),
+      'Iris-virginica': newImg('img/sepal-32-magenta.png')
+    }
+
+    // Init sprinkler
+    var canvas = document.getElementById('canvas')
+    var s = sprinkler.create(canvas)
+
+    s.start(dataset, {
       angle: -Math.PI / 32,
       burnInSeconds: 200,
       imagesInSecond: 0.5,
-      zMin: 1, zMax: 1,
+      zMin: 0.3, zMax: 0.3,
       dyMin: 10, dyMax: 10,
       drMin: -0.05, drMax: 0.1,
-      particleRenderer: function (ctx, particle, datum) {
-        if (!petal.complete || !sepal.complete) {
+      clickModifier: function (particle) {
+        // Let particle renderer know that the particle has been clicked.
+        return Object.assign({}, particle, {
+          clicked: true
+        })
+      },
+      particleSize: function (particle) {
+        // Sprinkler cannot know the size of the result of
+        // the custom particle renderer. Therefore for
+        // the click hit detection to work, we must
+        // describe the particle size with a custom
+        // particleSize function.
+        var datum = particle.imageUrl
+        var ph = datum[2] * IMGSIZE
+        var sh = datum[0] * IMGSIZE
+        var size = Math.max(ph, sh) * 1.9 // 1.9 'cuz 30°
+        return {
+          width: size,
+          height: size
+        }
+      },
+      particleRenderer: function (ctx, particle) {
+        // Choose correct images
+        var datum = particle.imageUrl
+        var petalImg, sepalImg
+        if (particle.clicked) {
+          petalImg = classToPetal[datum[4]]
+          sepalImg = classToSepal[datum[4]]
+        } else {
+          petalImg = classToPetal['unknown']
+          sepalImg = classToSepal['unknown']
+        }
+
+        // Do not render images that are not yet downloaded.
+        if (!petalImg.complete || !sepalImg.complete) {
           return
         }
 
-        var z = 0.3
-        var petalW = datum[3] * petal.width * z
-        var petalH = datum[2] * petal.height * z
-        var sepalW = datum[1] * sepal.width * z
-        var sepalH = datum[0] * sepal.height * z
+        // Position and render petals and sepals for the flower.
+        var petalW = datum[3] * IMGSIZE * particle.z
+        var petalH = datum[2] * IMGSIZE * particle.z
+        var sepalW = datum[1] * IMGSIZE * particle.z
+        var sepalH = datum[0] * IMGSIZE * particle.z
         var petalOffX = -petalW / 2
         var petalOffY = -petalH
         var sepalOffX = -sepalW / 2
@@ -216,24 +274,25 @@
         ctx.translate(particle.x, particle.y)
 
         ctx.rotate(particle.r)
-        ctx.drawImage(petal, petalOffX, petalOffY, petalW, petalH)
+        ctx.drawImage(petalImg, petalOffX, petalOffY, petalW, petalH)
 
         ctx.rotate(r)
-        ctx.drawImage(sepal, sepalOffX, sepalOffY, sepalW, sepalH)
+        ctx.drawImage(sepalImg, sepalOffX, sepalOffY, sepalW, sepalH)
 
         ctx.rotate(r)
-        ctx.drawImage(petal, petalOffX, petalOffY, petalW, petalH)
+        ctx.drawImage(petalImg, petalOffX, petalOffY, petalW, petalH)
 
         ctx.rotate(r)
-        ctx.drawImage(sepal, sepalOffX, sepalOffY, sepalW, sepalH)
+        ctx.drawImage(sepalImg, sepalOffX, sepalOffY, sepalW, sepalH)
 
         ctx.rotate(r)
-        ctx.drawImage(petal, petalOffX, petalOffY, petalW, petalH)
+        ctx.drawImage(petalImg, petalOffX, petalOffY, petalW, petalH)
 
         ctx.rotate(r)
-        ctx.drawImage(sepal, sepalOffX, sepalOffY, sepalW, sepalH)
+        ctx.drawImage(sepalImg, sepalOffX, sepalOffY, sepalW, sepalH)
 
-        ctx.setTransform(1, 0, 0, 1, 0, 0) // resetTransform
+        // Reset transform
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
       }
     })
   })()
