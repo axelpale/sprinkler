@@ -7,10 +7,10 @@
   <title>Love | Sprinkler Example</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    body { background: darkred; }
-    a:link { color: red; }
-    a:visited { color: red; }
-    a:hover { color: brown; }
+    body { background: darkred; color: red; }
+    a:link { color: red; text-decoration: underline; }
+    a:visited { color: red; text-decoration: underline; }
+    a:hover { color: brown; text-decoration: none; }
   </style>
 </head>
 <body>
@@ -18,20 +18,23 @@
   <canvas id="canvas">
   </canvas>
 
-  <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
+  <div class="info">
+    <h1>Love</h1>
+    <p>Made with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
+  </div>
 
-  <script src="https://unpkg.com/sprinkler@1.1.1/dist/sprinkler.min.js"></script>
+  <script src="https://unpkg.com/sprinkler@1.8.0/dist/sprinkler.min.js"></script>
   <script>
   (function () {
     var canvas = document.getElementById('canvas')
     var s = sprinkler.create(canvas)
 
     s.start({
-      'img/heart.png': 10,
+      'img/heart.png': 6,
       'img/heartpile.png': 1
     }, {
-      imagesInSecond: 25,
-      burnInSeconds: 10,
+      imagesInSecond: 15,
+      burnInSeconds: 15,
       zMin: 0.1, zMax: 0.23,
       rMin: 0, rMax: 0,
       dxMin: -5, dxMax: 5,
