@@ -36,23 +36,19 @@ module.exports = function (state, wave) {
     image = imageUrl
   }
 
+  // Find distance to the spawn line.
   var angle = opts.angle
   var w = state.canvas.width
   var h = state.canvas.height
   var diag = projectedWidth(angle, w, h) // NOTE 0 angle here means to right.
-
-  // Find distance to the spawn line.
-  var radius
-  if (image.complete) {
-    // Known particle size.
-    // Spawn close to viewport border.
-    radius = opts.zMax * Math.max(image.width, image.height) + diag / 2
-  } else {
-    // Unknown particle size.
-    // Use screen diagonal as distance from screen center.
-    // This leaves room for large sprites.
-    radius = diag
-  }
+  // Particle size affects the spawning distance.
+  // We try to spawn particles as close to the canvas as possible to keep
+  // the number of particles low.
+  var psize = wave.options.particleSize({
+    image: image,
+    imageUrl: imageUrl
+  })
+  var radius = opts.zMax * Math.max(psize.width, psize.height) + diag / 2
 
   // A vector from the canvas center to the spawn line center.
   // sin(0) = 0

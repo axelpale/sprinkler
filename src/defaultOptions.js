@@ -1,5 +1,18 @@
 var defaultParticleRenderer = require('./view/renderParticle')
 
+var defaultParticleSize = function (p) {
+  if (p.image.complete) {
+    return {
+      width: p.image.width,
+      height: p.image.height
+    }
+  }
+  return {
+    width: 512,
+    height: 512
+  }
+}
+
 module.exports = {
   angle: 0, // radians
   imagesInSecond: 7,
@@ -43,5 +56,6 @@ module.exports = {
     y: 0
   },
   particleRenderer: defaultParticleRenderer,
-  clickModifier: function (p) { return p }
+  clickModifier: function (p) { return p },
+  particleSize: defaultParticleSize
 }
