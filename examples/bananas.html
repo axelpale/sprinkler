@@ -15,6 +15,7 @@
 
     body {
       font-size: 16px;
+      font-family: Verdana, Geneva, sans-serif;
       background: yellow;
       color: green;
     }
@@ -35,12 +36,31 @@
     }
 
     .info {
-      font-family: Verdana, Geneva, sans-serif;
-      padding: 1rem;
-      max-width: 16rem;
       position: relative;
       z-index: 1;
+      margin: 10% auto 0 auto;
+      padding: 0;
+      text-align: center;
+      font-size: 2rem;
       user-select: none;
+    }
+
+    .level {
+      display: block;
+      text-align: center;
+      user-select: none;
+    }
+
+    .level .progress {
+      display: inline-block;
+      width: 10em;
+      height: 1em;
+      border: 1px solid darkgreen;
+    }
+    .level .progress div {
+      display: relative;
+      height: 100%;
+      background-color: darkgreen;
     }
 
     .info h1 {
@@ -57,22 +77,25 @@
     a:visited { color: darkgreen; }
     a:hover { color: lightgreen; }
 
-    #score {
-      margin-bottom: 0;
+    .icon {
+      width: 1em;
+      height: 1em;
+      margin: 0.1em;
+      vertical-align: middle;
     }
+
   </style>
 </head>
 <body>
   <canvas id="canvas">
   </canvas>
 
-  <div class="info">
-    <h1>Drop Dem Bananas</h1>
-    <p>Tap to drop, hit to score.</p>
-    <h2 id="level"></h2>
-    <p id="prizes"></p>
-    <p>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a><br>
-    Images from <a href="http://pngimg.com/download/805">pngimg.com</a></p>
+  <h2 id="level" class="level"></h2>
+
+  <div id="info" class="info">
+    <h1 id="title">Drop Dem Bananas</h1>
+    <p id="instructions"></p>
+    <p id="credits"></p>
   </div>
 
   <script src="https://unpkg.com/sprinkler@1.9.0/dist/sprinkler.min.js"></script>
@@ -92,9 +115,11 @@
       1000,
       10000
     ]
+    var weights = prizes.map(z => Math.pow(z, -0.5))
     var levels = [
       {
         scoreGoal: 10,
+        newItems: [],
         endEffect: {
           intensity: 10,
           duration: 1000 // ms
@@ -102,6 +127,7 @@
       },
       {
         scoreGoal: 100,
+        newItems: [1],
         endEffect: {
           intensity: 20,
           duration: 1500
@@ -109,6 +135,7 @@
       },
       {
         scoreGoal: 1000,
+        newItems: [2],
         endEffect: {
           intensity: 40,
           duration: 2000
@@ -116,6 +143,7 @@
       },
       {
         scoreGoal: 10000,
+        newItems: [3],
         endEffect: {
           intensity: 60,
           duration: 3000
@@ -123,15 +151,18 @@
       },
       {
         scoreGoal: 100000,
+        newItems: [4],
         endEffect: {
           intensity: 100,
           duration: 5000
         }
       }
     ]
-    var weights = prizes.map(z => Math.pow(z, -0.5))
 
     var state = {
+      started: false,
+      ended: false,
+      paused: true,
       score: 0,
       level: 0,
       collectedItems: images.map(() => 0)
@@ -140,31 +171,75 @@
     var c = document.getElementById('canvas')
     var s = sprinkler.create(c)
 
-    // Render prizes
-    var renderPrizes = function () {
-      var prizesEl = document.getElementById('prizes')
-      prizesEl.innerHTML = 'Prizes:<br>' + images.map((url, i) => {
-        var imgEl = '<img src="' + url + '" width="16" height="16">'
-        return imgEl + ' ' + prizes[i]
-      }).reverse().join('<br>')
+    var fruitIcon = function (index) {
+      return '<img src="' + images[index] + '" class="icon">'
     }
-    renderPrizes()
+    var bananaIcon = fruitIcon(0)
+    var creditsHtml = 'Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a><br>Images from <a href="http://pngimg.com/download/805">pngimg.com</a>'
 
-    // Render score
-    var render = function () {
-      var levelEl = document.getElementById('level')
+    var startGame = function () {
+      state.started = true
+      state.paused = false
+      renderInfo()
+      renderLevelBar()
+      document.body.removeEventListener('click', startGame)
+    }
 
-      if (state.level < levels.length) {
-        var l = state.level + 1
-        var s = state.score
+    // Render
+    var renderInfo = function () {
+      var infoEl = document.getElementById('info')
+      var titleEl = document.getElementById('title')
+      var instrEl = document.getElementById('instructions')
+      var creditsEl = document.getElementById('credits')
+
+      if (!state.started) {
+        infoEl.style.display = 'block'
+        titleEl.innerHTML = 'Drop Dem Bananas'
+        instrEl.innerHTML = 'Tap to drop, hit to collect.'
+        creditsEl.innerHTML = creditsHtml
+        document.body.addEventListener('click', startGame)
+      } else if (state.ended) {
+        infoEl.style.display = 'block'
+        titleEl.innerHTML = 'WIN'
+        instrEl.innerHTML = 'Refresh to play again.'
+      } else if (state.paused) {
+        infoEl.style.display = 'block'
+        titleEl.innerHTML = 'Level ' + (state.level + 1)
         var g = levels[state.level].scoreGoal
-        levelEl.innerHTML = 'Lvl ' + l + ' [' + s + '/' + g + ']'
+        var inst = 'Collect ' + g + bananaIcon
+        levels[state.level].newItems.forEach(function (itemIndex) {
+          var value = prizes[itemIndex]
+          inst += '<br><br>New fruit<br>' + fruitIcon(itemIndex) + ' = ' + value + bananaIcon
+        })
+        instrEl.innerHTML = inst
+        creditsEl.innerHTML = ''
+        window.setTimeout(function () {
+          document.body.addEventListener('click', startGame)
+        }, 1000)
       } else {
-        levelEl.innerHTML = 'WIN'
+        infoEl.style.display = 'none'
       }
     }
 
-    var runLevelEffect = function (lvl) {
+    var renderLevelBar = function () {
+      var levelEl = document.getElementById('level')
+
+      if (!state.started || state.ended) {
+        levelEl.style.display = 'none';
+      } else {
+        if (state.level < levels.length) {
+          var l = state.level + 1
+          var s = state.score
+          var g = levels[state.level].scoreGoal
+          var r = 100 * s / g
+          levelEl.innerHTML = '' + s + bananaIcon + ' <div class="progress"><div style="width: ' + r +'%;"></div></div> ' + g + bananaIcon
+        } else {
+          levelEl.innerHTML = 'WIN'
+        }
+      }
+    }
+
+    var runLevelEndEffect = function (lvl) {
       var eff = levels[lvl].endEffect
       var stop = s.start(['img/star.png'], {
         imagesInSecond: eff.intensity,
@@ -198,19 +273,25 @@
       var passedLevels = levels.filter(item => item.scoreGoal <= state.score)
       var newLevel = passedLevels.length
       if (state.level < newLevel) {
+        state.paused = true
         if (newLevel >= levels.length) {
+          // Last level finished
+          state.ended = true
           runWinEffect()
+          renderInfo()
         } else {
-          runLevelEffect(state.level)
+          // Next level
+          runLevelEndEffect(state.level)
+          state.level = newLevel
+          renderInfo()
         }
-        state.level = newLevel
       }
 
-      render()
+      renderLevelBar()
     }
 
-    // Init scores
-    render()
+    // Splash screen
+    renderInfo()
 
     var clickModifier = function (p) {
       if (p.clicked) {
