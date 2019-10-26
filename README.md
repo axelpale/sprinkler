@@ -80,6 +80,7 @@ Create a sprinkler animation on the given canvas.
 Optional `options` object can take the following properties:
 
 - `responsive`, `true` by default. When `true` then canvas element pixel size follows its styled size. This prevents browsers from scaling the canvas. That gives us full 1:1 canvas-screen pixel ratio. Set `false` to stop sprinkler resizing your canvas element.
+- `postAnimationFrame`, a function. If specified, called after every animation loop render step. Allows usage of [CCapture](https://github.com/spite/ccapture.js) to record the animation frame by frame and produce a high-quality video.
 
 
 ### start(imageUrls, options)
