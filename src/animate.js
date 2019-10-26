@@ -38,6 +38,11 @@ var animationLoop = function (state) {
       animationLoop(state)
     })
   }
+
+  // Allow hooking ccapture to record the animation frame by frame.
+  if (state.options.postAnimationFrame) {
+    state.options.postAnimationFrame(state)
+  }
 }
 
 module.exports = function (state) {

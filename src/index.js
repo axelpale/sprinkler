@@ -4,14 +4,15 @@ var start = require('./start')
 var drop = require('./drop')
 
 exports.create = function (canvas, opts) {
+  if (typeof opts !== 'object') {
+    opts = {}
+  }
+
   var state = {
     canvas: canvas,
     loadedImages: {}, // a map from URL-string to Image object.
-    waves: []
-  }
-
-  if (typeof opts !== 'object') {
-    opts = {}
+    waves: [],
+    options: opts
   }
 
   // Make canvas resize automatically to full window area
