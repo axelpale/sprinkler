@@ -52,7 +52,7 @@ If you need more rusty anvils than black ones, give the image URLs as a distribu
 
 ### Browsers
 
-    <script src="https://unpkg.com/sprinkler@1.0.1/dist/sprinkler.min.js"></script>
+    <script src="https://unpkg.com/sprinkler@1.9.0/dist/sprinkler.min.js"></script>
     <script>
       var c = document.getElementById('canvas')
       var s = sprinkler.create(c)
