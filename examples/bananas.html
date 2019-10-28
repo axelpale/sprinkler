@@ -35,18 +35,8 @@
       height: 100%;
     }
 
-    .info {
-      position: relative;
-      z-index: 1;
-      margin: 10% auto 0 auto;
-      padding: 0;
-      text-align: center;
-      font-size: 2rem;
-      user-select: none;
-    }
-
     .level {
-      display: block;
+      display: none; /* hidden by default */
       text-align: center;
       user-select: none;
     }
@@ -63,23 +53,36 @@
       background-color: darkgreen;
     }
 
-    .info h1 {
+    .splash {
+      position: relative;
+      z-index: 1;
+      margin: 10% auto 0 auto;
+      padding: 0;
+      text-align: center;
+      font-size: 2rem;
+      user-select: none;
+    }
+
+    .splash h1 {
       margin-top: 0;
       margin-bottom: 0;
     }
 
-    .info p {
+    .splash p {
       margin-top: 0.79em;
       margin-bottom: 1.27em;
     }
+
+    .blink { color: white; }
+    .blink-on { color: darkgreen; }
 
     a:link { color: darkgreen; }
     a:visited { color: darkgreen; }
     a:hover { color: lightgreen; }
 
     .icon {
-      width: 1em;
-      height: 1em;
+      width: 2em;
+      height: 2em;
       margin: 0.1em;
       vertical-align: middle;
     }
@@ -92,7 +95,7 @@
 
   <h2 id="level" class="level"></h2>
 
-  <div id="info" class="info">
+  <div id="splash" class="splash">
     <h1 id="title">Drop Dem Bananas</h1>
     <p id="instructions"></p>
     <p id="credits"></p>
@@ -162,6 +165,11 @@
         }
       }
     ]
+    var config = {
+      startInputDelay: 1500,
+      levelSplashInputDelay: 2000,
+      blinkInterval: 800
+    }
 
     // State object in its initial state
     var state = {
@@ -185,24 +193,32 @@
     var creditsHtml = 'Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a><br>Images from <a href="http://pngimg.com/download/805">pngimg.com</a>'
 
     var renderSplashScreen = function () {
-      var infoEl = document.getElementById('info')
+      var splashEl = document.getElementById('splash')
       var titleEl = document.getElementById('title')
       var instrEl = document.getElementById('instructions')
       var creditsEl = document.getElementById('credits')
 
       if (!state.started) {
-        infoEl.style.display = 'block'
+        splashEl.style.display = 'block'
         titleEl.innerHTML = 'Drop Dem Bananas'
         instrEl.innerHTML = 'Tap to drop, hit to collect.'
         creditsEl.innerHTML = creditsHtml
-        document.body.addEventListener('click', startGame)
+        window.setTimeout(function () {
+          var blinker = '<span class="blink">Tap to start</span>'
+          creditsEl.innerHTML = creditsEl.innerHTML + '<br><br>' + blinker
+          document.body.addEventListener('click', startGame)
+        }, config.startInputDelay)
       } else if (state.ended) {
-        infoEl.style.display = 'block'
-        titleEl.innerHTML = 'WIN'
+        splashEl.style.display = 'block'
+        titleEl.innerHTML = '<span class="blink">WIN</span>'
         instrEl.innerHTML = 'Refresh to play again.'
       } else if (state.paused) {
-        infoEl.style.display = 'block'
-        titleEl.innerHTML = 'Level ' + (state.level + 1)
+        splashEl.style.display = 'block'
+        if (state.level < 4) {
+          titleEl.innerHTML = 'Level ' + (state.level + 1)
+        } else {
+          titleEl.innerHTML = 'Final level'
+        }
         var g = levels[state.level].scoreGoal
         var inst = 'Collect ' + g + bananaIcon
         levels[state.level].newItems.forEach(function (itemIndex) {
@@ -212,10 +228,12 @@
         instrEl.innerHTML = inst
         creditsEl.innerHTML = ''
         window.setTimeout(function () {
+          var blinker = '<span class="blink">Tap to continue</span>'
+          instrEl.innerHTML = instrEl.innerHTML + '<br><br>' + blinker
           document.body.addEventListener('click', startGame)
-        }, 1000)
+        }, config.levelSplashInputDelay)
       } else {
-        infoEl.style.display = 'none'
+        splashEl.style.display = 'none'
       }
     }
 
@@ -225,6 +243,7 @@
       if (!state.started || state.ended) {
         levelEl.style.display = 'none';
       } else {
+        levelEl.style.display = 'block';
         if (state.level < levels.length) {
           var l = state.level + 1
           var s = state.score
@@ -237,7 +256,17 @@
       }
     }
 
-    // ### Effects ###
+    // Attention gathering on-off text effect
+    var runBlinker = function () {
+      var els = document.getElementsByClassName('blink')
+      for (var i = 0; i < els.length; i += 1) {
+        els[i].classList.toggle('blink-on')
+      }
+      window.setTimeout(runBlinker, config.blinkInterval)
+    }
+    runBlinker()
+
+    // ### Drop effects ###
 
     var runLevelEndEffect = function (lvl) {
       var eff = levels[lvl].endEffect
