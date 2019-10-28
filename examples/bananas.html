@@ -101,6 +101,10 @@
   <script src="https://unpkg.com/sprinkler@1.9.0/dist/sprinkler.min.js"></script>
   <script>
   (function () {
+    // Drop Dem Bananas
+
+    // ### Configuration ###
+
     var images = [
       'img/banana.png',
       'img/orange.png',
@@ -159,6 +163,7 @@
       }
     ]
 
+    // State object in its initial state
     var state = {
       started: false,
       ended: false,
@@ -167,6 +172,8 @@
       level: 0,
       collectedItems: images.map(() => 0)
     }
+
+    // ### Rendering ###
 
     var c = document.getElementById('canvas')
     var s = sprinkler.create(c)
@@ -177,16 +184,7 @@
     var bananaIcon = fruitIcon(0)
     var creditsHtml = 'Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a><br>Images from <a href="http://pngimg.com/download/805">pngimg.com</a>'
 
-    var startGame = function () {
-      state.started = true
-      state.paused = false
-      renderInfo()
-      renderLevelBar()
-      document.body.removeEventListener('click', startGame)
-    }
-
-    // Render
-    var renderInfo = function () {
+    var renderSplashScreen = function () {
       var infoEl = document.getElementById('info')
       var titleEl = document.getElementById('title')
       var instrEl = document.getElementById('instructions')
@@ -239,6 +237,8 @@
       }
     }
 
+    // ### Effects ###
+
     var runLevelEndEffect = function (lvl) {
       var eff = levels[lvl].endEffect
       var stop = s.start(['img/star.png'], {
@@ -261,7 +261,28 @@
       })
     }
 
-    // Keep track of game level progression by keeping track of collected items
+    var runDropEffect = function (imageDist) {
+      var stop = s.start(imageDist, {
+        imagesInSecond: 1,
+        constantDensity: false,
+        zMin: 0.38, zMax: 0.62,
+        dyMin: 200, dyMax: 400,
+        ddyMin: 20, ddyMax: 20,
+        ddrMin: 2, ddrMax: 2,
+        clickModifier: clickModifier
+      })
+      window.setTimeout(stop, 1000)
+    }
+
+    // ### State mutators ###
+
+    var startGame = function () {
+      state.started = true
+      state.paused = false
+      renderSplashScreen()
+      renderLevelBar()
+      document.body.removeEventListener('click', startGame)
+    }
 
     var collectItem = function (imageIndex) {
       state.collectedItems[imageIndex] += 1
@@ -269,7 +290,7 @@
       var prize = prizes[imageIndex]
       state.score += prize
 
-      // Recompute level
+      // Recompute player level
       var passedLevels = levels.filter(item => item.scoreGoal <= state.score)
       var newLevel = passedLevels.length
       if (state.level < newLevel) {
@@ -278,21 +299,24 @@
           // Last level finished
           state.ended = true
           runWinEffect()
-          renderInfo()
+          renderSplashScreen()
         } else {
           // Next level
           runLevelEndEffect(state.level)
           state.level = newLevel
-          renderInfo()
+          renderSplashScreen()
         }
       }
 
       renderLevelBar()
     }
 
-    // Splash screen
-    renderInfo()
+    // Initial rendering: splash screen
+    renderSplashScreen()
 
+    // ### Interaction ###
+
+    // When user presses on a fruit, convert it to a star.
     var clickModifier = function (p) {
       if (p.clicked) {
         return p
@@ -315,6 +339,7 @@
       })
     }
 
+    // When user presses on the canvas, drop a random amount of fruits.
     var clickHandler = function () {
       var imagesForLevel = images.slice(0, state.level + 1)
       var imageDist = imagesForLevel.reduce((acc, url, i) => {
@@ -322,16 +347,7 @@
         return acc
       }, {})
 
-      var stop = s.start(imageDist, {
-        imagesInSecond: 1,
-        constantDensity: false,
-        zMin: 0.38, zMax: 0.62,
-        dyMin: 200, dyMax: 400,
-        ddyMin: 20, ddyMax: 20,
-        ddrMin: 2, ddrMax: 2,
-        clickModifier: clickModifier
-      })
-      window.setTimeout(stop, 1000)
+      runDropEffect(imageDist)
     }
 
     c.addEventListener('click', clickHandler)
