@@ -149,6 +149,12 @@ There are a few experimental options. See the examples for usage.
 
 Drops a single particle. In other aspects it behaves like `start(...)` and takes in the same arguments. Does not return a `stop` function as there is nothing to stop.
 
+### on(eventName, callback)
+
+Subscribes an listener to an event. Available events emitted by the rain are:
+
+- 'particle-created'. Calls `callback(particle)`.
+
 
 
 ## Notes for developers
