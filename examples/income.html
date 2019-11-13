@@ -11,6 +11,20 @@
     a:link, a:visited { color: orange; }
     a:hover, a:active { color: white; }
     .info { user-select: none; }
+    #earnings {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      text-align: right;
+      font-size: 6rem;
+      padding: 6rem;
+    }
+    #earnings-money {
+      margin-left: 0.24em;
+    }
+    #earnings .title {
+      font-size: 0.38em;
+    }
   </style>
 </head>
 <body>
@@ -18,44 +32,57 @@
 
   <div class="info">
     <h1>Income Visualizer</h1>
-    <p>Input your monthly income to see how it looks in real-time. <br>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
+    <p>Input your monthly income to see how it looks real-time in dollars.</p>
     <form id="income-form">
       <label for="monthly-income">$</label>
-      <input id="monthly-income" type="text" value="4000">
+      <input id="monthly-income" type="text" value="50000">
     </form>
-
-    <div id="earnings">
-      <span>Earnings this far:</span><br>
-      $<span id="earnings-money"></span>
-    </div>
+    <p>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
   </div>
 
-  <script src="https://unpkg.com/sprinkler@1.10.0/dist/sprinkler.min.js"></script>
+  <div id="earnings">
+    <span class="title">Earnings so far</span><br>
+    $<span id="earnings-money"></span>
+  </div>
+
+  <script src="../dist/sprinkler.min.js"></script>
   <script>
   (function () {
     var c = document.getElementById('canvas')
     var rain = sprinkler.create(c)
 
     var images = [
-      'img/5cent.png', // 21.3 mm
-      'img/2cent.png', // 18.8 mm
-      'img/1cent.png' // 16.3 mm
+      'img/coin-heads.png',
+      'img/coin-tails.png'
     ]
+    var rainOpts = {
+      imagesInSecond: 0, // will be replaced
+      zMin: 1, zMax: 1,
+      dyMin: 200, dyMax: 200,
+      ddyMin: 400, ddyMax: 400
+    }
+
+    // Earnings
+    var earnings = 0;
+    var renderEarnings = function (p) {
+      var earningsMoneyEl = document.getElementById('earnings-money')
+      earningsMoneyEl.innerHTML = '' + earnings
+      earnings += 1;
+    }
+    rain.on('particle-created', renderEarnings)
+    // Initial render
+    renderEarnings()
 
     var stop = null
     var startUpdateRain = function (income) {
       if (stop) {
         stop()
       }
-      stop = rain.start(images, {
-        imagesInSecond: income / (30 * 24 * 60 * 60),
-        zMin: 1, zMax: 1,
-        dyMin: 500, dyMax: 500,
-        ddyMin: 500, ddyMax: 500
-      })
+      stop = rain.start(images, Object.assign({}, rainOpts, {
+        imagesInSecond: income / (30 * 24 * 60 * 60)
+      }))
     }
 
-    var earningsMoney = document.getElementById('earnings-money')
     var incomeInput = document.getElementById('monthly-income')
     var incomeForm = document.getElementById('income-form')
     var readInput = function () {
@@ -74,6 +101,9 @@
 
     // Init the rain
     startUpdateRain(readInput())
+
+    // Drop first
+    rain.drop(images, rainOpts)
   })()
   </script>
 
