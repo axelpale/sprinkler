@@ -201,7 +201,7 @@
       if (!state.started) {
         splashEl.style.display = 'block'
         titleEl.innerHTML = 'Drop Dem Bananas'
-        instrEl.innerHTML = 'Tap to drop, hit to collect.'
+        instrEl.innerHTML = 'Tap anywhere to drop. Tap fruits to win.'
         creditsEl.innerHTML = creditsHtml
         window.setTimeout(function () {
           var blinker = '<span class="blink">Tap to start</span>'
@@ -223,7 +223,8 @@
         var inst = 'Collect ' + g + bananaIcon
         levels[state.level].newItems.forEach(function (itemIndex) {
           var value = prizes[itemIndex]
-          inst += '<br><br>New fruit<br>' + fruitIcon(itemIndex) + ' = ' + value + bananaIcon
+          inst += '<br><br>New fruit<br>' + fruitIcon(itemIndex)
+          inst += ' = ' + value + ' x ' + bananaIcon
         })
         instrEl.innerHTML = inst
         creditsEl.innerHTML = ''
