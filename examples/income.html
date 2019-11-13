@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+
+  <title>Income | Sprinkler Example</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { color: orange; background: brown; }
+    a:link, a:visited { color: orange; }
+    a:hover, a:active { color: white; }
+    .info { user-select: none; }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <div class="info">
+    <h1>Income</h1>
+    <p>Input your monthly income to see how it looks in real-time. <br>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
+    <form id="income-form">
+      <label for="monthly-income">$</label>
+      <input id="monthly-income" type="text" value="4000">
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/sprinkler@1.10.0/dist/sprinkler.min.js"></script>
+  <script>
+  (function () {
+    var c = document.getElementById('canvas')
+    var spri = sprinkler.create(c)
+
+    var images = [
+      'img/5cent.png', // 21.3 mm
+      'img/2cent.png', // 18.8 mm
+      'img/1cent.png' // 16.3 mm
+    ]
+
+    var stop = null
+    var updateRain = function (income) {
+      if (stop) {
+        stop()
+      }
+      stop = spri.start(images, {
+        imagesInSecond: income / (30 * 24 * 60 * 60),
+        zMin: 1, zMax: 1,
+        dyMin: 500, dyMax: 500,
+        ddyMin: 500, ddyMax: 500
+      })
+    }
+
+    var incomeInput = document.getElementById('monthly-income')
+    var incomeForm = document.getElementById('income-form')
+    var readInput = function () {
+      return parseFloat(incomeInput.value)
+    }
+
+    // Update after user modifies the income.
+    incomeInput.addEventListener('change', function () {
+      updateRain(readInput())
+    })
+    incomeForm.addEventListener('submit', function (ev) {
+      ev.preventDefault() // avoid page reload
+      incomeInput.blur() // remove focus from form
+      updateRain(readInput())
+    })
+
+    // Init the rain
+    updateRain(readInput())
+  })()
+  </script>
+
+</body>
+</html>
