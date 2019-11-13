@@ -34,7 +34,7 @@
   <script>
   (function () {
     var c = document.getElementById('canvas')
-    var spri = sprinkler.create(c)
+    var rain = sprinkler.create(c)
 
     var images = [
       'img/5cent.png', // 21.3 mm
@@ -47,7 +47,7 @@
       if (stop) {
         stop()
       }
-      stop = spri.start(images, {
+      stop = rain.start(images, {
         imagesInSecond: income / (30 * 24 * 60 * 60),
         zMin: 1, zMax: 1,
         dyMin: 500, dyMax: 500,
