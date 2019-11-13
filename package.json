@@ -27,7 +27,9 @@
     "url": "git://github.com/axelpale/sprinkler.git"
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "minibus": "^3.1.0"
+  },
   "devDependencies": {
     "genversion": "^2.2.0",
     "standard": "^14.3.1",
