@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
 
-  <title>Income | Sprinkler Example</title>
+  <title>Income Visualizer | Sprinkler Example</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
     body { color: orange; background: brown; }
@@ -17,12 +17,17 @@
   <canvas id="canvas"></canvas>
 
   <div class="info">
-    <h1>Income</h1>
+    <h1>Income Visualizer</h1>
     <p>Input your monthly income to see how it looks in real-time. <br>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
     <form id="income-form">
       <label for="monthly-income">$</label>
       <input id="monthly-income" type="text" value="4000">
     </form>
+
+    <div id="earnings">
+      <span>Earnings this far:</span><br>
+      $<span id="earnings-money"></span>
+    </div>
   </div>
 
   <script src="https://unpkg.com/sprinkler@1.10.0/dist/sprinkler.min.js"></script>
@@ -38,7 +43,7 @@
     ]
 
     var stop = null
-    var updateRain = function (income) {
+    var startUpdateRain = function (income) {
       if (stop) {
         stop()
       }
@@ -50,6 +55,7 @@
       })
     }
 
+    var earningsMoney = document.getElementById('earnings-money')
     var incomeInput = document.getElementById('monthly-income')
     var incomeForm = document.getElementById('income-form')
     var readInput = function () {
@@ -58,16 +64,16 @@
 
     // Update after user modifies the income.
     incomeInput.addEventListener('change', function () {
-      updateRain(readInput())
+      startUpdateRain(readInput())
     })
     incomeForm.addEventListener('submit', function (ev) {
       ev.preventDefault() // avoid page reload
       incomeInput.blur() // remove focus from form
-      updateRain(readInput())
+      startUpdateRain(readInput())
     })
 
     // Init the rain
-    updateRain(readInput())
+    startUpdateRain(readInput())
   })()
   </script>
 
