@@ -27,5 +27,9 @@ module.exports = function (state, wave, dt) {
     newParticles = newParticles.concat([p], t)
   }
 
+  newParticles.forEach(function (p) {
+    state.bus.emit('particle-created', p)
+  })
+
   return newParticles
 }

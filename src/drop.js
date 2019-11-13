@@ -49,13 +49,19 @@ module.exports = function (state) {
     // Create the particle and its tail.
     var p = createParticle(state, wave)
     var t = createTailParticles(state, wave, p)
-    wave.particles = t.concat([p])
+    var newParticles = t.concat([p])
+    wave.particles = newParticles
 
     // Add wave to the animation.
     state.waves.push(wave)
 
+    // Emit
+    newParticles.forEach(function (p) {
+      state.bus.emit('particle-created', p)
+    })
+
     // Prerun the wave according to options to
-    // fill the canvas immediately.
+    // move the particle ahead.
     burnIn(state, wave)
 
     // Ensure animation has begun.
