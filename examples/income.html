@@ -5,17 +5,81 @@
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
 
   <title>Income Visualizer | Sprinkler Example</title>
-  <link rel="stylesheet" href="css/style.css">
   <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     body {
-      color: orange;
+      font-size: 16px;
       background: brown;
       background: linear-gradient(brown, #440000);
+      color: orange;
     }
+
+    a:link, a:visited { text-decoration: underline; }
+    a:hover, a:active { text-decoration: none; }
     a:link, a:visited { color: orange; }
     a:hover, a:active { color: white; }
-    .info { user-select: none; }
-    #earnings {
+
+    .canvas-container {
+      position: fixed;
+      top: 0;
+      height: 100%;
+    }
+
+    #main-canvas-container {
+      left: 0;
+      width: 62%;
+    }
+    #side-canvas-container {
+      right: 0;
+      width: 38%;
+      background: blue;
+      background: linear-gradient(#0000CC, #000044);
+    }
+
+    canvas {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      display: block;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    h1#title {
+      padding: 1em;
+      margin: 0em;
+      font-family: Verdana, Geneva, sans-serif;
+    }
+
+    .info {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      padding: 1.62rem;
+      max-width: 16rem;
+      font-family: Verdana, Geneva, sans-serif;
+      user-select: none;
+    }
+
+    .info h1, .info h2 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .info p {
+      margin-top: 0.79em;
+      margin-bottom: 1.27em;
+    }
+
+    .earnings {
       position: absolute;
       right: 0;
       bottom: 0;
@@ -26,27 +90,59 @@
     #earnings-money {
       margin-left: 0.24em;
     }
-    #earnings .title {
+    .earnings .title {
       font-size: 0.38em;
+    }
+
+    #side-canvas-container .info {
+      left: auto;
+      right: 0;
+      text-align: right;
+    }
+
+    #compare-form {
+      padding-top: 1rem;
     }
   </style>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
 
-  <div class="info">
-    <h1>Income Visualizer</h1>
-    <p>Input your monthly income to see how it looks real-time in dollars.</p>
-    <form id="income-form">
-      <label for="monthly-income">$</label>
-      <input id="monthly-income" type="text" value="50000">
-    </form>
-    <p>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
+  <div id="main-canvas-container" class="canvas-container">
+    <canvas id="main-canvas"></canvas>
+
+    <div class="info">
+      <h1>Income Visualizer</h1>
+      <p>Input your monthly income to see how it looks in real-time in dollars.</p>
+      <form id="income-form">
+        <label for="monthly-income">$</label>
+        <input id="monthly-income" type="text" value="4200">
+      </form>
+      <p>Built with <a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></p>
+    </div>
+
+    <div class="earnings">
+      <span class="title">Earnings so far</span><br>
+      $<span id="main-earnings"></span>
+    </div>
   </div>
 
-  <div id="earnings">
-    <span class="title">Earnings so far</span><br>
-    $<span id="earnings-money"></span>
+  <div id="side-canvas-container" class="canvas-container">
+    <canvas id="side-canvas"></canvas>
+
+    <div class="info">
+      <h2>Compare to</h2>
+      <form id="compare-form">
+        <label for="compare-select"></label>
+        <select id="compare-select">
+          <option value="38500000">Donald Trump - $38,500,000</option>
+          <option value="4200">US Average - $4,200</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="earnings">
+      $<span id="side-earnings"></span>
+    </div>
   </div>
 
   <script src="../dist/sprinkler.min.js"></script>
@@ -54,8 +150,11 @@
   // The idea sparked when I looked at this:
   // https://www.reddit.com/r/dataisbeautiful/comments/dvli0r/
   (function () {
-    var c = document.getElementById('canvas')
+    var c = document.getElementById('main-canvas')
+    var sc = document.getElementById('side-canvas')
+
     var rain = sprinkler.create(c)
+    var srain = sprinkler.create(sc)
 
     var images = [
       'img/coin-heads.png',
@@ -63,7 +162,7 @@
     ]
     var rainOpts = {
       imagesInSecond: 0, // will be replaced
-      zMin: 1, zMax: 1,
+      zMin: 0.62, zMax: 0.62,
       dyMin: 200, dyMax: 200,
       ddyMin: 400, ddyMax: 400
     }
@@ -71,7 +170,7 @@
     // Earnings
     var earnings = 0;
     var renderEarnings = function (p) {
-      var earningsMoneyEl = document.getElementById('earnings-money')
+      var earningsMoneyEl = document.getElementById('main-earnings')
       earningsMoneyEl.innerHTML = '' + earnings
       earnings += 1;
     }
@@ -110,6 +209,17 @@
 
     // Drop first
     rain.drop(images, rainOpts)
+
+    // Side rain for comparison
+    srain.start(images, Object.assign({}, rainOpts, {
+      imagesInSecond: 38500000 / (30 * 24 * 60 * 60)
+    }))
+    var sideEarnings = 0
+    srain.on('particle-created', function () {
+      var el = document.getElementById('side-earnings')
+      el.innerHTML = '' + sideEarnings
+      sideEarnings += 1
+    })
   })()
   </script>
 
