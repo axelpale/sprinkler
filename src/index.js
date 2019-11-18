@@ -19,6 +19,8 @@ exports.create = function (canvas, opts) {
     canvas: canvas,
     loadedImages: {}, // a map from URL-string to Image object.
     waves: [],
+    running: false, // to indicate if started. Maybe to pause in future.
+    prevFrameTime: null, // unix timestamp in ms of most recent frame.
     options: opts
   }
 

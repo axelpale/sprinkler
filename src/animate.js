@@ -3,20 +3,13 @@
 var tick = require('./model/tick')
 var render = require('./view/render')
 
-// To indicate if started.
-// Maybe to pause the animation in the future.
-var running = false
-
-// number, unix timestamp milliseconds of most recent frame.
-var past = null
-
 var animationLoop = function (state) {
   var present, dtms
 
   // Time difference from previous frame in milliseconds
   present = Date.now()
-  dtms = (past === null) ? 0 : present - past
-  past = present
+  dtms = (state.prevFrameTime === null) ? 0 : present - state.prevFrameTime
+  state.prevFrameTime = present
 
   // Update Model
   tick(state, dtms / 1000) // secs
@@ -33,7 +26,7 @@ var animationLoop = function (state) {
 
   // Recursion
   // Allow only one viewLoop recursion at a time.
-  if (running) {
+  if (state.running) {
     window.requestAnimationFrame(function () {
       animationLoop(state)
     })
@@ -46,8 +39,8 @@ var animationLoop = function (state) {
 }
 
 module.exports = function (state) {
-  if (!running) {
-    running = true
+  if (!state.running) {
+    state.running = true
     animationLoop(state)
   }
 }
