@@ -175,4 +175,4 @@ Serve with `$ npm start`.
 
 ## License
 
-[MIT License](LICENSE)
+This is [MIT Licensed](LICENSE) software. See the source code in [GitHub](https://github.com/axelpale/sprinkler).
