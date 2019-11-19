@@ -19,7 +19,7 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 [![Love](examples/preview/love2.png)](https://axelpale.github.io/sprinkler/examples/love.html)
 [![Bananas](examples/preview/bananas3.png)](https://axelpale.github.io/sprinkler/examples/bananas.html)
 [![World Birth Rate](examples/preview/births1.png)](http://births.akselipalen.com/)
-[![Money](examples/preview/money1.png)](https://axelpale.github.io/sprinkler/examples/money.html)
+[![Income](examples/preview/income1.png)](https://axelpale.github.io/sprinkler/examples/income.html)
 [![SpaceX Rockets](examples/preview/rockets2.png)](https://axelpale.github.io/sprinkler/examples/rockets.html)
 [![Fisher's Iris Data Set](examples/preview/iris3.png)](https://axelpale.github.io/sprinkler/examples/iris.html)
 
