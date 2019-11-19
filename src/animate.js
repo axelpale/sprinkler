@@ -25,7 +25,7 @@ var animationLoop = function (state) {
   render(state)
 
   // Recursion
-  // Allow only one viewLoop recursion at a time.
+  // Allow only one animationLoop recursion at a time.
   if (state.running) {
     window.requestAnimationFrame(function () {
       animationLoop(state)
