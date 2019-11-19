@@ -38,9 +38,18 @@ var animationLoop = function (state) {
   }
 }
 
+// var constantLoop = function (state) {
+//   tick(state, 1 / 60)
+//   render(state)
+//   window.setTimeout(function () {
+//     constantLoop(state)
+//   }, 500)
+// }
+
 module.exports = function (state) {
   if (!state.running) {
     state.running = true
     animationLoop(state)
+    // constantLoop(state)
   }
 }
