@@ -9,6 +9,16 @@ exports.create = function (canvas, opts) {
     opts = {}
   }
 
+  // Default options
+
+  // See issue #25
+  if (!opts.renderingStrategy) {
+    opts.renderingStrategy = {
+      type: 'auto',
+      speedMultiplier: 1
+    }
+  }
+
   // It is important to create the bus separately from the state object
   // because somewhere someone can replace the current state object
   // thus breaking bus bindings here.

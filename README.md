@@ -81,6 +81,7 @@ Optional `options` object can take the following properties:
 
 - `responsive`, `true` by default. When `true` then canvas element pixel size follows its styled size. This prevents browsers from scaling the canvas. That gives us full 1:1 canvas-screen pixel ratio. Set `false` to stop sprinkler resizing your canvas element.
 - `postAnimationFrame`, a function. If specified, called after every animation loop render step. Allows usage of [CCapture](https://github.com/spite/ccapture.js) to record the animation frame by frame and produce a high-quality video.
+- `renderingStrategy`, an object to customize simulation speed versus frame rate for video capturing purposes. Defaults to `{ type: 'auto', speedMultiplier: 1 }`. The type `'auto'` enables dynamic frame rate by using `window.requestAnimationFrame` under the hood. If you need to have slow and steady frame rate of 500 ms per frame but advance the simulation only 33 ms each frame, then use the rendering strategy `{ type: 'fixed', simulatedInterval: 33, frameInterval: 500 }`.
 
 
 ### start(imageUrls, options)

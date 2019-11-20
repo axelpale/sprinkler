@@ -11,6 +11,9 @@ var animationLoop = function (state) {
   dtms = (state.prevFrameTime === null) ? 0 : present - state.prevFrameTime
   state.prevFrameTime = present
 
+  // Slow or speed up the animation
+  dtms *= state.options.renderingStrategy.speedMultiplier
+
   // Update Model
   tick(state, dtms / 1000) // secs
 
@@ -38,18 +41,23 @@ var animationLoop = function (state) {
   }
 }
 
-// var constantLoop = function (state) {
-//   tick(state, 1 / 60)
-//   render(state)
-//   window.setTimeout(function () {
-//     constantLoop(state)
-//   }, 500)
-// }
+var constantLoop = function (state) {
+  var strategy = state.options.renderingStrategy
+  tick(state, strategy.simulatedInterval / 1000)
+  render(state)
+  window.setTimeout(function () {
+    constantLoop(state)
+  }, strategy.frameInterval)
+}
 
 module.exports = function (state) {
   if (!state.running) {
     state.running = true
-    animationLoop(state)
-    // constantLoop(state)
+
+    if (state.options.renderingStrategy.type === 'fixed') {
+      constantLoop(state)
+    } else {
+      animationLoop(state)
+    }
   }
 }
