@@ -20,19 +20,21 @@
 
   <h1 id="title"><a href="https://github.com/axelpale/sprinkler">sprinkler.js</a></h1>
 
-  <script src="https://unpkg.com/sprinkler@1.6.0/dist/sprinkler.min.js"></script>
+  <script src="https://unpkg.com/sprinkler@1.12.0/dist/sprinkler.min.js"></script>
   <script>
   (function () {
     var c = document.getElementById('canvas')
     var s = sprinkler.create(c)
 
-    s.start(['img/drop-64x64.png'], {
-      zMin: 0.38, zMax: 0.62,
+    s.start(['img/droplet.png'], {
+      angle: Math.PI / 12,
+      imagesInSecond: 50,
+      zMin: 0.5, zMax: 0.5,
       rMin: 0, rMax: 0,
       aMin: 1, aMax: 1,
       drMin: 0, drMax: 0,
-      daMin: -0.45, daMax: -0.45,
-      dyMin: 300, dyMax: 310
+      daMin: 0, daMax: 0,
+      dyMin: 1500, dyMax: 1800
     })
   })()
   </script>
