@@ -26,21 +26,49 @@ Compatible with all the [browsers that support canvas](http://caniuse.com/#feat=
 
 ## Usage
 
-The following will make the canvas rain anvils which accelerate at equal rate.
+The following will make the canvas rain anvils. Modify to fit your needs.
 
-    var c = document.getElementById('canvas')
-    var s = sprinkler.create(c)
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>My First Sprinkler Animation</title>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="640"></canvas>
+  <script src="https://unpkg.com/sprinkler@1.12.0/dist/sprinkler.min.js"></script>
+  <script>
+    const c = document.getElementById('canvas')
+    const s = sprinkler.create(c)
 
-    var images = [
+    // Replace with your images
+    const images = [
       'img/rusty-anvil.png',
       'img/black-anvil.png'
     ]
-    var stop = s.start(images, {
-      ddyMin: 400,
-      ddyMax: 400
-    })
 
-If you need more rusty anvils than black ones, give the image URLs as a distribution instead of an array.
+    // Start the animation
+    s.start(images, {
+      imagesInSecond: 10,         // Particles per second
+      burnInSeconds: 30,          // Prefill time
+      zMin: 0.2, zMax: 1,         // Scale range
+      rMin: 0, rMax: 2 * Math.PI, // Rotation range
+      aMin: 1, aMax: 1,           // Alpha/opacity range
+      dxMin: -1, dxMax: 1,        // Horizontal speed
+      dyMin: 200, dyMax: 200,     // Vertical speed
+      dzMin: 0, dzMax: 0,         // Growing speed
+      drMin: -1, drMax: 1,        // Rotation speed
+      daMin: 0, daMax: 0,         // Alpha speed
+      // See docs for advanced animation parameters
+    })
+  </script>
+</body>
+</html>
+```
+
+If you need different ratios of images, give the image URLs as a distribution instead of an array.
 
     var images = {
       'img/rusty-anvil.png': 4,
@@ -52,7 +80,7 @@ If you need more rusty anvils than black ones, give the image URLs as a distribu
 
 ### Browsers
 
-    <script src="https://unpkg.com/sprinkler@1.9.0/dist/sprinkler.min.js"></script>
+    <script src="https://unpkg.com/sprinkler@1.12.0/dist/sprinkler.min.js"></script>
     <script>
       var c = document.getElementById('canvas')
       var s = sprinkler.create(c)
