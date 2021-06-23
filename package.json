@@ -31,7 +31,7 @@
     "minibus": "^3.1.0"
   },
   "devDependencies": {
-    "genversion": "^2.2.0",
+    "genversion": "^3.0.1",
     "standard": "^14.3.1",
     "tape": "^4.11.0",
     "webpack": "^4.41.1",
