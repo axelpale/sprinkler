@@ -103,7 +103,10 @@
       padding-top: 1rem;
     }
 
-    #monthly-income {
+    input#income-net {
+      font-size: 1em;
+    }
+    select#income-period {
       font-size: 1em;
     }
 
@@ -129,10 +132,20 @@
 
     <div class="info" style="max-width: 24rem">
       <h1>Income Visualizer</h1>
-      <p>Input your monthly income to see how it looks in real-time in dollars.</p>
+      <p>Input your income to see how it looks in dollars in real-time.</p>
       <form id="income-form" style="font-size: 1.27em">
-        <label for="monthly-income">$</label>
-        <input id="monthly-income" type="text" value="4200">
+        <label for="income-net">$</label>
+        <input id="income-net" type="text" value="4200" size="12">
+        <select name="income-period" id="income-period">
+          <option value="1">second</option>
+          <option value="60">minute</option>
+          <option value="3600">hour</option>
+          <option value="28800">day 8h</option>
+          <option value="86400">day 24h</option>
+          <option value="604800">week</option>
+          <option value="2592000" selected>per month</option>
+          <option value="31536000">year</option>
+        </select>
       </form>
       <p>Built with <a href="https://axelpale.github.io/sprinkler">sprinkler.js</a></p>
     </div>
@@ -151,6 +164,7 @@
       <form id="compare-form">
         <label for="compare-select"></label>
         <select id="compare-select">
+          <option disabled>- Monthly Income -</option>
           <option value="958000000">Bill Gates - $958,000,000</option>
           <option value="38500000">Donald Trump - $38,500,000</option>
           <option value="15400000">Taylor Swift - $15,400,000</option>
@@ -202,12 +216,12 @@
       rain.drop(images, rainOpts);
 
       return {
-        start: function (income) {
+        start: function (income, seconds) {
           if (stop) {
             stop()
           }
           stop = rain.start(images, Object.assign({}, rainOpts, {
-            imagesInSecond: income / (30 * 24 * 60 * 60)
+            imagesInSecond: income / seconds
           }))
         },
         reset: function () {
@@ -223,24 +237,39 @@
         earningsMoneyEl.innerHTML = '' + total
       })
 
-      var incomeInput = document.getElementById('monthly-income')
+      var incomeInput = document.getElementById('income-net')
+      var incomePeriod = document.getElementById('income-period')
       var incomeForm = document.getElementById('income-form')
+
+      var inputMem = sessionStorage.getItem('income-net-mem')
+      if (inputMem) incomeInput.value = inputMem
+      var inputPeriod = sessionStorage.getItem('income-period-mem')
+      if (inputPeriod) incomePeriod.value = inputPeriod
+
       var readInput = function () {
         return parseFloat(incomeInput.value)
+      }
+      var readPeriod = function () {
+        return parseInt(incomePeriod.value)
       }
 
       // Update after user modifies the income.
       incomeInput.addEventListener('change', function () {
-        rainStarter.start(readInput())
+        sessionStorage.setItem('income-net-mem', readInput())
+        rainStarter.start(readInput(), readPeriod())
+      })
+      incomePeriod.addEventListener('change', function () {
+        sessionStorage.setItem('income-period-mem', readPeriod())
+        rainStarter.start(readInput(), readPeriod())
       })
       incomeForm.addEventListener('submit', function (ev) {
         ev.preventDefault() // avoid page reload
         incomeInput.blur() // remove focus from form
-        rainStarter.start(readInput())
+        rainStarter.start(readInput(), readPeriod())
       })
 
       // Init the rain
-      rainStarter.start(readInput())
+      rainStarter.start(readInput(), readPeriod())
     }
     defineMainRain()
 
@@ -251,20 +280,27 @@
         el.innerHTML = '' + total
       })
 
+      var compEl = document.getElementById('compare-select')
+
       var readInput = function () {
         var str = compEl.options[compEl.selectedIndex].value
         return parseFloat(str)
       }
 
-      var compEl = document.getElementById('compare-select')
+      var mem = sessionStorage.getItem('compare-select-mem')
+      if (mem) compEl.value = mem
+
+      var MONTH = 60 * 60 * 24 * 30
+
       compEl.addEventListener('change', function (ev) {
         ev.preventDefault()
+        sessionStorage.setItem('compare-select-mem', readInput())
         rainStarter.reset()
-        rainStarter.start(readInput())
+        rainStarter.start(readInput(), MONTH)
       })
 
       // Init the rain
-      rainStarter.start(readInput())
+      rainStarter.start(readInput(), MONTH)
     }
     defineSideRain()
   })()
