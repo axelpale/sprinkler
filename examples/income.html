@@ -240,6 +240,12 @@
       var incomeInput = document.getElementById('income-net')
       var incomePeriod = document.getElementById('income-period')
       var incomeForm = document.getElementById('income-form')
+
+      var inputMem = sessionStorage.getItem('income-net-mem')
+      if (inputMem) incomeInput.value = inputMem
+      var inputPeriod = sessionStorage.getItem('income-period-mem')
+      if (inputPeriod) incomePeriod.value = inputPeriod
+
       var readInput = function () {
         return parseFloat(incomeInput.value)
       }
@@ -249,9 +255,11 @@
 
       // Update after user modifies the income.
       incomeInput.addEventListener('change', function () {
+        sessionStorage.setItem('income-net-mem', readInput())
         rainStarter.start(readInput(), readPeriod())
       })
       incomePeriod.addEventListener('change', function () {
+        sessionStorage.setItem('income-period-mem', readPeriod())
         rainStarter.start(readInput(), readPeriod())
       })
       incomeForm.addEventListener('submit', function (ev) {
@@ -272,20 +280,27 @@
         el.innerHTML = '' + total
       })
 
+      var compEl = document.getElementById('compare-select')
+
       var readInput = function () {
         var str = compEl.options[compEl.selectedIndex].value
         return parseFloat(str)
       }
 
-      var compEl = document.getElementById('compare-select')
+      var mem = sessionStorage.getItem('compare-select-mem')
+      if (mem) compEl.value = mem
+
+      var MONTH = 60 * 60 * 24 * 30
+
       compEl.addEventListener('change', function (ev) {
         ev.preventDefault()
+        sessionStorage.setItem('compare-select-mem', readInput())
         rainStarter.reset()
-        rainStarter.start(readInput())
+        rainStarter.start(readInput(), MONTH)
       })
 
       // Init the rain
-      rainStarter.start(readInput())
+      rainStarter.start(readInput(), MONTH)
     }
     defineSideRain()
   })()
